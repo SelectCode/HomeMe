@@ -13,10 +13,6 @@
         @Prop()
         avatar!: string;
 
-        get staticImage() {
-            return '/avatar/' + this.avatar + '.svg'
-        }
-
         get movingImage() {
             return '/avatar/' + this.avatar + '.gif'
         }

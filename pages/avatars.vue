@@ -12,7 +12,7 @@
                             </v-icon>
                         </v-card-title>
                         <AvatarImage :avatar="avatar.id"/>
-                        <v-card-text>{{avatar.description}}</v-card-text>
+                        <v-card-text>{{avatar.introduction}}</v-card-text>
                         <v-layout justify-center align-bottom>
                             <v-chip v-for="tag in avatar.tags" text-color="primary" pill outlined color="primary">
                                 <b>{{tag}}</b>
@@ -27,20 +27,24 @@
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator'
     import {vxm} from "~/store";
-    import {Avatar, MockAvatarImpl} from "~/data/IAvatarRepo";
+    import {Avatar, AvatarRepo, IAvatarRepo} from "~/data/IAvatarRepo";
     import AvatarImage from "~/components/AvatarImage.vue";
 
     @Component({
         components: {AvatarImage}
     })
     export default class Index extends Vue {
-        get user() {
-            return vxm.user
+        private avatarRepo: IAvatarRepo = new AvatarRepo();
+        private avatars: Avatar[] = [];
+
+        // @ts-ignore
+        async mounted(): void {
+            // @ts-ignore
+            this.avatars = await this.avatarRepo.getAvatars();
         }
 
-        get avatars() {
-            let repo = new MockAvatarImpl();
-            return repo.getAvatars()
+        get user() {
+            return vxm.user
         }
 
         select(avatar: Avatar) {
