@@ -1,5 +1,5 @@
 <template>
-    <v-img max-height="200px" contain src="/avatar/cheetah.svg"></v-img>
+    <v-img max-height="200px" contain :src="movingImage"></v-img>
 </template>
 
 <script lang="ts">
@@ -11,7 +11,15 @@
     export default class StartWorkday extends Vue {
 
         @Prop()
-        avatar!: string
+        avatar!: string;
+
+        get staticImage() {
+            return '/avatar/' + this.avatar + '.svg'
+        }
+
+        get movingImage() {
+            return '/avatar/' + this.avatar + '.gif'
+        }
 
     }
 </script>

@@ -3,9 +3,9 @@
         <v-card-title class="display-2">Avatare</v-card-title>
         <v-layout row justify-center align-center>
             <v-col v-for="avatar in avatars">
-                <v-card class="pa-2" >
+                <v-card class="pa-2">
                     <v-card-title class="display-1">{{avatar.name}}</v-card-title>
-                    <v-img max-width="200" :src="avatar.image"/>
+                    <AvatarImage :avatar="avatar.id"/>
                     <v-card-text>{{avatar.description}}</v-card-text>
                 </v-card>
             </v-col>
@@ -16,8 +16,11 @@
     import {Component, Vue} from 'vue-property-decorator'
     import {vxm} from "~/store";
     import {MockAvatarImpl} from "~/data/IAvatarRepo";
+    import AvatarImage from "~/components/AvatarImage.vue";
 
-    @Component
+    @Component({
+        components: {AvatarImage}
+    })
     export default class Index extends Vue {
         get user() {
             return vxm.user

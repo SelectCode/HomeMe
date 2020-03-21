@@ -9,6 +9,17 @@ const VuexModule = createModule({
 export class UserStore extends VuexModule {
     name = 'Peter';
     workStart: number | undefined = undefined;
+    avatar = 'butterfly';
+
+    //state: 'preWork' | 'working' | 'chooseBreak' | 'break' | 'afterWork' = 'preWork';
+
+    state: UiState = UiState.PREWORK;
+
+    currentBreakId: string | undefined = undefined;
+
+    @mutation changeState(state: UiState) {
+        this.state = state;
+    }
 
     @mutation changeName(newName: string) {
         this.name = newName;
@@ -27,15 +38,45 @@ export class UserStore extends VuexModule {
         }
     }
 
+    @mutation
+    stopBreak() {
+        this.state = UiState.WORKING;
+    }
+
+    @mutation
+    selectBreak(breakId: string) {
+        this.currentBreakId = breakId;
+        this.state = UiState.BREAK;
+    }
+
+
+    @mutation
+    chooseBreak() {
+        this.state = UiState.CHOOSE_BREAK;
+    }
+
+    @mutation
+    startWorkday() {
+        this.workStart = Date.now();
+        this.state = UiState.WORKING
+    }
 
     @action
-    async startWorkday() {
-        this.workStart = Date.now();
+    async startPauseSelection() {
+        this.state = UiState.CHOOSE_BREAK;
     }
 
     @action
     async doSomethingAsync() {
         return 20
     }
+}
+
+export enum UiState {
+    PREWORK,
+    WORKING,
+    CHOOSE_BREAK,
+    BREAK,
+    AFTER_WORK
 }
 

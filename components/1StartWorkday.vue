@@ -24,8 +24,8 @@
             return vxm.user;
         }
 
-        start() {
-            vxm.user.startWorkday();
+        async start() {
+            await vxm.user.startWorkday();
         }
 
     }

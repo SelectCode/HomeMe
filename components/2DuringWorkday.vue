@@ -8,7 +8,7 @@
         </v-card-text>
         <v-card-actions>
             <v-layout column class="ma-2">
-                <v-btn color="primary" block @click="start" class="mb-2" large>
+                <v-btn color="primary" block @click="makeABreak" class="mb-2" large>
                     Mach eine Pause
                 </v-btn>
                 <v-btn color="error" block @click="start" class="mb-2" large>
@@ -32,8 +32,8 @@
             return vxm.user;
         }
 
-        start() {
-            vxm.user.startWorkday();
+        makeABreak() {
+            vxm.user.chooseBreak();
         }
 
         mounted() {

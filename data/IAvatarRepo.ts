@@ -18,8 +18,8 @@ export class MockAvatarImpl implements IAvatarRepo {
                 description: "huhu"
             },
             {
-                name: 'Hund',
-                id: 'dog',
+                name: 'Schmetterling',
+                id: 'butterfly',
                 image: 'https://image.flaticon.com/icons/svg/616/616574.svg',
                 description: "huhu"
             }
