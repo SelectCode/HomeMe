@@ -54,6 +54,11 @@ export class UserStore extends VuexModule {
         this.state = UiState.BREAK;
     }
 
+    @mutation
+    setAvatar(avatarId: string) {
+        this.avatar = avatarId;
+    }
+
 
     @mutation
     chooseBreak() {

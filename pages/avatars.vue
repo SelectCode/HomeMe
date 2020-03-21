@@ -3,11 +3,18 @@
         <v-card-title class="display-2">Avatare</v-card-title>
         <v-layout row justify-center align-center>
             <v-col v-for="avatar in avatars">
-                <v-card class="pa-2" height="500">
-                    <v-card-title class="display-1">{{avatar.name}}</v-card-title>
-                    <AvatarImage :avatar="avatar.id"/>
-                    <v-card-text>{{avatar.description}}</v-card-text>
-                </v-card>
+                <v-hover v-slot:default="{ hover }">
+                    <v-card class="pa-2" height="500" :elevation="hover ? 12 : 2" @click="select(avatar)">
+                        <v-card-title class="display-1">
+                            {{avatar.name}}
+                            <v-icon dark color="blue" v-if="avatar.id === user.avatar" size="40" class="ml-2">
+                                mdi-check
+                            </v-icon>
+                        </v-card-title>
+                        <AvatarImage :avatar="avatar.id"/>
+                        <v-card-text>{{avatar.description}}</v-card-text>
+                    </v-card>
+                </v-hover>
             </v-col>
         </v-layout>
     </v-container>
@@ -15,7 +22,7 @@
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator'
     import {vxm} from "~/store";
-    import {MockAvatarImpl} from "~/data/IAvatarRepo";
+    import {Avatar, MockAvatarImpl} from "~/data/IAvatarRepo";
     import AvatarImage from "~/components/AvatarImage.vue";
 
     @Component({
@@ -30,5 +37,19 @@
             let repo = new MockAvatarImpl();
             return repo.getAvatars()
         }
+
+        select(avatar: Avatar) {
+            this.user.setAvatar(avatar.id)
+        }
     }
 </script>
+<style>
+    .v-card {
+        transition: opacity .4s ease-in-out;
+    }
+
+    .v-card:not(.on-hover) {
+        opacity: 1;
+    }
+
+</style>
