@@ -29,6 +29,7 @@ import {UiState} from "~/store/UserModule";
     import Break from "~/components/4Break.vue";
     import {UiState} from "~/store/UserModule";
     import EndWorkDay from "~/components/5EndWorkDay.vue";
+    import {BreakActivityRepo} from "~/data/IBreakActivityRepo";
 
     @Component({
         components: {
