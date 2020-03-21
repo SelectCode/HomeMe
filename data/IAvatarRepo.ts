@@ -1,54 +1,45 @@
+import {AirtableBaseFactory} from "~/data/AirtableBaseFactory";
+
 export interface IAvatarRepo {
-    getAvatars(): Avatar[]
+    getAvatars(): Promise<Avatar[]>
 }
 
-export class MockAvatarImpl implements IAvatarRepo {
-    getAvatars(): Avatar[] {
-        return [
-            {
-                name: 'Gepard',
-                id: 'cheetah',
-                image: 'https://image.flaticon.com/icons/svg/1998/1998597.svg',
-                description: 'Hi, ich bin der Gepard. Meine Aufgabe ist es, Dich heute während deines Home Offices fit zu halten. Dabei gebe ich Dir immer wieder Anregungen, Dich zu bewegen. Wie wäre es mit einigen Burpees oder Dehnen? Wähl’ mich, um fit zu bleiben.',
-                tags: ['sportlich']
-            },
-            {
-                name: 'Hund',
-                id: 'dog',
-                image: 'https://image.flaticon.com/icons/svg/616/616574.svg',
-                description: "Hi, ich bin der Hund. Meine Aufgabe ist es, Dich heute während deines Home Offices Dich up to date zu halten. Dabei gebe ich Dir immer wieder wichtige Erinnerungen, während Du in Deine Arbeit vertieft bist. Du wolltest heute noch Mama zurückrufen, vergiss das nicht! Wähl’ mich, um nichts zu verpassen.",
-                tags: ['hilfsbereit']
-            },
-            {
-                name: 'Schmetterling',
-                id: 'butterfly',
-                image: 'https://image.flaticon.com/icons/svg/616/616574.svg',
-                description: "Hi, ich bin der Schmetterling. Meine Aufgabe ist es, Dich heute während deines Home Offices kreativ zu unterstützen. Dabei gebe ich Dir immer wieder intellektuelle Anregungen. Wie wäre es mit inspirierenden Sounds oder einer spannenden Kurzgeschichte? Wähl’ mich, um kreativ zu bleiben.",
-                tags: ['kreativ']
-            },
-            {
-                name: 'Papagei',
-                id: 'parrot',
-                image: 'https://image.flaticon.com/icons/svg/616/616574.svg',
-                description: "Hi, ich bin der Papagei. Meine Aufgabe ist es Dich heute während deines Home Offices zu unterhalten. Dabei hörst Du immer wieder lustige Sprüche von mir. Wusstest Du, dass man in Deutschland gar kein Recht auf Home Office hat? Wähl’ mich damit Du Spaß bei der Arbeit zu haben.",
-                tags: ['witzig']
-            },
-            {
-                name: 'Schildkröte',
-                id: 'turtle',
-                image: '',
-                description: 'Hi, ich bin die Schildkröte. Meine Aufgabe ist es, Dich heute während deines Home Offices geistig fit zu halten. Dabei gebe ich Dir immer wieder Anregungen, die Dich zum Nachdenken und Entspannen bringen. Wie wäre es mit einer Runde Sudoku oder etwas Meditation? Wähl’ mich, um entspannt zu bleiben.',
-                tags: ['achtsam']
+export class AvatarRepo implements IAvatarRepo {
+
+    private base = AirtableBaseFactory.getAirtableBase();
+
+    async getAvatars(): Promise<Avatar[]> {
+        let records = await this.base('Begleiter').select().all();
+
+        // @ts-ignore
+        return records.map((record) => {
+                return new Avatar(
+                    record.get('ID'),
+                    record.get('Name'),
+                    record.get('Kategorien'),
+                    record.get('Typ'),
+                    record.get('Introduction'),
+                    record.get('Tags')
+                )
             }
-        ];
+        );
     }
 }
 
+export class Avatar {
+    id: string;
+    name: string;
+    categories: string[];
+    types: string[];
+    introduction: string;
+    tags: string[];
 
-export interface Avatar {
-    name: string,
-    description: string,
-    image: string,
-    id: string,
-    tags: string[]
+    constructor(id: string, name: string, categories: string[], types: string[], introduction: string, tags: string[]) {
+        this.id = id;
+        this.name = name;
+        this.categories = categories;
+        this.types = types;
+        this.introduction = introduction;
+        this.tags = tags;
+    }
 }
