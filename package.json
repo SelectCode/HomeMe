@@ -17,7 +17,8 @@
     "airtable": "^0.8.1",
     "nuxt": "^2.0.0",
     "vue-property-decorator": "^8.4.1",
-    "vuex-class-component": "^2.2.1"
+    "vuex-class-component": "^2.2.1",
+    "nuxt-vuex-localstorage": "^1.2.6"
   },
   "devDependencies": {
     "@nuxt/typescript-build": "^0.6.0",
