@@ -1,3 +1,4 @@
+import {UiState} from "~/store/UserModule";
 <template>
     <v-layout column justify-center align-center>
         <v-card-title class="display-2">HomeMe</v-card-title>
@@ -9,6 +10,7 @@
             <DuringWorkday v-if="showWorkDay"/>
             <ChooseBreak v-if="showChoose"/>
             <Break v-if="showBreak"/>
+            <EndWorkDay v-if="showEnd"/>
         </v-flex>
         <SettingsDialog/>
     </v-layout>
@@ -26,8 +28,14 @@
     import ChooseBreak from "~/components/3ChooseBreak.vue";
     import Break from "~/components/4Break.vue";
     import {UiState} from "~/store/UserModule";
+    import EndWorkDay from "~/components/5EndWorkDay.vue";
 
-    @Component({components: {ChooseBreak, AvatarImage, DuringWorkday, StartWorkday, Logo, SettingsDialog, Break}})
+    @Component({
+        components: {
+            EndWorkDay,
+            ChooseBreak, AvatarImage, DuringWorkday, StartWorkday, Logo, SettingsDialog, Break
+        }
+    })
     export default class Index extends Vue {
         get user() {
             return vxm.user
@@ -47,6 +55,10 @@
 
         get showBreak() {
             return vxm.user.state === UiState.BREAK;
+        }
+
+        get showEnd() {
+            return vxm.user.state === UiState.AFTER_WORK;
         }
 
     }

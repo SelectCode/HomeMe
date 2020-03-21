@@ -11,7 +11,7 @@
                 <v-btn color="primary" block @click="makeABreak" class="mb-2" large>
                     Mach eine Pause
                 </v-btn>
-                <v-btn color="error" block @click="start" class="mb-2" large>
+                <v-btn color="error" block @click="stopDay" class="mb-2" large>
                     Workday beenden
                 </v-btn>
             </v-layout>
@@ -38,6 +38,10 @@
 
         mounted() {
             setInterval(this.refreshTime, 1000)
+        }
+
+        stopDay(){
+            vxm.user.endWorkday()
         }
 
         async refreshTime() {

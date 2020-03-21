@@ -29,6 +29,11 @@ export class UserStore extends VuexModule {
         return this.workStart != undefined;
     }
 
+    @mutation
+    endWorkday() {
+        this.state = UiState.AFTER_WORK;
+    }
+
     @action
     async workingTime(now: number) {
         if (this.workStart) {
