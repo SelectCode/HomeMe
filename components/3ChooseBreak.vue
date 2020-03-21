@@ -21,9 +21,30 @@
     //@ts-ignore
     import Logo from '@/components/Logo'
     import {vxm} from '~/store'
+    import {BreakActivityRecommender} from "~/data/IBreakActivityRecommender";
+    import {AvatarRepo} from "~/data/IAvatarRepo";
+    import {BreakActivity} from "~/data/IBreakActivityRepo";
 
     @Component({components: {Logo}})
     export default class StartWorkday extends Vue {
+
+        private breakActivityRecommender: BreakActivityRecommender = new BreakActivityRecommender();
+        private possibleActivities: BreakActivity[] = [];
+
+        // @ts-ignore
+        async mounted(): void {
+            this.possibleActivities = await this.getPossibleBreakActivities();
+        }
+
+        private async getPossibleBreakActivities() {
+            let avatar = await new AvatarRepo().getById(this.user.avatar);
+
+            if (avatar == undefined) {
+                return []
+            } else {
+                return await this.breakActivityRecommender.getRecommendedBreakActivities(avatar);
+            }
+        }
 
         get user() {
             return vxm.user;
@@ -34,24 +55,12 @@
         }
 
         get breakOptions() {
-            return [
-                {
-                    title: "Option A",
-                    id: 0,
-                    description: 'Tu das'
-                },
-                {
-                    title: "Option B",
-                    id: 0,
-                    description: 'Tu das'
-                },
-                {
-                    title: "Option C",
-                    id: 0,
-                    description: 'Tu das'
+            return this.possibleActivities.map((it) => {
+                return {
+                    title: it.name,
+                    description: it.description
                 }
-
-            ]
+            });
         }
 
 
