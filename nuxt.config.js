@@ -28,7 +28,9 @@ export default {
     /*
     ** Plugins to load before mounting the App
     */
-    plugins: [],
+    plugins: [
+        { src: '~/plugins/vuex-persist', ssr: false }
+    ],
     /*
     ** Nuxt.js dev-modules
     */
@@ -44,11 +46,7 @@ export default {
         '@nuxtjs/axios',
         '@nuxtjs/pwa',
         // Doc: https://github.com/nuxt-community/dotenv-module
-        '@nuxtjs/dotenv',
-        ['nuxt-vuex-localstorage', {
-            localStorage: ['user'],  //  If not entered, “localStorage” is the default value
-            sessionStorage: ['sfoo', 'sbar']  //  If not entered, “sessionStorage” is the default value
-        }]
+        '@nuxtjs/dotenv'
     ],
     /*
     ** Axios module configuration
