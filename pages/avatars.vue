@@ -3,7 +3,7 @@
         <v-card-title class="display-2">Avatare</v-card-title>
         <v-layout row justify-center align-center>
             <v-col v-for="avatar in avatars">
-                <v-card class="pa-2">
+                <v-card class="pa-2" height="500">
                     <v-card-title class="display-1">{{avatar.name}}</v-card-title>
                     <AvatarImage :avatar="avatar.id"/>
                     <v-card-text>{{avatar.description}}</v-card-text>

@@ -1,5 +1,5 @@
 <template>
-    <v-img max-height="200px" contain :src="movingImage"></v-img>
+    <v-img max-height="150px" contain :src="movingImage"></v-img>
 </template>
 
 <script lang="ts">
