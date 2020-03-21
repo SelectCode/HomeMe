@@ -7,6 +7,7 @@
             <StartWorkday v-if="!user.isWorkingNow"/>
             <DuringWorkday v-else/>
         </v-flex>
+        <SettingsDialog/>
     </v-layout>
 </template>
 
@@ -17,8 +18,9 @@
     import StartWorkday from "~/components/StartWorkday.vue";
     import {vxm} from "~/store";
     import DuringWorkday from "~/components/DuringWorkday.vue";
+    import SettingsDialog from "~/components/SettingsDialog.vue";
 
-    @Component({components: {DuringWorkday, StartWorkday, Logo}})
+    @Component({components: {DuringWorkday, StartWorkday, Logo, SettingsDialog}})
     export default class Index extends Vue {
         get user() {
             return vxm.user

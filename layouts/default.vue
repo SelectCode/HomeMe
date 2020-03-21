@@ -3,7 +3,7 @@
         <v-navigation-drawer
                 v-model="drawer"
                 :mini-variant="miniVariant"
-                :clipped="clipped"
+                :clipped="true"
                 fixed
                 app>
             <v-list>
@@ -23,7 +23,7 @@
             </v-list>
         </v-navigation-drawer>
         <v-app-bar
-                :clipped-left="clipped"
+                :clipped-left="true"
                 fixed
                 app>
             <v-btn
@@ -43,34 +43,37 @@
                 :fixed="fixed"
                 app>
             <span>&copy; {{ new Date().getFullYear() }}</span>
+            <v-spacer/>
+
+
         </v-footer>
     </v-app>
 </template>
 
-<script>
-    export default {
-        data() {
-            return {
-                clipped: true,
-                drawer: true,
-                fixed: false,
-                items: [
-                    {
-                        icon: 'mdi-apps',
-                        title: 'Welcome',
-                        to: '/'
-                    },
-                    {
-                        icon: 'mdi-chart-bubble',
-                        title: 'About',
-                        to: '/about'
-                    }
-                ],
-                miniVariant: true,
-                right: true,
-                rightDrawer: false,
-                title: 'HomeMe 🏡'
+<script lang="ts">
+    import {Component, Vue} from "vue-property-decorator";
+
+    @Component
+    export default class layout extends Vue {
+        drawer = true
+        fixed = false
+        items = [
+            {
+                icon: 'mdi-apps',
+                title: 'Welcome',
+                to: '/'
+            },
+            {
+                icon: 'mdi-chart-bubble',
+                title: 'About',
+                to: '/about'
             }
-        }
+        ]
+        miniVariant = true
+        right = true
+
+        rightDrawer = false
+
+        title = 'HomeMe 🏡'
     }
 </script>
