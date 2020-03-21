@@ -1,11 +1,12 @@
-const Airtable = require('airtable');
+// @ts-ignore
+import {AirtableBaseFactory} from "~/data/AirtableBaseFactory";
 
 export interface IBreakActivityRepo {
     getBreakActivities(): Promise<BreakActivity[]>;
 }
 
 export class BreakActivityRepo implements IBreakActivityRepo {
-    private base = new Airtable({apiKey: 'keyTUxBRbG7xfFFoZ'}).base('appT6532nG60e3jO8');
+    private base = AirtableBaseFactory.getAirtableBase();
 
     async getBreakActivities(): Promise<BreakActivity[]> {
         let records = await this.base('Pausen').select().all();
@@ -41,4 +42,3 @@ export class BreakActivity {
         this.contentType = contentType;
     }
 }
-

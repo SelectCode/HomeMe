@@ -30,6 +30,7 @@ import {UiState} from "~/store/UserModule";
     import {UiState} from "~/store/UserModule";
     import EndWorkDay from "~/components/5EndWorkDay.vue";
     import {BreakActivityRepo} from "~/data/IBreakActivityRepo";
+    import {AvatarTextRepo} from "~/data/IAvatarTextRepo";
 
     @Component({
         components: {
@@ -55,6 +56,7 @@ import {UiState} from "~/store/UserModule";
         }
 
         get showBreak() {
+            new AvatarTextRepo().getAvatarTexts();
             return vxm.user.state === UiState.BREAK;
         }
 
