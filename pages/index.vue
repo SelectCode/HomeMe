@@ -14,7 +14,14 @@
             <Break v-if="showBreak"/>
             <EndWorkDay v-if="showEnd"/>
         </v-flex>
-        <SettingsDialog/>
+        <v-layout >
+            <SettingsDialog/>
+            <v-btn icon @click="reset" class="mt-2">
+                <v-icon color="primary">`
+                    mdi-restart
+                </v-icon>
+            </v-btn>
+        </v-layout>
 
     </v-layout>
 </template>
@@ -47,6 +54,10 @@
             return vxm.user
         }
 
+        async mounted() {
+            await vxm.user.loadAvatarTexts()
+        }
+
         get showStartWorkday() {
             return vxm.user.state === UiState.PREWORK;
         }
@@ -66,6 +77,10 @@
 
         get showEnd() {
             return vxm.user.state === UiState.AFTER_WORK;
+        }
+
+        reset(){
+            this.user.reset()
         }
 
     }

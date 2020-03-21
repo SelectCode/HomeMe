@@ -1,7 +1,7 @@
 <template>
     <v-card>
         <v-card-title class="headline">
-            Willkommen {{user.name}}
+            {{randomText}} {{user.name}}
         </v-card-title>
         <v-card-actions>
             <v-btn color="primary" block @click="start">
@@ -26,6 +26,14 @@
 
         async start() {
             await vxm.user.startWorkday();
+        }
+
+        get availableTexts() {
+            return this.user.avatarTexts
+        }
+
+        get randomText() {
+            return this.availableTexts[0]
         }
 
     }

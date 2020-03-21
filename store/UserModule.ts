@@ -1,4 +1,5 @@
 import {action, createModule, mutation} from "vuex-class-component";
+import {AvatarText, AvatarTextRepo} from "~/data/IAvatarTextRepo";
 
 const VuexModule = createModule({
     namespaced: "user",
@@ -80,6 +81,20 @@ export class UserStore extends VuexModule {
     async doSomethingAsync() {
         return 20
     }
+
+    avatarTexts: AvatarText[] = [];
+
+    @action
+    async loadAvatarTexts() {
+        this.avatarTexts = await new AvatarTextRepo().getAvatarTexts()
+    }
+
+    @mutation
+    reset() {
+        //TODO
+    }
+
+
 }
 
 export enum UiState {
