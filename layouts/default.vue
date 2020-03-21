@@ -64,6 +64,11 @@
                 to: '/'
             },
             {
+                icon: 'mdi-account-box',
+                title: 'Avatars',
+                to: '/avatars'
+            },
+            {
                 icon: 'mdi-chart-bubble',
                 title: 'About',
                 to: '/about'
