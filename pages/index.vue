@@ -1,5 +1,6 @@
 <template>
     <v-layout column justify-center align-center>
+        <v-card-title class="display-2">HomeMe</v-card-title>
         <v-flex>
             <div class="text-center">
                 <Logo/>

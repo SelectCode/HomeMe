@@ -1,6 +1,6 @@
 <template>
     <v-card>
-        <v-card-title class="display-4">
+        <v-card-title class="display-1">
             Gute Arbeit {{user.name}}
         </v-card-title>
         <v-card-text class="display-1 font-weight-light">

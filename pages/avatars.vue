@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <v-card-title class="display-2">Avatare</v-card-title>
-        <v-layout row>
+        <v-layout row justify-center align-center>
             <v-col v-for="avatar in avatars">
                 <v-card>
                     <v-card-title>{{avatar.name}}</v-card-title>

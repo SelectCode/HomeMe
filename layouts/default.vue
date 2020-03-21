@@ -25,6 +25,7 @@
         <v-app-bar
                 :clipped-left="true"
                 fixed
+                v-if="false"
                 app>
             <v-btn
                     icon
@@ -59,7 +60,7 @@
         fixed = false
         items = [
             {
-                icon: 'mdi-apps',
+                icon: 'mdi-home-circle',
                 title: 'Welcome',
                 to: '/'
             },
