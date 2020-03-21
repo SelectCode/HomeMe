@@ -4,36 +4,25 @@
             <div class="text-center">
                 <Logo/>
             </div>
-            <v-card>
-                <v-card-title class="headline">
-                    Willkommen! {{user.axles}}
-                </v-card-title>
-                <v-card-actions>
-                    <v-btn color="primary" block @click="incr">
-                        Start Workday
-                    </v-btn>
-                </v-card-actions>
-            </v-card>
+            <StartWorkday v-if="!user.isWorkingNow"/>
+            <DuringWorkday v-else/>
         </v-flex>
     </v-layout>
 </template>
 
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator'
+    //@ts-ignore
     import Logo from '@/components/Logo'
-    import {userStore} from "~/utils/store-accessor";
+    import StartWorkday from "~/components/StartWorkday.vue";
+    import {vxm} from "~/store";
+    import DuringWorkday from "~/components/DuringWorkday.vue";
 
-    @Component({components: {Logo}})
+    @Component({components: {DuringWorkday, StartWorkday, Logo}})
     export default class Index extends Vue {
-
         get user() {
-            return userStore;
+            return vxm.user
         }
-
-        incr() {
-            this.user.incrWheels(2)
-        }
-
     }
 
 </script>

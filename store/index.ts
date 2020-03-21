@@ -1,7 +1,15 @@
-import { Store } from 'vuex'
-import { initialiseStores } from '~/utils/store-accessor'
+import {Store} from 'vuex'
+import {createProxy, extractVuexModule} from "vuex-class-component/js";
+import {UserStore} from "~/store/UserModule";
 
-const initializer = (store: Store<any>) => initialiseStores(store)
+export const store = new Store({
+    modules: {
+        ...extractVuexModule(UserStore)
+    }
+});
 
-export const plugins = [initializer]
-export * from '~/utils/store-accessor'
+
+// Creating proxies.
+export const vxm = {
+    user: createProxy(store, UserStore),
+}

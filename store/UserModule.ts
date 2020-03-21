@@ -1,19 +1,41 @@
-import {Module, Mutation, VuexModule} from 'vuex-module-decorators'
+import {action, createModule, mutation} from "vuex-class-component";
 
-@Module({
-    name: 'user',
-    stateFactory: true,
-    namespaced: true,
+const VuexModule = createModule({
+    namespaced: "user",
+    strict: false,
+    target: "nuxt",
 })
-export default class UserModule extends VuexModule {
-    wheels = 2;
 
-    @Mutation
-    incrWheels(extra: number) {
-        this.wheels += extra
+export class UserStore extends VuexModule {
+    name = 'Peter';
+    workStart: number | undefined = undefined;
+
+    @mutation changeName(newName: string) {
+        this.name = newName;
     }
 
-    get axles() {
-        return this.wheels / 2
+    get isWorkingNow() {
+        return this.workStart != undefined;
+    }
+
+    @action
+    async workingTime(now: number) {
+        if (this.workStart) {
+            return now - this.workStart
+        } else {
+            return 0;
+        }
+    }
+
+
+    @action
+    async startWorkday() {
+        this.workStart = Date.now();
+    }
+
+    @action
+    async doSomethingAsync() {
+        return 20
     }
 }
+
