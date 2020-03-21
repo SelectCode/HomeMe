@@ -3,7 +3,7 @@
         <v-card-title class="display-1">
             Gute Arbeit {{user.name}}
         </v-card-title>
-        <v-card-text class="display-1 font-weight-light">
+        <v-card-text class="subtitle-1 font-weight-light">
             Du arbeitest seit: {{millisecondsToStr(workTime)}}
         </v-card-text>
         <v-card-actions>

@@ -3,7 +3,7 @@
         <v-card-title class="display-2">HomeMe</v-card-title>
         <v-flex>
             <div class="text-center">
-                <Logo/>
+                <AvatarImage/>
             </div>
             <StartWorkday v-if="!user.isWorkingNow"/>
             <DuringWorkday v-else/>
@@ -20,8 +20,9 @@
     import {vxm} from "~/store";
     import DuringWorkday from "~/components/DuringWorkday.vue";
     import SettingsDialog from "~/components/SettingsDialog.vue";
+    import AvatarImage from "~/components/AvatarImage.vue";
 
-    @Component({components: {DuringWorkday, StartWorkday, Logo, SettingsDialog}})
+    @Component({components: {AvatarImage, DuringWorkday, StartWorkday, Logo, SettingsDialog}})
     export default class Index extends Vue {
         get user() {
             return vxm.user
