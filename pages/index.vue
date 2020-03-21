@@ -1,6 +1,6 @@
 <template>
-    <v-layout column justify-center align-center>
-        <v-card-title class="my-5" id="heading">HomeMe</v-card-title>
+    <v-layout column justify-center align-center my-auto>
+        <v-card-title class="mb-5" id="heading">HomeMe</v-card-title>
         <v-flex class="mt-5">
             <v-layout row>
                 <div class="text-center">

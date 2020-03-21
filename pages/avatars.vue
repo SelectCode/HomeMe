@@ -4,7 +4,7 @@
         <v-layout row justify-center align-center>
             <v-col v-for="avatar in avatars">
                 <v-hover v-slot:default="{ hover }">
-                    <v-card class="pa-2" height="500" :elevation="hover ? 12 : 2" @click="select(avatar)">
+                    <v-card class="pa-2" :elevation="hover ? 12 : 2" @click="select(avatar)">
                         <v-card-title class="display-1">
                             {{avatar.name}}
                             <v-icon dark color="primary" v-if="avatar.id === user.avatar" size="40" class="ml-2">

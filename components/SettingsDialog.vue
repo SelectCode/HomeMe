@@ -1,8 +1,8 @@
 <template>
     <v-dialog v-model="dialog" width="500">
         <template v-slot:activator="{ on }">
-            <v-btn icon v-on="on">
-                <v-icon color="primary">
+            <v-btn icon v-on="on" class="mt-2">
+                <v-icon color="primary">`
                     mdi-cog
                 </v-icon>
             </v-btn>
