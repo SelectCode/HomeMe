@@ -7,12 +7,17 @@
                     <v-card class="pa-2" height="500" :elevation="hover ? 12 : 2" @click="select(avatar)">
                         <v-card-title class="display-1">
                             {{avatar.name}}
-                            <v-icon dark color="blue" v-if="avatar.id === user.avatar" size="40" class="ml-2">
+                            <v-icon dark color="primary" v-if="avatar.id === user.avatar" size="40" class="ml-2">
                                 mdi-check
                             </v-icon>
                         </v-card-title>
                         <AvatarImage :avatar="avatar.id"/>
                         <v-card-text>{{avatar.description}}</v-card-text>
+                        <v-layout justify-center align-bottom>
+                            <v-chip v-for="tag in avatar.tags" text-color="primary" pill outlined color="primary">
+                                <b>{{tag}}</b>
+                            </v-chip>
+                        </v-layout>
                     </v-card>
                 </v-hover>
             </v-col>
