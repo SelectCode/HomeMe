@@ -1,11 +1,13 @@
-import {UiState} from "~/store/UserModule";
 <template>
     <v-layout column justify-center align-center>
-        <v-card-title class="display-2">HomeMe</v-card-title>
-        <v-flex>
-            <div class="text-center">
-                <AvatarImage :avatar="user.avatar"/>
-            </div>
+        <v-card-title class="my-5" id="heading">HomeMe</v-card-title>
+        <v-flex class="mt-5">
+            <v-layout row>
+                <div class="text-center">
+                    <AvatarImage :avatar="user.avatar"/>
+                </div>
+                <Speechbubble/>
+            </v-layout>
             <StartWorkday v-if="showStartWorkday"/>
             <DuringWorkday v-if="showWorkDay"/>
             <ChooseBreak v-if="showChoose"/>
@@ -13,6 +15,7 @@ import {UiState} from "~/store/UserModule";
             <EndWorkDay v-if="showEnd"/>
         </v-flex>
         <SettingsDialog/>
+
     </v-layout>
 </template>
 
@@ -29,11 +32,12 @@ import {UiState} from "~/store/UserModule";
     import Break from "~/components/4Break.vue";
     import {UiState} from "~/store/UserModule";
     import EndWorkDay from "~/components/5EndWorkDay.vue";
-    import {BreakActivityRepo} from "~/data/IBreakActivityRepo";
     import {AvatarTextRepo} from "~/data/IAvatarTextRepo";
+    import Speechbubble from "~/components/Speechbubble.vue";
 
     @Component({
         components: {
+            Speechbubble,
             EndWorkDay,
             ChooseBreak, AvatarImage, DuringWorkday, StartWorkday, Logo, SettingsDialog, Break
         }
@@ -67,3 +71,10 @@ import {UiState} from "~/store/UserModule";
     }
 
 </script>
+
+<style>
+    #heading {
+        font-weight: lighter;
+        font-size: 3em;
+    }
+</style>
