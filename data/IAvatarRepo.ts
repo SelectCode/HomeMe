@@ -24,6 +24,11 @@ export class AvatarRepo implements IAvatarRepo {
             }
         );
     }
+
+    async getById(id: string): Promise<Avatar | undefined> {
+        let avatars = await this.getAvatars();
+        return avatars.find((it) => it.id === id);
+    }
 }
 
 export class Avatar {
