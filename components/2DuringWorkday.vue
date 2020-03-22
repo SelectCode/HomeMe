@@ -32,6 +32,7 @@
     import BreakComponent from "~/components/BreakComponent.vue";
     import BreakNotifier from "~/components/BreakNotifier.vue";
     import {TextRecommender} from "~/data/ITextRecommender";
+    import {WorkTimeCalculator} from "~/data/WorkTimeCalculator";
 
     @Component({components: {BreakNotifier, BreakComponent, Timer, Logo}})
     export default class StartWorkday extends Vue {
@@ -69,11 +70,8 @@
         workedMinutes = 0;
 
         calcRemainingTime() {
-            let startedWork = this.user.workStart as number;
-            let currentDate = Date.now();
-            this.workedSeconds = (currentDate - startedWork) / 1000;
-            this.workedMinutes = Math.floor(this.workedSeconds / 60);
-            this.workedSeconds = Math.floor(this.workedSeconds - this.workedMinutes * 60)
+            this.workedMinutes = WorkTimeCalculator.remainingMinutes();
+            this.workedSeconds = WorkTimeCalculator.remainingSeconds();
         }
 
 
