@@ -10,14 +10,15 @@
                 </div>
                 <Speechbubble/>
             </v-row>
-
-            <StartWorkday v-if="showStartWorkday"/>
-            <DuringWorkday v-if="showWorkDay"/>
-            <ChooseBreak v-if="showChoose"/>
-            <Break v-if="showBreak"/>
-            <EndWorkDay v-if="showEnd"/>
-            <MoodComponent class="justify-center mt-4"/>
+            <v-row class="justify-center align-center" v-if="savedUsername === ''">
+                <v-text-field class="namefield" autofocus v-model="username" hint="Name"/>
+                <v-btn outlined class="ml-3" @click="setName">OK</v-btn>
+            </v-row>
+            <v-row v-else>
+                <v-progress-linear :value="progress"/>
+            </v-row>
         </v-row>
+
         <v-row justify="end" class="grow-0">
             <SettingsDialog/>
             <v-btn icon @click="reset" class="mt-2">
@@ -78,16 +79,50 @@
             return vxm.user.state === UiState.AFTER_WORK;
         }
 
+        get savedUsername() {
+            return this.user.name;
+        }
+
+        setName() {
+            vxm.user.changeName(this.username);
+            this.$root.$emit('chat', 'Hi ' + this.username + '. Schön dich kennenzulernen!');
+            setInterval(() => this.progress++, 230);
+
+            setTimeout(() => this.speak(
+                'Ich werde dir helfen dein Home Office effektiver und angenehmer zu gestalten.'
+            ), 3000)
+            setTimeout(() => this.speak(
+                'Wähle deinen Lieblingsavatar aus auf der linken Seite aus.'
+            ), 7000)
+            setTimeout(() => this.speak(
+                'Damit werden die Pausenvorschläge an deine Wünsche angepasst.'
+            ), 12000)
+            setTimeout(() => this.speak(
+                'Ich freue mich auf unsere gemeinsame Zeit!'
+            ), 16000)
+            setTimeout(() => this.speak(
+                'Los gehts!'
+            ), 20000)
+            setTimeout(() => this.$router.push('/'), 23000)
+        }
+
+        speak(text: string) {
+            this.$root.$emit('chat', text)
+        }
+
+        progress = 0;
+
+        username = ''
+
         reset() {
             this.user.reset()
         }
 
         mounted() {
-            console.log("loading data");
-            this.user.loadData();
-            if (vxm.user.name === '') {
-                this.$router.push('/intro')
+            if (vxm.user.name !== '') {
+                this.$router.push('/')
             }
+            this.$root.$emit('chat', 'Willkommen! Mein Name ist Peter. Wie heißt du?')
         }
 
     }
@@ -121,5 +156,11 @@
 
     .outline {
         outline: thin solid red;
+    }
+
+    .namefield {
+        max-width: 30vw;
+        font-size: 2em;
+        font-weight: lighter;
     }
 </style>

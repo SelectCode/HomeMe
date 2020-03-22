@@ -12,15 +12,11 @@
 
     @Component({components: {Logo}})
     export default class Timer extends Vue {
-
         private recommendations: Reminder[] = [];
 
         mounted() {
             let recommender = new ITimeRecommenderImpl();
             this.recommendations = recommender.getRecommendedTimesForSettings(this.user.settings);
-            this.sendNotification(this.recommendations.length.toString());
-
-            console.log('Notification sent!');
             console.log(this.recommendations);
             setInterval(this.checkForBreak, 1000 * 60);
         }
