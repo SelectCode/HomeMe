@@ -1,7 +1,7 @@
 <template>
-    <v-card-text class="timer">
+    <span class="timer">
         {{minutesText}} : {{secondsText}}
-    </v-card-text>
+    </span>
 </template>
 
 <script lang="ts">

@@ -1,11 +1,13 @@
 <template>
     <v-card>
-        <v-card-title class="display-1">
-            Gute Arbeit {{user.name}}
-        </v-card-title>
-        <v-card-text class="subtitle-1 font-weight-light">
-            Du arbeitest seit: {{millisecondsToStr(workTime)}}
-        </v-card-text>
+        <v-layout column justify-center align-center>
+            <v-card-title class="display-1">
+                Gute Arbeit {{user.name}}
+            </v-card-title>
+            <span>Du arbeitest seit:</span>
+            <Timer :minutes="workedMinutes" :seconds="workedSeconds"/>
+        </v-layout>
+
         <v-card-actions>
             <v-layout column class="ma-2">
                 <v-btn color="primary" block @click="makeABreak" class="mb-2" large>
@@ -24,8 +26,9 @@
     //@ts-ignore
     import Logo from '@/components/Logo'
     import {vxm} from '~/store'
+    import Timer from "~/components/Timer.vue";
 
-    @Component({components: {Logo}})
+    @Component({components: {Timer, Logo}})
     export default class StartWorkday extends Vue {
 
         get user() {
@@ -37,6 +40,7 @@
         }
 
         mounted() {
+            this.refreshTime();
             setInterval(this.refreshTime, 1000)
         }
 
@@ -46,39 +50,20 @@
 
         async refreshTime() {
             this.workTime = await this.user.workingTime(Date.now());
+            this.calcRemainingTime()
         }
 
         workTime = 0;
 
-        millisecondsToStr(milliseconds: number) {
+        workedSeconds = 0;
+        workedMinutes = 0;
 
-            function numberEnding(number: number) {
-                return (number > 1) ? 's' : '';
-            }
-
-            var temp = Math.floor(milliseconds / 1000);
-            var years = Math.floor(temp / 31536000);
-            if (years) {
-                return years + ' year' + numberEnding(years);
-            }
-            //TODO: Months! Maybe weeks?
-            var days = Math.floor((temp %= 31536000) / 86400);
-            if (days) {
-                return days + ' day' + numberEnding(days);
-            }
-            var hours = Math.floor((temp %= 86400) / 3600);
-            if (hours) {
-                return hours + ' hour' + numberEnding(hours);
-            }
-            var minutes = Math.floor((temp %= 3600) / 60);
-            if (minutes) {
-                return minutes + ' minute' + numberEnding(minutes);
-            }
-            var seconds = temp % 60;
-            if (seconds) {
-                return seconds + ' second' + numberEnding(seconds);
-            }
-            return 'less than a second'; //'just now' //or other string you like;
+        calcRemainingTime() {
+            let startedWork = this.user.workStart as number;
+            let currentDate = Date.now();
+            this.workedSeconds = (currentDate - startedWork) / 1000;
+            this.workedMinutes = Math.floor(this.workedSeconds / 60);
+            this.workedSeconds = Math.floor(this.workedSeconds - this.workedMinutes * 60)
         }
 
 
