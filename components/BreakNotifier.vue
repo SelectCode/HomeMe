@@ -45,6 +45,8 @@
                     notificationText = `Zeit für eine Pause!`;
                 }
 
+                vxm.user.setBreakType(newBreak.type);
+                console.log(newBreak.type);
                 this.sendNotification(notificationText);
             }
         }

@@ -174,6 +174,12 @@ export class UserStore extends VuexModule {
         //TODO
     }
 
+    breakType: "drinking" | "break" | "snack" | "Bewegungspause" | "Erfrischungspause" | "Denkpause" | "Soziale Pause" | "Ruhepause" = 'break';
+
+    @mutation
+    setBreakType(breakType: "drinking" | "break" | "snack" | "Bewegungspause" | "Erfrischungspause" | "Denkpause" | "Soziale Pause" | "Ruhepause") {
+        this.breakType = breakType;
+    }
 
 }
 
