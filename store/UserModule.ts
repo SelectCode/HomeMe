@@ -20,6 +20,8 @@ export class UserStore extends VuexModule {
 
     currentBreakId: string | undefined = undefined;
 
+    breakStarted: number | undefined = undefined;
+
     @mutation changeState(state: UiState) {
         this.state = state;
     }
@@ -55,6 +57,7 @@ export class UserStore extends VuexModule {
     selectBreak(breakId: string) {
         this.currentBreakId = breakId;
         this.state = UiState.BREAK;
+        this.breakStarted = Date.now();
     }
 
     @mutation
