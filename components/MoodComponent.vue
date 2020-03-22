@@ -1,9 +1,13 @@
 <template>
     <v-layout row>
         <v-hover v-slot:default="{ hover }" v-for="mood in moods">
-            <v-btn text @click="changeMood(mood.id)" fab>
-                <span :class="{ 'on-hover': (hover || mood.id === activeMood) }">{{mood.emoji}} </span>
-            </v-btn>
+            <div>
+                <v-btn text @click="changeMood(mood.id)" fab>
+                    <span :class="{ 'on-hover': (hover || mood.id === activeMood) }">{{mood.emoji}} </span>
+                </v-btn>
+                <br/>
+                <span v-if="hover" class="explanation mx-auto text-center d-flex justify-center align-center"> {{mood.id}}</span>
+            </div>
         </v-hover>
     </v-layout>
 </template>
@@ -18,7 +22,6 @@
     export default class Timer extends Vue {
 
         moods = [
-            // 'happy', 'neutral', 'sick', 'lazy', 'drunk', 'tired'
             {
                 emoji: '😊',
                 id: 'happy'
@@ -28,7 +31,7 @@
                 id: 'neutral'
             },
             {
-                emoji: '🤧',
+                emoji: '🤒',
                 id: 'sick'
             },
             {
@@ -55,10 +58,6 @@
 </script>
 
 <style scoped>
-    .timer {
-        font-size: 3em;
-        font-weight: lighter;
-    }
 
     span {
         transition: opacity .4s ease-in-out;
@@ -68,6 +67,11 @@
     span:not(.on-hover) {
         opacity: 0.6;
         font-size: 2em;
+    }
+
+    .explanation {
+        font-weight: lighter;
+        font-size: 0.8em !important;
     }
 
 </style>
