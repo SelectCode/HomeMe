@@ -10,6 +10,7 @@ export interface ITimeRecommender {
 export class ITimeRecommenderImpl implements ITimeRecommender {
 
     getRecommendedTimesForSettings(settings: Settings): Reminder[] {
+
         let pauses: Reminder[] = [];
         let amountBreaks: number = 2;
         let breakDuration = settings.breakDuration;
@@ -19,14 +20,16 @@ export class ITimeRecommenderImpl implements ITimeRecommender {
         if(settings.lunchBreak){
             let lunchDuration : number = settings.lunchBreakTime;
             breakDuration -= lunchDuration;
-        }*
+        }*/
 
-         */
         // Has children?
         if (!settings.childrenAtHome) {
             amountBreaks = Math.floor((breakDuration / 5) + 1);
             let timeBetweenBreaks: number = Math.floor((settings.workingHours * 60) / amountBreaks);
             pauses.push(...this.generatePauses(amountBreaks, timeBetweenBreaks));
+        } else {
+            let timeBetweenBreaks: number = Math.floor((settings.workingHours * 60) / (amountBreaks + 1));
+            pauses.push(...this.generatePauses(amountBreaks + 1, timeBetweenBreaks));
         }
 
         // Generate drinking pauses
@@ -57,12 +60,10 @@ export class ITimeRecommenderImpl implements ITimeRecommender {
                 }
                 break;
             }
-
             case 'lazy' : {
                 pauses[0].type = 'Soziale Pause';
                 break;
             }
-
             case 'drunk' : {
                 pauses[0].type = 'Ruhepause';
                 for (let i = 1; i < pauses.length; i++) {
@@ -101,6 +102,7 @@ export class ITimeRecommenderImpl implements ITimeRecommender {
         return pauses;
     }
 
+
     /**
      * Generate a drinking pause every 30 minutes
      */
@@ -130,7 +132,6 @@ export class ITimeRecommenderImpl implements ITimeRecommender {
         }
         return pauses;
     }
-
 }
 
 export interface Settings {
