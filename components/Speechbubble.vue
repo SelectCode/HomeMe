@@ -30,7 +30,10 @@
 
 <style scoped>
 
+    @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+
     .bubble {
+        font-family: 'Patrick Hand', cursive;
         margin-left: 28px;
         top: 50%;
         transform: translate(0, -50%);
@@ -46,7 +49,7 @@
         -moz-border-radius: 10px;
         border-radius: 10px;
         border: #D6D2D2 solid 2px;
-        font-size: 1.25em;
+        font-size: 1.5em;
 
     }
 

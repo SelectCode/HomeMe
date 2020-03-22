@@ -2,11 +2,11 @@
     <v-row justify="center">
         <v-card>
             <v-layout column justify-center align-center class="px-5">
-                <v-card-title class="display-1">
+                <v-card-title class="display-1 mb-5 ">
                     Gute Arbeit {{user.name}}
                 </v-card-title>
                 <span>Du arbeitest seit:</span>
-                <Timer :minutes="workedMinutes" :seconds="workedSeconds"/>
+                <Timer :minutes="workedMinutes" :seconds="workedSeconds" class="display-4 mb-5"/>
             </v-layout>
 
             <v-card-actions>
@@ -73,5 +73,4 @@
 </script>
 
 <style scoped>
-
 </style>
