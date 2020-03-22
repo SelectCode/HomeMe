@@ -1,15 +1,15 @@
 <template>
     <v-row justify="center">
-        <v-card class="ma-2">
+        <v-card class="ma-2 text-center">
             <v-card-title class="display-1">
-                Ciao 🙋‍♂️🙋‍♂️
+                Schönen Feierabend!
             </v-card-title>
             <v-card-text class="subtitle-1 font-weight-light">
-                Gönn dir!
+                Bis morgen.
             </v-card-text>
             <v-card-actions>
                 <v-btn color="primary" block @click="back" class="mb-2" large>
-                    Back
+                    Zurück
                 </v-btn>
             </v-card-actions>
         </v-card>
