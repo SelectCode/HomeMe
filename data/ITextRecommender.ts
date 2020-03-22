@@ -14,7 +14,6 @@ export class TextRecommender implements ITextRecommender {
         let avatar = new AvatarRepo().getAvatarById(avatarId);
         let labels = this.mapStateToLabels();
 
-        console.log(allTexts);
         let possibleTexts = [];
 
         for (let aText of allTexts) {

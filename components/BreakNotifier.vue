@@ -13,16 +13,16 @@
     export default class Timer extends Vue {
 
         mounted() {
-            let recommender = new ITimeRecommenderImpl()
+            let recommender = new ITimeRecommenderImpl();
             let recommendations = recommender.getRecommendedTimesForSettings(this.user.settings);
-            this.sendNotification(recommendations.length.toString())
+            this.sendNotification(recommendations.length.toString());
         }
 
         get user() {
             return vxm.user;
         }
 
-        get avatatarPicture() {
+        get avatarPicture() {
             let avatar = this.user.avatar;
             return 'avatar/' + avatar + '.svg'
         }
@@ -31,13 +31,12 @@
         sendNotification(text: string) {
             var notification = new Notification("HomeMe", {
                 body: text,
-                icon: this.avatatarPicture
+                icon: this.avatarPicture
             });
         }
 
 
     }
-
 
 </script>
 

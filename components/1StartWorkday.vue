@@ -46,7 +46,7 @@
         }
 
         mounted() {
-            this.$root.$emit('chat', 'Stephan ist doof')
+            this.$root.$emit('chat', this.textRecommender.getText());
         }
 
     }
