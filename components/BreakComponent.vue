@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <v-img :src="breakActivity.imageUrl" height="200px" width="30vw"/>
+    <v-layout column>
+        <v-img :src="breakActivity.imageUrl" height="200px" :width="width"/>
         <v-card-title class="display-1">
             {{breakActivity.name}}
             <v-chip v-for="cat in breakActivity.category" outlined color="primary" small class="ml-2">
@@ -10,7 +10,15 @@
         <v-card-text class="subtitle-1 font-weight-light">
             {{breakActivity.description}}
         </v-card-text>
-    </div>
+        <v-card-actions v-if="breakActivity.contentType && showLink">
+            <v-btn color="primary" target="_blank" block outlined :href="breakActivity.content">
+                Besuchen
+                <v-icon>
+                    mdi-link
+                </v-icon>
+            </v-btn>
+        </v-card-actions>
+    </v-layout>
 </template>
 <script lang="ts">
 
@@ -22,6 +30,12 @@
 
         @Prop()
         breakActivity!: BreakActivity
+
+        @Prop({default: '100%'})
+        width!: string
+
+        @Prop({default: false})
+        showLink!: boolean
     }
 
 

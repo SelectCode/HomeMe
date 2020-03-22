@@ -17,7 +17,7 @@
         </v-row>
         <v-row>
             <v-card class="ma-2 breakCard text-center">
-                <BreakComponent :break-activity="breakActivity"/>
+                <BreakComponent :break-activity="breakActivity" :show-link="true"/>
             </v-card>
         </v-row>
     </v-layout>

@@ -2,7 +2,7 @@
     <v-row justify="center">
         <v-col v-for="breakOption in possibleActivities" :cols="4">
             <v-card class="ma-2 break-card">
-                <BreakComponent :break-activity="breakOption"/>
+                <BreakComponent :break-activity="breakOption" width="30vw"/>
                 <v-card-actions class="card-actions">
                     <v-btn color="primary" block @click="chooseBreak(breakOption.name)">Go</v-btn>
                 </v-card-actions>
@@ -37,6 +37,7 @@
 
         chooseBreak(breakId: string) {
             vxm.user.selectBreak(breakId);
+            console.log('Selecting break ' + breakId);
             this.$root.$emit('chat', this.textRecommender.getText());
         }
 

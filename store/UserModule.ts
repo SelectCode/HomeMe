@@ -111,7 +111,7 @@ export class UserStore extends VuexModule {
 
     get currentBreakActivity() {
         if (this.currentBreakId) {
-            return this.breakActivities.find(it => it.name)
+            return this.breakActivities.find(it => it.name == this.currentBreakId)
         } else {
             return {}
         }
