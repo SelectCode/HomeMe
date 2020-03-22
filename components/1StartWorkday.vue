@@ -8,7 +8,6 @@
                 Start Workday
             </v-btn>
         </v-card-actions>
-        {{availableTexts}}
     </v-card>
 </template>
 
@@ -37,7 +36,7 @@
             return this.availableTexts[0]
         }
 
-        mounted(){
+        mounted() {
             this.$root.$emit('chat', 'Stephan ist doof')
         }
 

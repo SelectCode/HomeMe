@@ -80,6 +80,7 @@
         }
 
         mounted() {
+            console.log("loading data");
             this.user.loadData();
         }
 

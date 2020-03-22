@@ -88,29 +88,50 @@ export class UserStore extends VuexModule {
 
     @action
     async loadData() {
-        await Promise.all([this.loadAvatarTexts, this.loadBreakActivities, this.loadAvatars]);
+        await this.loadAvatars();
+        await this.loadBreakActivities();
+        await this.loadAvatarTexts();
     }
 
     @action
-    async loadAvatarTexts() {
-        this.avatarTexts = await new AvatarTextRepo().getAvatarTexts();
+    private async loadAvatarTexts() {
+        let texts = await new AvatarTextRepo().getAvatarTexts();
+        this.setAvatarTexts(texts)
         console.log("loaded avatar texts " + this.avatarTexts.length);
     }
+
+    @mutation
+    private setAvatars(avatars: Avatar[]) {
+        this.avatars = avatars;
+    }
+
+    @mutation
+    private setAvatarTexts(texts: AvatarText[]) {
+        this.avatarTexts = texts;
+    }
+
+    @mutation
+    private setBreakActivities(activities: BreakActivity[]) {
+        this.breakActivity = activities;
+    }
+
 
     breakActivity: BreakActivity[] = [];
 
     @action
-    async loadBreakActivities() {
-        this.breakActivity = await new BreakActivityRepo().getBreakActivities();
+    private async loadBreakActivities() {
+        let activities = await new BreakActivityRepo().getBreakActivities();
+        this.setBreakActivities(activities);
         console.log("loaded break activities: " + this.breakActivity.length);
     }
 
     avatars: Avatar[] = [];
 
     @action
-    async loadAvatars() {
-        this.avatars = await new AvatarRepo().getAvatars();
-        console.log("loaded avatars : " + this.avatarTexts.length);
+    private async loadAvatars() {
+        let avatars = await new AvatarRepo().getAvatars();
+        this.setAvatars(avatars)
+        console.log("loaded avatars : " + this.avatars.length);
     }
 
 
