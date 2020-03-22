@@ -8,7 +8,7 @@
                 <span>Du arbeitest seit:</span>
                 <Timer :minutes="workedMinutes" :seconds="workedSeconds" class="display-4 mb-5"/>
             </v-layout>
-
+            <BreakNotifier/>
             <v-card-actions>
                 <v-layout column class="ma-2">
                     <v-btn color="primary" block @click="makeABreak" class="mb-2" large>
@@ -29,8 +29,10 @@
     import Logo from '@/components/Logo'
     import {vxm} from '~/store'
     import Timer from "~/components/Timer.vue";
+    import BreakComponent from "~/components/BreakComponent.vue";
+    import BreakNotifier from "~/components/BreakNotifier.vue";
 
-    @Component({components: {Timer, Logo}})
+    @Component({components: {BreakNotifier, BreakComponent, Timer, Logo}})
     export default class StartWorkday extends Vue {
 
         get user() {
@@ -45,6 +47,7 @@
             this.refreshTime();
             setInterval(this.refreshTime, 1000)
         }
+
 
         stopDay() {
             vxm.user.endWorkday()

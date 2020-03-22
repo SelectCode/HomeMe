@@ -2,6 +2,7 @@ import {action, createModule, mutation} from "vuex-class-component";
 import {AvatarText, AvatarTextRepo} from "~/data/IAvatarTextRepo";
 import {BreakActivity, BreakActivityRepo} from "~/data/IBreakActivityRepo";
 import {Avatar, AvatarRepo} from "~/data/IAvatarRepo";
+import {Settings} from "~/data/ITimeRecommender";
 
 const VuexModule = createModule({
     namespaced: "user",
@@ -52,6 +53,16 @@ export class UserStore extends VuexModule {
     stopBreak() {
         this.state = UiState.WORKING;
     }
+
+    // Settings for Break Recommendation
+    settings: Settings = {
+        breakDuration: 5,
+        childrenAtHome: false,
+        drinkingReminders: true,
+        mood: "",
+        snackReminders: true,
+        workingHours: 0
+    };
 
     @mutation
     selectBreak(breakId: string) {

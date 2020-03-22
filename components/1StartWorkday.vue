@@ -27,6 +27,9 @@
         }
 
         async start() {
+            if (!Notification.permission) {
+                await Notification.requestPermission()
+            }
             await vxm.user.startWorkday();
         }
 
@@ -46,7 +49,7 @@
 </script>
 
 <style scoped>
-    .flex-grow-0{
+    .flex-grow-0 {
         flex-grow: 0 !important;
     }
 </style>

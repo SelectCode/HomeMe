@@ -137,7 +137,6 @@ export class ITimeRecommenderImpl implements ITimeRecommender {
 ​
 
 export interface Settings {
-    avatarId: string,
     childrenAtHome: boolean,
     drinkingReminders: boolean,
     //pauseReminders: boolean => Assumption: A user without kids wants take 5min pauses
