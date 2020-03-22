@@ -1,10 +1,10 @@
 <template>
     <v-container>
-        <h1 class="display-2 my-3">Avatare</h1>
+        <h1 class="display-3 my-3 text-center">Avatare</h1>
         <v-row justify-center align-start>
             <v-col v-for="avatar in avatars">
                 <v-hover v-slot:default="{ hover }">
-                    <v-card class="pa-2" :elevation="hover ? 12 : 2" @click="select(avatar)">
+                    <v-card class="pa-2 pb-4" :elevation="hover ? 12 : 2" @click="select(avatar)">
                         <div>
                             <v-card-title class="display-1">
                                 {{avatar.name}}
@@ -65,6 +65,10 @@
         display: flex;
         flex-direction: column;
         flex-grow: 1;
+    }
+
+    h1 {
+        font-weight: 200 !important;
     }
 
 </style>

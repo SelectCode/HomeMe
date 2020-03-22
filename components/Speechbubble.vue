@@ -1,7 +1,7 @@
 <template>
-    <span class="bubble pa-2" v-if="text !== ''">
-        {{text}}
-    </span>
+    <div>
+        <span class="bubble pa-2" v-if="text !== ''">{{text}}</span>
+    </div>
 </template>
 
 <script lang="ts">
@@ -31,14 +31,20 @@
 <style scoped>
 
     .bubble {
+        top: 50%;
+        transform: translate(0, -50%);
+        align-items: center;
+        justify-content: center;
+        vertical-align: middle;
         position: relative;
+        display: flex;
         width: 250px;
         height: 120px;
-        padding: 0px;
+        padding: 0;
         -webkit-border-radius: 10px;
         -moz-border-radius: 10px;
         border-radius: 10px;
-        border: #D6D2D2 solid 5px;
+        border: #D6D2D2 solid 2px;
         font-size: 1.25em;
 
     }
@@ -52,7 +58,7 @@
         display: block;
         width: 0;
         z-index: 0;
-        left: -30px;
+        left: -28px;
         top: 33px;
     }
 </style>
