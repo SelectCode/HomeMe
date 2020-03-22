@@ -1,5 +1,5 @@
 <template>
-    <v-layout row>
+    <v-row justify="center">
         <v-card class="ma-2 breakCard text-center">
             <v-layout column justify-center align-center>
                 <v-card-title class="display-1 text-center">
@@ -16,7 +16,7 @@
                 </v-card-actions>
             </v-layout>
         </v-card>
-    </v-layout>
+    </v-row>
 </template>
 
 <script lang="ts">

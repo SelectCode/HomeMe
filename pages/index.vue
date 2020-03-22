@@ -1,10 +1,10 @@
 <template>
-    <v-container >
-        <v-row justify="center">
+    <v-container>
+        <v-row justify="center" class="grow-0">
             <h1 class="display-3 my-3 text-center">HomeMe</h1>
         </v-row>
-        <v-row class="mt-5 flex-column">
-            <v-row justify="center">
+        <v-row class="mt-5 flex-column grow-0">
+            <v-row justify="center" class="my-5 ">
                 <div class="text-center">
                     <AvatarImage :avatar="user.avatar"/>
                 </div>
@@ -17,7 +17,7 @@
             <Break v-if="showBreak"/>
             <EndWorkDay v-if="showEnd"/>
         </v-row>
-        <v-row justify="end">
+        <v-row justify="end" class="grow-0">
             <SettingsDialog/>
             <v-btn icon @click="reset" class="mt-2">
                 <v-icon color="primary">mdi-restart</v-icon>
@@ -99,10 +99,21 @@
         font-size: 3em;
     }
 
-    .container{
+    .grow-0 {
+        flex-grow: 0;
+    }
+
+    .space-around {
+        justify-content: space-around;
+    }
+
+    .container {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
     }
 
+    .outline {
+        outline: thin solid red;
+    }
 </style>

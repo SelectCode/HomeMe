@@ -31,6 +31,7 @@
 <style scoped>
 
     .bubble {
+        margin-left: 28px;
         top: 50%;
         transform: translate(0, -50%);
         align-items: center;
