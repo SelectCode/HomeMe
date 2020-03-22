@@ -11,7 +11,7 @@ const VuexModule = createModule({
 });
 
 export class UserStore extends VuexModule {
-    name = 'Julia';
+    name = '';
     workStart: number | undefined = undefined;
     avatar = 'butterfly';
 
