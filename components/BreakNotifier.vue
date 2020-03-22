@@ -18,10 +18,6 @@
             let recommender = new ITimeRecommenderImpl();
             this.recommendations = recommender.getRecommendedTimesForSettings(this.user.settings);
             console.log(this.recommendations);
-            this.recommendations.push(new class implements Reminder {
-                inMinutes: number = 1;
-                type: "drinking" | "break" | "snack" | "Bewegungspause" | "Erfrischungspause" | "Denkpause" | "Soziale Pause" | "Ruhepause" = 'Bewegungspause';
-            });
             setInterval(this.checkForBreak, 1000 * 60);
         }
 
