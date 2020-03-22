@@ -16,9 +16,10 @@
 
 
         settings: Settings = {
+            breakDuration: 0,
+            mood: "",
+            workingHours: 0,
             drinkingReminders: false,
-            lunchBreak: false,
-            pauseReminders: false,
             snackReminders: false,
             avatarId: 'lol',
             childrenAtHome: false
