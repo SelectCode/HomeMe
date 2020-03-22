@@ -1,5 +1,7 @@
 import {action, createModule, mutation} from "vuex-class-component";
 import {AvatarText, AvatarTextRepo} from "~/data/IAvatarTextRepo";
+import {BreakActivity, BreakActivityRepo} from "~/data/IBreakActivityRepo";
+import {Avatar, AvatarRepo} from "~/data/IAvatarRepo";
 
 const VuexModule = createModule({
     namespaced: "user",
@@ -85,9 +87,32 @@ export class UserStore extends VuexModule {
     avatarTexts: AvatarText[] = [];
 
     @action
-    async loadAvatarTexts() {
-        this.avatarTexts = await new AvatarTextRepo().getAvatarTexts()
+    async loadData() {
+        await Promise.all([this.loadAvatarTexts, this.loadBreakActivities, this.loadAvatars]);
     }
+
+    @action
+    async loadAvatarTexts() {
+        this.avatarTexts = await new AvatarTextRepo().getAvatarTexts();
+        console.log("loaded avatar texts " + this.avatarTexts.length);
+    }
+
+    breakActivity: BreakActivity[] = [];
+
+    @action
+    async loadBreakActivities() {
+        this.breakActivity = await new BreakActivityRepo().getBreakActivities();
+        console.log("loaded break activities: " + this.breakActivity.length);
+    }
+
+    avatars: Avatar[] = [];
+
+    @action
+    async loadAvatars() {
+        this.avatars = await new AvatarRepo().getAvatars();
+        console.log("loaded avatars : " + this.avatarTexts.length);
+    }
+
 
     @mutation
     reset() {

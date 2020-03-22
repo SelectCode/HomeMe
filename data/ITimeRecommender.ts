@@ -16,7 +16,7 @@ export class ITimeRecommenderImpl implements ITimeRecommender {
         if (settings.drinkingReminders) {
             pauses.push(...this.generateDrinkingPauses())
         }
-        
+
 
 
         return pauses;

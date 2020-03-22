@@ -8,6 +8,7 @@
                 Start Workday
             </v-btn>
         </v-card-actions>
+        {{availableTexts}}
     </v-card>
 </template>
 
@@ -34,6 +35,10 @@
 
         get randomText() {
             return this.availableTexts[0]
+        }
+
+        mounted(){
+            this.$root.$emit('chat', 'Stephan ist doof')
         }
 
     }

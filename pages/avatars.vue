@@ -37,10 +37,8 @@
         private avatarRepo: IAvatarRepo = new AvatarRepo();
         private avatars: Avatar[] = [];
 
-        // @ts-ignore
-        async mounted(): void {
-            // @ts-ignore
-            this.avatars = await this.avatarRepo.getAvatars();
+        async mounted() {
+            this.avatars = this.user.avatars;
         }
 
         get user() {
