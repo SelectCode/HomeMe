@@ -10,22 +10,13 @@
 <script lang="ts">
 
     import {Vue} from "vue-property-decorator";
-    import {ITimeRecommenderImpl, Settings} from "~/data/ITimeRecommender";
+    import {ITimeRecommenderImpl} from "~/data/ITimeRecommender";
+    import {vxm} from "~/store";
 
     export default class TimeTest extends Vue {
 
-        settings: Settings = {
-            breakDuration: 0,
-            mood: "",
-            workingHours: 0,
-            drinkingReminders: false,
-            snackReminders: false,
-            avatarId: 'lol',
-            childrenAtHome: false
-        };
-
         get result() {
-            return new ITimeRecommenderImpl().getRecommendedTimesForSettings(this.settings)
+            return new ITimeRecommenderImpl().getRecommendedTimesForSettings(vxm.user.settings)
         }
 
     }

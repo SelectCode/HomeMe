@@ -61,7 +61,7 @@ export class UserStore extends VuexModule {
         drinkingReminders: true,
         mood: "",
         snackReminders: true,
-        workingHours: 0
+        workingHours: 8
     };
 
     @mutation
