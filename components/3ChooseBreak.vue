@@ -1,25 +1,21 @@
 <template>
     <v-layout row align-center justify-center>
         <v-card v-for="breakOption in possibleActivities" class="ma-2 breakCard">
-            <v-layout column d-flex fill-height>
-                <v-card-title class="display-1">
-                    {{breakOption.name}}
-                    <v-chip v-for="cat in breakOption.category" outlined color="primary" small class="ml-2">
-                        {{cat}}
-                    </v-chip>
-                </v-card-title>
-                <v-card-text class="subtitle-1 font-weight-light">
-                    {{breakOption.description}}
-                </v-card-text>
-                <v-img :src="breakOption.content" v-if="breakOption.contentType === 'Bild'"/>
-
-                <v-spacer/>
-                <v-card-actions>
-                    <v-btn color="primary" block @click="chooseBreak(breakOption.id)" class="mb-2">
-                        Go
-                    </v-btn>
-                </v-card-actions>
-            </v-layout>
+            <v-card-title class="display-1">
+                {{breakOption.name}}
+                <v-chip v-for="cat in breakOption.category" outlined color="primary" small class="ml-2">
+                    {{cat}}
+                </v-chip>
+            </v-card-title>
+            <v-card-text class="subtitle-1 font-weight-light">
+                {{breakOption.description}}
+            </v-card-text>
+            <v-img :src="breakOption.content" v-if="breakOption.contentType === 'Bild'"/>
+            <v-card-actions class="card-actions">
+                <v-btn color="primary" block @click="chooseBreak(breakOption.id)">
+                    Go
+                </v-btn>
+            </v-card-actions>
         </v-card>
     </v-layout>
 </template>
@@ -54,8 +50,15 @@
 
 <style scoped>
     .breakCard {
-        max-width: 25vw;
+        width: 25vw;
         height: 40vh;
+        position: relative;
+        padding-bottom: 50px;
+    }
+
+    .card-actions {
+        position: absolute;
+        bottom: 0;
     }
 
 </style>
