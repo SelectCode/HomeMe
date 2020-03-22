@@ -1,6 +1,6 @@
 <template>
     <v-layout row align-center justify-center>
-        <v-card v-for="breakOption in breakOptions" class="ma-2 breakCard">
+        <v-card v-for="breakOption in possibleActivities" class="ma-2 breakCard">
             <v-layout column d-flex fill-height>
                 <v-card-title class="display-1">
                     {{breakOption.name}}
@@ -30,27 +30,15 @@
     import Logo from '@/components/Logo'
     import {vxm} from '~/store'
     import {BreakActivityRecommender} from "~/data/IBreakActivityRecommender";
-    import {AvatarRepo} from "~/data/IAvatarRepo";
     import {BreakActivity} from "~/data/IBreakActivityRepo";
 
     @Component({components: {Logo}})
     export default class StartWorkday extends Vue {
 
         private breakActivityRecommender: BreakActivityRecommender = new BreakActivityRecommender();
-        private possibleActivities: BreakActivity[] = [];
 
-        async mounted() {
-            this.possibleActivities = await this.getPossibleBreakActivities();
-        }
-
-        private async getPossibleBreakActivities() {
-            let avatar = await new AvatarRepo().getById(this.user.avatar);
-
-            if (avatar == undefined) {
-                return []
-            } else {
-                return await this.breakActivityRecommender.getRecommendedBreakActivities(avatar, this.user.breakActivity);
-            }
+        get possibleActivities(): BreakActivity[] {
+            return this.breakActivityRecommender.getRecommendedBreakActivities(vxm.user.avatar);
         }
 
         get user() {
@@ -60,11 +48,6 @@
         chooseBreak(breakId: string) {
             vxm.user.selectBreak(breakId);
         }
-
-        get breakOptions() {
-            return this.possibleActivities;
-        }
-
 
     }
 </script>

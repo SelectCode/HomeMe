@@ -1,7 +1,10 @@
 import {AirtableBaseFactory} from "~/data/AirtableBaseFactory";
+import {vxm} from "~/store";
 
 export interface IAvatarRepo {
-    getAvatars(): Promise<Avatar[]>
+    getAvatars(): Promise<Avatar[]>;
+
+    getAvatarById(id: string): Avatar | undefined;
 }
 
 export class AvatarRepo implements IAvatarRepo {
@@ -25,9 +28,8 @@ export class AvatarRepo implements IAvatarRepo {
         );
     }
 
-    async getById(id: string): Promise<Avatar | undefined> {
-        let avatars = await this.getAvatars();
-        return avatars.find((it) => it.id === id);
+    getAvatarById(id: string): Avatar | undefined {
+        return vxm.user.avatars.find((it) => it.id === id);
     }
 }
 

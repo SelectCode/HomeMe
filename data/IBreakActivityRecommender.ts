@@ -1,20 +1,29 @@
 import {BreakActivity} from "~/data/IBreakActivityRepo";
-import {Avatar} from "~/data/IAvatarRepo";
+import {AvatarRepo, IAvatarRepo} from "~/data/IAvatarRepo";
+import {vxm} from "~/store";
 
 export interface IBreakActivityRecommender {
-    getRecommendedBreakActivities(avatar: Avatar, activities: BreakActivity[]): Promise<BreakActivity[]>;
+    getRecommendedBreakActivities(avatarId: string): BreakActivity[];
 }
 
 export class BreakActivityRecommender implements IBreakActivityRecommender {
 
-    async getRecommendedBreakActivities(avatar: Avatar, activities: BreakActivity[]): Promise<BreakActivity[]> {
+    private avatarRepo: IAvatarRepo = new AvatarRepo();
+
+    getRecommendedBreakActivities(avatarId: string): BreakActivity[] {
+        let avatar = this.avatarRepo.getAvatarById(avatarId);
+        if (avatar == undefined) {
+            return [];
+        }
+
+        let allBreakActivities = vxm.user.breakActivities;
         let possibleTypes: string[] = avatar.types;
         let possibleCategories: string[] = avatar.categories;
 
-        this.shuffle(activities);
+        this.shuffle(allBreakActivities);
 
-        return activities
-            // Filter for type
+        return allBreakActivities
+        // Filter for type
             .filter((it) => possibleTypes.includes(it.type))
             // Filter for category
             .filter((it) => it.category.every((it) => possibleCategories.includes(it)))

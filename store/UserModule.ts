@@ -7,7 +7,7 @@ const VuexModule = createModule({
     namespaced: "user",
     strict: false,
     target: "nuxt",
-})
+});
 
 export class UserStore extends VuexModule {
     name = 'Peter';
@@ -96,7 +96,7 @@ export class UserStore extends VuexModule {
     @action
     private async loadAvatarTexts() {
         let texts = await new AvatarTextRepo().getAvatarTexts();
-        this.setAvatarTexts(texts)
+        this.setAvatarTexts(texts);
         console.log("loaded avatar texts " + this.avatarTexts.length);
     }
 
@@ -112,17 +112,17 @@ export class UserStore extends VuexModule {
 
     @mutation
     private setBreakActivities(activities: BreakActivity[]) {
-        this.breakActivity = activities;
+        this.breakActivities = activities;
     }
 
 
-    breakActivity: BreakActivity[] = [];
+    breakActivities: BreakActivity[] = [];
 
     @action
     private async loadBreakActivities() {
         let activities = await new BreakActivityRepo().getBreakActivities();
         this.setBreakActivities(activities);
-        console.log("loaded break activities: " + this.breakActivity.length);
+        console.log("loaded break activities: " + this.breakActivities.length);
     }
 
     avatars: Avatar[] = [];
@@ -130,10 +130,9 @@ export class UserStore extends VuexModule {
     @action
     private async loadAvatars() {
         let avatars = await new AvatarRepo().getAvatars();
-        this.setAvatars(avatars)
+        this.setAvatars(avatars);
         console.log("loaded avatars : " + this.avatars.length);
     }
-
 
     @mutation
     reset() {
