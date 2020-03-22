@@ -7,13 +7,23 @@
                 </v-icon>
             </v-btn>
         </template>
-        <v-card>
+        <v-card v-if="settings && username">
             <v-card-title primary-title>
                 Settings
             </v-card-title>
+            <v-layout column class="mx-3">
+                <v-text-field label="Name" v-model="username"></v-text-field>
+                <v-slider min="1" max="18" v-model="settings.workingHours"
+                          :label="'Arbeitszeit pro Tag ' + settings.workingHours + 'h'"/>
+                <v-slider min="1" max="18" v-model="settings.breakDuration"
+                          :label="'Pausendauer ' + settings.breakDuration + 'min'"/>
+                <v-layout row justify-space-around="">
+                    <v-switch class="mx-1" v-model="settings.drinkingReminders" label="Trink Reminder"/>
+                    <v-switch class="mx-1" v-model="settings.snackReminders" label="Snack Erinnerung"/>
+                    <v-switch class="mx-1" v-model="settings.childrenAtHome" label="Kinder zu Hause"/>
+                </v-layout>
 
-            <v-text-field class="ma-3" label="Name" v-model="username"></v-text-field>
-
+            </v-layout>
             <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="primary"
@@ -30,6 +40,7 @@
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator'
     import {vxm} from "~/store";
+    import {Settings} from "~/data/ITimeRecommender";
 
     @Component
     export default class SettingsDialog extends Vue {
@@ -37,12 +48,17 @@
 
         mounted() {
             this.username = vxm.user.name;
+            this.settings = vxm.user.settings;
+            console.log(this.settings);
         }
 
         username = '';
 
+        settings!: Settings;
+
         save() {
             vxm.user.changeName(this.username);
+            vxm.user.setSettings(this.settings);
             this.dialog = false;
         }
 

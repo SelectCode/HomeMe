@@ -11,7 +11,7 @@ const VuexModule = createModule({
 });
 
 export class UserStore extends VuexModule {
-    name = 'Peter';
+    name = 'Julia';
     workStart: number | undefined = undefined;
     avatar = 'butterfly';
 
@@ -59,10 +59,14 @@ export class UserStore extends VuexModule {
         breakDuration: 5,
         childrenAtHome: false,
         drinkingReminders: true,
-        mood: "",
+        mood: "happy",
         snackReminders: true,
         workingHours: 8
     };
+
+    @mutation setSettings(settings: Settings) {
+        this.settings = settings;
+    }
 
     @mutation
     selectBreak(breakId: string) {
