@@ -14,11 +14,13 @@ export class ITimeRecommenderImpl implements ITimeRecommender {
         let amountBreaks : number = 2;
         let breakDuration = settings.breakDuration;
 
+        // TODO: maybe do later...
+        /* For simplicity: lunch break always starts at noon
         if(settings.lunchBreak){
             let lunchDuration : number = settings.lunchBreakTime;
             breakDuration -= lunchDuration;
+        }*/
 
-        }
         // Has children?
         if(!settings.childrenAtHome){
             amountBreaks = Math.floor((breakDuration/5) + 1);
@@ -28,7 +30,6 @@ export class ITimeRecommenderImpl implements ITimeRecommender {
 
         // Generate drinking pauses
         if (settings.drinkingReminders) {
-
             pauses.push(...this.generateDrinkingPauses(settings.workingHours))
         }
 
@@ -36,6 +37,50 @@ export class ITimeRecommenderImpl implements ITimeRecommender {
             pauses.push(...this.generateSnackPauses(settings.workingHours))
         }
 
+        // Possible moods: 'happy', 'neutral', 'sick', 'lazy', 'drunk', 'tired'
+        switch(settings.mood){
+            case 'happy' : {
+                pauses[0].type = 'Bewegungspause';
+                break;
+            }
+            case 'neutral' : {
+                // TODO: get more creative
+                pauses[0].type = 'Denkpause';
+                break;
+            }
+            case 'sick' : {
+                pauses[0].type = 'Ruhepause';
+                for(let i = 0; i < pauses.length; i++){
+                    if(pauses[i].type === "break")
+                        pauses[i].type = "Ruhepause";
+                }
+                break;
+            }
+            case 'lazy' : {
+                pauses[0].type = 'Soziale Pause';
+                break;
+            }
+            case 'drunk' : {
+                pauses[0].type = 'Ruhepause';
+                for(let i = 1; i < pauses.length; i++){
+                    if(pauses[i].type === "break") {
+                        pauses[i].type = "Bewegungspause";
+                        break;
+                    }
+                }
+                break;
+            }
+            case 'tired' : {
+                pauses[0].type = 'Bewegungspause';
+                for(let i = 1; i < pauses.length; i++){
+                    if(pauses[i].type === "break") {
+                        pauses[i].type = "Bewegungspause";
+                        break;
+                    }
+                }
+                break;
+            }
+        }
         return pauses;
     }
 
@@ -92,15 +137,15 @@ export interface Settings {
     drinkingReminders: boolean,
     //pauseReminders: boolean => Assumption: A user without kids wants take 5min pauses
     snackReminders: boolean,
-    lunchBreak: boolean,
-    lunchBreakTime: number, // evtl. in Date ändern
+    //lunchBreak: boolean,
+    //lunchBreakTime: number, // evtl. in Date ändern
     breakDuration: number,
     workingHours: number,
-    mood: string
+    mood: string // 'happy', 'neutral', 'sick', 'lazy', 'drunk', 'tired'
 }
 
 export interface Reminder {
-    type: 'drinking' | 'break' | 'snack',
+    type: 'drinking' | 'break' | 'snack' | 'Bewegungspause' | 'Erfrischungspause' | 'Denkpause' | 'Soziale Pause' | 'Ruhepause',
     inMinutes: number
 }
 
