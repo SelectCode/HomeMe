@@ -22,7 +22,8 @@
                     <v-switch class="mx-1" v-model="settings.snackReminders" label="Snack Erinnerung"/>
                     <v-switch class="mx-1" v-model="settings.childrenAtHome" label="Kinder zu Hause"/>
                 </v-layout>
-
+                <v-btn v-if="!notificationsAllowed" @click="allowNotifications">Notifications erlauben</v-btn>
+                <v-card-text class="subtitle text-center " v-else>Notifications sind enabled!</v-card-text>
             </v-layout>
             <v-card-actions>
                 <v-spacer></v-spacer>
@@ -60,6 +61,14 @@
             vxm.user.changeName(this.username);
             vxm.user.setSettings(this.settings);
             this.dialog = false;
+        }
+
+        async allowNotifications() {
+            await Notification.requestPermission();
+        }
+
+        get notificationsAllowed() {
+            return Notification.permission === 'granted'
         }
 
     }

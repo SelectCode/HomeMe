@@ -16,6 +16,7 @@
             let recommender = new ITimeRecommenderImpl();
             let recommendations = recommender.getRecommendedTimesForSettings(this.user.settings);
             this.sendNotification(recommendations.length.toString());
+            this.sendNotification('Test')
         }
 
         get user() {
@@ -29,6 +30,7 @@
 
 
         sendNotification(text: string) {
+            console.log("Sending notifcation:" + text);
             var notification = new Notification("HomeMe", {
                 body: text,
                 icon: this.avatarPicture

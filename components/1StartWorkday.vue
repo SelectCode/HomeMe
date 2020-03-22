@@ -34,8 +34,8 @@
         }
 
         async start() {
-            if (!Notification.permission) {
-                await Notification.requestPermission()
+            if (Notification.permission !== 'granted') {
+                await Notification.requestPermission();
             }
             await vxm.user.startWorkday();
             this.$root.$emit('chat', this.textRecommender.getText());
@@ -43,10 +43,6 @@
 
         get availableTexts() {
             return this.user.avatarTexts
-        }
-
-        get randomText() {
-            return this.availableTexts[0]
         }
 
         mounted() {
