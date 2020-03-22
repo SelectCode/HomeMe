@@ -22,7 +22,7 @@
             snackReminders: false,
             avatarId: 'lol',
             childrenAtHome: false
-        }
+        };
 
         get result() {
             return new ITimeRecommenderImpl().getRecommendedTimesForSettings(this.settings)

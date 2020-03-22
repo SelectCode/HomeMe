@@ -1,4 +1,8 @@
 export interface ITimeRecommender {
+    /**
+     * This method is called when the user starts to work (also after a break)
+     * @param settings
+     */
     getRecommendedTimesForSettings(settings: Settings): Reminder[]
 }
 
@@ -15,7 +19,6 @@ export interface Settings {
     pauseReminders: boolean
     snackReminders: boolean,
     lunchBreak: boolean
-    //TODO: Add further settings
 }
 
 export interface Reminder {
