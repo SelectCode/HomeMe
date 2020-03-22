@@ -1,18 +1,20 @@
 <template>
     <v-layout row>
         <v-card class="ma-2 breakCard text-center">
-            <v-card-title class="display-1 text-center">
-                Pause
-            </v-card-title>
-            <v-card-text class="subtitle-1 font-weight-light">
-                Gönn dir!
-            </v-card-text>
-            <Timer :minutes="remainingMinutes" :seconds="remainingSeconds"/>
-            <v-card-actions>
-                <v-btn color="primary" block @click="stopBreak" class="mb-2" large>
-                    Stop now
-                </v-btn>
-            </v-card-actions>
+            <v-layout column justify-center align-center>
+                <v-card-title class="display-1 text-center">
+                    Pause
+                </v-card-title>
+                <v-card-text class="subtitle-1 font-weight-light">
+                    Gönn dir!
+                </v-card-text>
+                <Timer :minutes="remainingMinutes" :seconds="remainingSeconds"/>
+                <v-card-actions>
+                    <v-btn color="primary" block @click="stopBreak" class="mb-2" large>
+                        Stop now
+                    </v-btn>
+                </v-card-actions>
+            </v-layout>
         </v-card>
     </v-layout>
 </template>
