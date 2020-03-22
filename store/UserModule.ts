@@ -13,7 +13,7 @@ const VuexModule = createModule({
 export class UserStore extends VuexModule {
     name = '';
     workStart: number | undefined = undefined;
-    avatar = 'butterfly';
+    avatar = 'parrot';
 
     //state: 'preWork' | 'working' | 'chooseBreak' | 'break' | 'afterWork' = 'preWork';
 

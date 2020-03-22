@@ -2,9 +2,6 @@
     <v-app dark>
         <v-navigation-drawer
                 v-model="drawer"
-                :mini-variant="miniVariant"
-                :clipped="true"
-                expand-on-hover
                 fixed
                 app>
             <v-layout column justify-center fill-height>
@@ -50,17 +47,17 @@
         items = [
             {
                 icon: 'mdi-home-circle',
-                title: 'Welcome',
+                title: 'Startseite',
                 to: '/'
             },
             {
                 icon: 'mdi-account-box',
-                title: 'Avatars',
+                title: 'Avatare',
                 to: '/avatars'
             },
             {
                 icon: 'mdi-chart-bubble',
-                title: 'About',
+                title: 'Über uns',
                 to: '/about'
             }
         ]
