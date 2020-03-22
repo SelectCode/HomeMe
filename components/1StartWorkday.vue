@@ -1,14 +1,16 @@
 <template>
-    <v-card>
-        <v-card-title class="headline">
-            {{randomText}} {{user.name}}
-        </v-card-title>
-        <v-card-actions>
-            <v-btn color="primary" block @click="start">
-                Start Workday
-            </v-btn>
-        </v-card-actions>
-    </v-card>
+    <v-row justify="center">
+        <v-card class="flex-grow-0">
+            <v-card-title class="headline">
+                {{randomText}} {{user.name}}
+            </v-card-title>
+            <v-card-actions>
+                <v-btn color="primary" block @click="start">
+                    Start Workday
+                </v-btn>
+            </v-card-actions>
+        </v-card>
+    </v-row>
 </template>
 
 <script lang="ts">
@@ -44,5 +46,7 @@
 </script>
 
 <style scoped>
-
+    .flex-grow-0{
+        flex-grow: 0 !important;
+    }
 </style>

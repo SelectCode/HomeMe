@@ -16,10 +16,9 @@
 
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn
-                        color="primary"
-                        text
-                        @click="save">
+                <v-btn color="primary"
+                       text
+                       @click="save">
                     OK
                 </v-btn>
             </v-card-actions>

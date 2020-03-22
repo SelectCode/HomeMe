@@ -1,23 +1,25 @@
 <template>
-    <v-layout row align-center justify-center>
-        <v-card v-for="breakOption in breakOptions" class="ma-2 breakCard">
-            <v-card-title class="display-1">
-                {{breakOption.name}}
-                <v-chip v-for="cat in breakOption.category" outlined color="primary" small class="ml-2">
-                    {{cat}}
-                </v-chip>
-            </v-card-title>
-            <v-card-text class="subtitle-1 font-weight-light">
-                {{breakOption.description}}
-            </v-card-text>
-            <v-img :src="breakOption.content" v-if="breakOption.contentType === 'Bild'"/>
-            <v-card-actions class="card-actions">
-                <v-btn color="primary" block @click="chooseBreak(breakOption.id)">
-                    Go
-                </v-btn>
-            </v-card-actions>
-        </v-card>
-    </v-layout>
+    <v-row justify="center">
+        <v-col v-for="breakOption in breakOptions" :cols="4">
+            <v-card class="ma-2 break-card">
+                <div>
+                    <v-img :src="breakOption.content" v-if="breakOption.contentType === 'Bild'" height="200px"/>
+                    <v-card-title class="display-1">
+                        {{breakOption.name}}
+                        <v-chip v-for="cat in breakOption.category" outlined color="primary" small class="ml-2">
+                            {{cat}}
+                        </v-chip>
+                    </v-card-title>
+                    <v-card-text class="subtitle-1 font-weight-light">
+                        {{breakOption.description}}
+                    </v-card-text>
+                </div>
+                <v-card-actions class="card-actions">
+                    <v-btn color="primary" block @click="chooseBreak(breakOption.id)">Go</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-col>
+    </v-row>
 </template>
 
 <script lang="ts">
@@ -66,16 +68,10 @@
 </script>
 
 <style scoped>
-    .breakCard {
-        width: 25vw;
-        height: 40vh;
-        position: relative;
-        padding-bottom: 50px;
+    .break-card {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
-
-    .card-actions {
-        position: absolute;
-        bottom: 0;
-    }
-
 </style>
