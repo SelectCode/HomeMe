@@ -1,24 +1,26 @@
 <template>
-    <v-card>
-        <v-layout column justify-center align-center>
-            <v-card-title class="display-1">
-                Gute Arbeit {{user.name}}
-            </v-card-title>
-            <span>Du arbeitest seit:</span>
-            <Timer :minutes="workedMinutes" :seconds="workedSeconds"/>
-        </v-layout>
-
-        <v-card-actions>
-            <v-layout column class="ma-2">
-                <v-btn color="primary" block @click="makeABreak" class="mb-2" large>
-                    Mach eine Pause
-                </v-btn>
-                <v-btn color="error" block @click="stopDay" class="mb-2" large>
-                    Workday beenden
-                </v-btn>
+    <v-row justify="center">
+        <v-card>
+            <v-layout column justify-center align-center class="px-5">
+                <v-card-title class="display-1 mb-5 ">
+                    Gute Arbeit {{user.name}}
+                </v-card-title>
+                <span>Du arbeitest seit:</span>
+                <Timer :minutes="workedMinutes" :seconds="workedSeconds" class="display-4 mb-5"/>
             </v-layout>
-        </v-card-actions>
-    </v-card>
+
+            <v-card-actions>
+                <v-layout column class="ma-2">
+                    <v-btn color="primary" block @click="makeABreak" class="mb-2" large>
+                        Mach eine Pause
+                    </v-btn>
+                    <v-btn color="error" block @click="stopDay" class="mb-2" large>
+                        Workday beenden
+                    </v-btn>
+                </v-layout>
+            </v-card-actions>
+        </v-card>
+    </v-row>
 </template>
 
 <script lang="ts">
@@ -71,5 +73,4 @@
 </script>
 
 <style scoped>
-
 </style>

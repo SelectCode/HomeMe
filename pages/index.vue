@@ -1,29 +1,29 @@
 <template>
-    <v-layout column justify-center align-center my-auto>
-        <v-card-title class="mb-5" id="heading">HomeMe</v-card-title>
-        <v-flex class="mt-5">
-            <v-layout row>
+    <v-container>
+        <v-row justify="center" class="grow-0">
+            <h1 class="display-3 my-3 text-center">HomeMe</h1>
+        </v-row>
+        <v-row class="mt-5 flex-column grow-0">
+            <v-row justify="center" class="my-5 ">
                 <div class="text-center">
                     <AvatarImage :avatar="user.avatar"/>
                 </div>
                 <Speechbubble/>
-            </v-layout>
+            </v-row>
+
             <StartWorkday v-if="showStartWorkday"/>
             <DuringWorkday v-if="showWorkDay"/>
             <ChooseBreak v-if="showChoose"/>
             <Break v-if="showBreak"/>
             <EndWorkDay v-if="showEnd"/>
-        </v-flex>
-        <v-layout>
+        </v-row>
+        <v-row justify="end" class="grow-0">
             <SettingsDialog/>
             <v-btn icon @click="reset" class="mt-2">
-                <v-icon color="primary">`
-                    mdi-restart
-                </v-icon>
+                <v-icon color="primary">mdi-restart</v-icon>
             </v-btn>
-        </v-layout>
-
-    </v-layout>
+        </v-row>
+    </v-container>
 </template>
 
 <script lang="ts">
@@ -88,9 +88,32 @@
 
 </script>
 
-<style>
+<style scoped>
+
+    h1 {
+        font-weight: 200 !important;
+    }
+
     #heading {
         font-weight: lighter;
         font-size: 3em;
+    }
+
+    .grow-0 {
+        flex-grow: 0;
+    }
+
+    .space-around {
+        justify-content: space-around;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .outline {
+        outline: thin solid red;
     }
 </style>

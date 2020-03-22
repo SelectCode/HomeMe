@@ -1,5 +1,5 @@
 <template>
-    <v-layout row>
+    <v-row justify="center">
         <v-card class="ma-2">
             <v-card-title class="display-1">
                 Ciao 🙋‍♂️🙋‍♂️
@@ -13,7 +13,7 @@
                 </v-btn>
             </v-card-actions>
         </v-card>
-    </v-layout>
+    </v-row>
 </template>
 
 <script lang="ts">

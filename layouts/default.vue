@@ -71,4 +71,11 @@
 
         title = 'HomeMe 🏡'
     }
+
 </script>
+
+<style lang="scss">
+    .display-1 {
+        font-weight: 300 !important;
+    }
+</style>
