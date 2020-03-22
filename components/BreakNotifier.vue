@@ -33,8 +33,19 @@
             let workedMinutes = WorkTimeCalculator.remainingMinutes();
             let breaksToStart = this.recommendations.filter((it) => it.inMinutes = workedMinutes);
             if (breaksToStart.length != 0) {
-                console.log(breaksToStart[0]);
-                this.sendNotification(`Zeit für eine Pause! ${breaksToStart[0].type}`)
+                let newBreak = breaksToStart[0];
+                let notificationText = '';
+                console.log(newBreak);
+
+                if (newBreak.type === 'drinking') {
+                    notificationText = 'Trink mal was!';
+                } else if (newBreak.type === 'snack') {
+                    notificationText = 'Lust auf einen kleinen Snack?'
+                } else {
+                    notificationText = `Zeit für eine Pause!`;
+                }
+
+                this.sendNotification(notificationText);
             }
         }
 
