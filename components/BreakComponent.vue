@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-img :src="breakActivity.content" v-if="breakActivity.contentType === 'Bild'" height="200px"/>
+        <v-img :src="breakActivity.imageUrl" height="200px"/>
         <v-card-title class="display-1">
             {{breakActivity.name}}
             <v-chip v-for="cat in breakActivity.category" outlined color="primary" small class="ml-2">

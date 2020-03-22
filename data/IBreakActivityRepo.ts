@@ -19,7 +19,9 @@ export class BreakActivityRepo implements IBreakActivityRepo {
                 record.get('Typ'),
                 record.get('Kategorien'),
                 record.get('Content'),
-                record.get('Content-Typ')
+                record.get('Content-Typ'),
+                record.get('HeaderImage'),
+                record.get('DauerInMinuten')
             )
         });
     }
@@ -32,13 +34,17 @@ export class BreakActivity {
     category: string[];
     content: string;
     contentType: string;
+    imageUrl: string;
+    duration: number;
 
-    constructor(name: string, description: string, type: string, category: string[], content: string, contentType: string) {
+    constructor(name: string, description: string, type: string, category: string[], content: string, contentType: string, imageUrl: string, duration: number) {
         this.name = name;
         this.description = description;
         this.type = type;
         this.category = category;
         this.content = content;
         this.contentType = contentType;
+        this.imageUrl = imageUrl;
+        this.duration = duration;
     }
 }
