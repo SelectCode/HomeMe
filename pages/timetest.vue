@@ -1,9 +1,9 @@
 <template>
     <v-layout>
         <v-flex class="text-center">
-          <v-card class="display-1">
-            {{result}}
-          </v-card>
+            <v-card class="display-1">
+                {{result}}
+            </v-card>
         </v-flex>
     </v-layout>
 </template>
@@ -16,11 +16,15 @@
 
 
         settings: Settings = {
+            drinkingReminders: false,
+            lunchBreak: false,
+            pauseReminders: false,
+            snackReminders: false,
             avatarId: 'lol',
             childrenAtHome: false
         }
 
-        get result(){
+        get result() {
             return new ITimeRecommenderImpl().getRecommendedTimesForSettings(this.settings)
         }
 
