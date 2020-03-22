@@ -1,22 +1,26 @@
 <template>
-    <v-row justify="center">
-        <v-card class="ma-2 breakCard text-center">
-            <v-layout column justify-center align-center>
-                <v-card-title class="display-1 text-center">
-                    Pause
-                </v-card-title>
-                <v-card-text class="subtitle-1 font-weight-light">
-                    Gönn dir!
-                </v-card-text>
-                <Timer :minutes="remainingMinutes" :seconds="remainingSeconds"/>
-                <v-card-actions>
-                    <v-btn color="primary" block @click="stopBreak" class="mb-2" large>
-                        Stop now
-                    </v-btn>
-                </v-card-actions>
-            </v-layout>
-        </v-card>
-    </v-row>
+    <v-layout column justify-center align-center>
+        <v-row justify="center">
+            <v-card class="ma-2 breakCard text-center">
+                <v-layout column justify-center align-center>
+                    <v-card-title class="display-1 text-center">
+                        Pause
+                    </v-card-title>
+                    <Timer :minutes="remainingMinutes" :seconds="remainingSeconds"/>
+                    <v-card-actions>
+                        <v-btn color="primary" block @click="stopBreak" class="mb-2" large>
+                            Pause beenden
+                        </v-btn>
+                    </v-card-actions>
+                </v-layout>
+            </v-card>
+        </v-row>
+        <v-row>
+            <v-card class="ma-2 breakCard text-center">
+                <BreakComponent :break-activity="breakActivity"/>
+            </v-card>
+        </v-row>
+    </v-layout>
 </template>
 
 <script lang="ts">
@@ -25,8 +29,9 @@
     import Logo from '@/components/Logo'
     import {vxm} from '~/store'
     import Timer from "~/components/Timer.vue";
+    import BreakComponent from "~/components/BreakComponent.vue";
 
-    @Component({components: {Timer, Logo}})
+    @Component({components: {BreakComponent, Timer, Logo}})
     export default class Break extends Vue {
 
         get user() {
@@ -35,6 +40,10 @@
 
         stopBreak() {
             vxm.user.stopBreak();
+        }
+
+        get breakActivity() {
+            return this.user.currentBreakActivity
         }
 
         mounted() {
@@ -67,15 +76,6 @@
 
         remainingMinutes = 0;
         remainingSeconds = 0;
-
-
-        get break() {
-            return {
-                title: "Option A",
-                id: 0,
-                description: 'Tu das'
-            }
-        }
 
 
     }

@@ -89,6 +89,14 @@ export class UserStore extends VuexModule {
 
     avatarTexts: AvatarText[] = [];
 
+    get currentBreakActivity() {
+        if (this.currentBreakId) {
+            return this.breakActivities.find(it => it.name)
+        } else {
+            return {}
+        }
+    }
+
     @action
     async loadData() {
         await this.loadAvatars();
