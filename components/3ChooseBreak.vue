@@ -1,6 +1,6 @@
 <template>
     <v-row justify="center">
-        <v-col v-for="breakOption in breakOptions" :cols="4">
+        <v-col v-for="breakOption in possibleActivities" :cols="4">
             <v-card class="ma-2 break-card">
                 <div>
                     <v-img :src="breakOption.content" v-if="breakOption.contentType === 'Bild'" height="200px"/>

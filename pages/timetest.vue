@@ -14,7 +14,6 @@
 
     export default class TimeTest extends Vue {
 
-
         settings: Settings = {
             breakDuration: 0,
             mood: "",
