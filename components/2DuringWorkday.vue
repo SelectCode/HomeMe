@@ -40,13 +40,12 @@
             setInterval(this.refreshTime, 1000)
         }
 
-        stopDay(){
+        stopDay() {
             vxm.user.endWorkday()
         }
 
         async refreshTime() {
             this.workTime = await this.user.workingTime(Date.now());
-            console.log("time refreshed " + this.workTime)
         }
 
         workTime = 0;

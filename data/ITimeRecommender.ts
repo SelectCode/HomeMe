@@ -7,9 +7,37 @@ export interface ITimeRecommender {
 }
 
 export class ITimeRecommenderImpl implements ITimeRecommender {
+
     getRecommendedTimesForSettings(settings: Settings): Reminder[] {
-        return [];
+
+        let pauses: Reminder[] = [];
+
+        // Generate drinking pauses
+        if (settings.drinkingReminders) {
+            pauses.push(...this.generateDrinkingPauses())
+        }
+        
+
+
+        return pauses;
+
+
     }
+
+    /**
+     * Generate a drinking pause every 30 minutes
+     */
+    generateDrinkingPauses(): Reminder[] {
+        let pauses: Reminder[] = [];
+        for (let i = 0; i < 10; i++) {
+            pauses.push({
+                type: "drinking",
+                inMinutes: (i + 1) * 30
+            })
+        }
+        return pauses;
+    }
+
 }
 
 export interface Settings {

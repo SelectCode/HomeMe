@@ -5,6 +5,9 @@ export default {
     /*
     ** Headers of the page
     */
+    server: {
+        port: 8080
+    },
     head: {
         titleTemplate: '%s - ' + process.env.npm_package_name,
         title: process.env.npm_package_name || '',
@@ -29,7 +32,7 @@ export default {
     ** Plugins to load before mounting the App
     */
     plugins: [
-        { src: '~/plugins/vuex-persist', ssr: false }
+        {src: '~/plugins/vuex-persist', ssr: false}
     ],
     /*
     ** Nuxt.js dev-modules
