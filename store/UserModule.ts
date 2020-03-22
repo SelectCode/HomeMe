@@ -17,7 +17,7 @@ export class UserStore extends VuexModule {
 
     //state: 'preWork' | 'working' | 'chooseBreak' | 'break' | 'afterWork' = 'preWork';
 
-    state: UiState = UiState.PREWORK;
+    state: UiState = UiState.BEFORE_WORK;
 
     currentBreakId: string | undefined = undefined;
 
@@ -38,6 +38,11 @@ export class UserStore extends VuexModule {
     @mutation
     endWorkday() {
         this.state = UiState.AFTER_WORK;
+    }
+
+    @mutation
+    backToStart() {
+        this.state = UiState.BEFORE_WORK;
     }
 
     @action
@@ -169,8 +174,9 @@ export class UserStore extends VuexModule {
 }
 
 export enum UiState {
-    PREWORK,
+    BEFORE_WORK,
     WORKING,
+    BREAK_NEEDED,
     CHOOSE_BREAK,
     BREAK,
     AFTER_WORK

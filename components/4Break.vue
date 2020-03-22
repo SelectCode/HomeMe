@@ -29,10 +29,13 @@
     import Logo from '@/components/Logo'
     import {vxm} from '~/store'
     import Timer from "~/components/Timer.vue";
+    import {TextRecommender} from "~/data/ITextRecommender";
     import BreakComponent from "~/components/BreakComponent.vue";
 
     @Component({components: {BreakComponent, Timer, Logo}})
     export default class Break extends Vue {
+
+        private textRecommender = new TextRecommender();
 
         get user() {
             return vxm.user;
@@ -40,6 +43,7 @@
 
         stopBreak() {
             vxm.user.stopBreak();
+            this.$root.$emit('chat', this.textRecommender.getText());
         }
 
         get breakActivity() {

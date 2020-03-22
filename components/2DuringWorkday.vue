@@ -31,9 +31,12 @@
     import Timer from "~/components/Timer.vue";
     import BreakComponent from "~/components/BreakComponent.vue";
     import BreakNotifier from "~/components/BreakNotifier.vue";
+    import {TextRecommender} from "~/data/ITextRecommender";
 
     @Component({components: {BreakNotifier, BreakComponent, Timer, Logo}})
     export default class StartWorkday extends Vue {
+
+        private textRecommender = new TextRecommender();
 
         get user() {
             return vxm.user;
@@ -41,6 +44,7 @@
 
         makeABreak() {
             vxm.user.chooseBreak();
+            this.$root.$emit('chat', this.textRecommender.getText());
         }
 
         mounted() {
@@ -50,7 +54,8 @@
 
 
         stopDay() {
-            vxm.user.endWorkday()
+            vxm.user.endWorkday();
+            this.$root.$emit('chat', this.textRecommender.getText());
         }
 
         async refreshTime() {

@@ -21,16 +21,20 @@
     //@ts-ignore
     import Logo from '@/components/Logo'
     import {vxm} from '~/store'
+    import {TextRecommender} from "~/data/ITextRecommender";
 
     @Component({components: {Logo}})
     export default class EndWorkDay extends Vue {
+
+        private textRecommender = new TextRecommender();
 
         get user() {
             return vxm.user;
         }
 
         back() {
-            this.user.startWorkday()
+            this.user.backToStart();
+            this.$root.$emit('chat', this.textRecommender.getText());
         }
 
     }

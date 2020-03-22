@@ -55,7 +55,7 @@
         }
 
         get showStartWorkday() {
-            return vxm.user.state === UiState.PREWORK;
+            return vxm.user.state === UiState.BEFORE_WORK;
         }
 
         get showWorkDay() {
