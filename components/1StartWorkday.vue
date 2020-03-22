@@ -18,9 +18,12 @@
     //@ts-ignore
     import Logo from '@/components/Logo'
     import {vxm} from '~/store'
+    import {ITextRecommender, TextRecommender} from "~/data/ITextRecommender";
 
     @Component({components: {Logo}})
     export default class StartWorkday extends Vue {
+
+        private textRecommender: ITextRecommender = new TextRecommender();
 
         get user() {
             return vxm.user;
@@ -31,6 +34,7 @@
                 await Notification.requestPermission()
             }
             await vxm.user.startWorkday();
+            this.$root.$emit('chat', this.textRecommender.getText());
         }
 
         get availableTexts() {

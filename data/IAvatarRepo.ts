@@ -28,7 +28,7 @@ export class AvatarRepo implements IAvatarRepo {
         );
     }
 
-    getAvatarById(id: string): Avatar | undefined {
+    getAvatarById(id: string) {
         return vxm.user.avatars.find((it) => it.id === id);
     }
 }

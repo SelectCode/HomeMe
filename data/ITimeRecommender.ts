@@ -19,8 +19,9 @@ export class ITimeRecommenderImpl implements ITimeRecommender {
         if(settings.lunchBreak){
             let lunchDuration : number = settings.lunchBreakTime;
             breakDuration -= lunchDuration;
-        }*/
-    ​
+        }*
+
+         */
         // Has children?
         if (!settings.childrenAtHome) {
             amountBreaks = Math.floor((breakDuration / 5) + 1);
@@ -115,8 +116,6 @@ export class ITimeRecommenderImpl implements ITimeRecommender {
         return pauses;
     }
 
-​
-
     /**
      * Generate a snack pause every 30 minutes
      */
@@ -134,8 +133,6 @@ export class ITimeRecommenderImpl implements ITimeRecommender {
 
 }
 
-​
-
 export interface Settings {
     childrenAtHome: boolean,
     drinkingReminders: boolean,
@@ -147,8 +144,6 @@ export interface Settings {
     workingHours: number,
     mood: string // 'happy', 'neutral', 'sick', 'lazy', 'drunk', 'tired'
 }
-
-​
 
 export interface Reminder {
     type: 'drinking' | 'break' | 'snack' | 'Bewegungspause' | 'Erfrischungspause' | 'Denkpause' | 'Soziale Pause' | 'Ruhepause',
