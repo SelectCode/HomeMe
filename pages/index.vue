@@ -16,6 +16,7 @@
             <ChooseBreak v-if="showChoose"/>
             <Break v-if="showBreak"/>
             <EndWorkDay v-if="showEnd"/>
+            <MoodComponent class="justify-center mt-4"/>
         </v-row>
         <v-row justify="end" class="grow-0">
             <SettingsDialog/>
@@ -41,9 +42,11 @@
     import EndWorkDay from "~/components/5EndWorkDay.vue";
     import {AvatarTextRepo} from "~/data/IAvatarTextRepo";
     import Speechbubble from "~/components/Speechbubble.vue";
+    import MoodComponent from "~/components/MoodComponent.vue";
 
     @Component({
         components: {
+            MoodComponent,
             Speechbubble,
             EndWorkDay,
             ChooseBreak, AvatarImage, DuringWorkday, StartWorkday, Logo, SettingsDialog, Break

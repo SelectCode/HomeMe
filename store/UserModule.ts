@@ -146,6 +146,10 @@ export class UserStore extends VuexModule {
         this.breakActivities = activities;
     }
 
+    @mutation setMood(mood: string) {
+        this.settings.mood = mood;
+    }
+
 
     breakActivities: BreakActivity[] = [];
 
