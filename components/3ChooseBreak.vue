@@ -31,12 +31,12 @@
         private breakActivityRecommender: BreakActivityRecommender = new BreakActivityRecommender();
         private possibleActivities: BreakActivity[] = [];
 
-        // @ts-ignore
-        async mounted(): void {
+        async mounted() {
             this.possibleActivities = await this.getPossibleBreakActivities();
         }
 
         private async getPossibleBreakActivities() {
+            //TODO: Use store
             let avatar = await new AvatarRepo().getById(this.user.avatar);
 
             if (avatar == undefined) {
