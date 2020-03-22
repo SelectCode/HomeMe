@@ -2,13 +2,17 @@
     <v-layout row>
         <v-card v-for="breakOption in breakOptions" class="ma-2">
             <v-card-title class="display-1">
-                {{breakOption.title}}
+                {{breakOption.name}}
+                <v-chip v-for="cat in breakOption.category" outlined color="primary" small class="ml-2">
+                    {{cat}}
+                </v-chip>
             </v-card-title>
             <v-card-text class="subtitle-1 font-weight-light">
                 {{breakOption.description}}
             </v-card-text>
+            <v-img :src="breakOption.content" v-if="breakOption.content === 'Bild'"/>
             <v-card-actions>
-                <v-btn color="primary" block @click="chooseBreak(breakOption.id)" class="mb-2" large>
+                <v-btn color="primary" block @click="chooseBreak(breakOption.id)" class="mb-2">
                     Go
                 </v-btn>
             </v-card-actions>
@@ -36,13 +40,12 @@
         }
 
         private async getPossibleBreakActivities() {
-            //TODO: Use store
             let avatar = await new AvatarRepo().getById(this.user.avatar);
 
             if (avatar == undefined) {
                 return []
             } else {
-                return await this.breakActivityRecommender.getRecommendedBreakActivities(avatar);
+                return await this.breakActivityRecommender.getRecommendedBreakActivities(avatar, this.user.breakActivity);
             }
         }
 
@@ -55,12 +58,7 @@
         }
 
         get breakOptions() {
-            return this.possibleActivities.map((it) => {
-                return {
-                    title: it.name,
-                    description: it.description
-                }
-            });
+            return this.possibleActivities;
         }
 
 

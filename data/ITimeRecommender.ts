@@ -17,8 +17,6 @@ export class ITimeRecommenderImpl implements ITimeRecommender {
             pauses.push(...this.generateDrinkingPauses())
         }
 
-
-
         return pauses;
 
 
