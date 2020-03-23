@@ -5,7 +5,7 @@
 </head>
 <body {{ BODY_ATTRS }}>
 {{ APP }}
-<form name="contact" netlify netlify-honeypot="bot-field" hidden netlify-recaptcha="true">
+<form name="contact" netlify netlify-honeypot="bot-field" hidden netlify-recaptcha="true" action="/thanks">
     <input type="text" name="name"/>
     <input type="email" name="email" />
     <textarea name="message"></textarea>
