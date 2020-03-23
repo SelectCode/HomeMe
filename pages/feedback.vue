@@ -7,6 +7,9 @@
                     data-netlify="true"
                     data-netlify-honeypot="bot-field"
                     class="pa-2">
+                <p class="hidden">
+                    <label>Don’t fill this out if you're human: <input name="bot-field" /></label>
+                </p>
                 <input type="hidden" name="form-name" value="contact"/>
                 <v-text-field name="name" v-model="form.name" label="Name" rounded full-width filled/>
                 <v-text-field name="email" label="Email" v-model="form.email" rounded full-width filled type="email"/>
