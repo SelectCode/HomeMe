@@ -42,7 +42,7 @@
         }
 
         async submit() {
-            await this.$axios.post('./feedback',
+            await this.$axios.post('/',
                 this.encode({
                     "form-name": "contact",
                     ...this.form
