@@ -5,6 +5,7 @@
             <v-form name="contact" data-netlify-recaptcha="true" method="POST" data-netlify="true"
                     action="/thanks"
                     data-netlify-honeypot="bot-field" class="pa-2">
+                <input type="hidden" name="form-name" value="contact" />
                 <v-text-field id="name" label="Name" rounded full-width filled/>
                 <v-text-field id="email" label="Email" rounded full-width filled type="email"/>
                 <v-textarea id="message" label="Message" rounded full-width filled auto-grow/>
