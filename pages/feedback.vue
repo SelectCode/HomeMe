@@ -60,4 +60,8 @@
     #contact {
         width: 50vw;
     }
+
+    .hidden{
+        visibility: hidden;
+    }
 </style>

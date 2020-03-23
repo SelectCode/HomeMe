@@ -3,6 +3,7 @@
         <v-navigation-drawer
                 v-model="drawer"
                 fixed
+                expand-on-hover
                 app>
             <v-layout column justify-center fill-height>
                 <v-list>
@@ -13,7 +14,7 @@
                             router
                             exact>
                         <v-list-item-action>
-                            <v-icon>{{ item.icon }}</v-icon>
+                            <v-icon color="primary">{{ item.icon }}</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title v-text="item.title"/>
@@ -21,6 +22,9 @@
                     </v-list-item>
                 </v-list>
             </v-layout>
+            <v-footer inset absolute tile color="transparent">
+                <span id="footer">&copy; {{ new Date().getFullYear() }}</span>
+            </v-footer>
         </v-navigation-drawer>
 
         <v-content>
@@ -28,12 +32,6 @@
                 <nuxt/>
             </v-layout>
         </v-content>
-        <v-footer
-                :fixed="fixed"
-                app>
-            <span>&copy; {{ new Date().getFullYear() }}</span>
-            <v-spacer/>
-        </v-footer>
     </v-app>
 </template>
 
@@ -51,7 +49,7 @@
                 to: '/'
             },
             {
-                icon: 'mdi-account-box',
+                icon: 'mdi-tooltip-account',
                 title: 'Avatare',
                 to: '/avatars'
             },
@@ -66,6 +64,11 @@
                 to: '/feedback'
             }
         ]
+
+        get active (){
+            return this.$router.currentRoute.path
+        }
+
         miniVariant = true
         right = true
 
@@ -79,5 +82,10 @@
 <style lang="scss">
     .display-1 {
         font-weight: 300 !important;
+    }
+
+    #footer{
+        font-weight: lighter;
+        font-size: small;
     }
 </style>

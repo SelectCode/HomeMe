@@ -24,6 +24,9 @@
             <v-btn icon @click="reset" class="mt-2">
                 <v-icon color="primary">mdi-restart</v-icon>
             </v-btn>
+            <v-btn icon href="https://github.com/SelectCode/HomeMe" target="_blank" class="mt-2">
+                <v-icon color="primary">mdi-github</v-icon>
+            </v-btn>
         </v-row>
     </v-container>
 </template>

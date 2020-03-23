@@ -7,7 +7,7 @@
                 </v-icon>
             </v-btn>
         </template>
-        <v-card v-if="settings && username">
+        <v-card v-if="dialog">
             <v-card-title primary-title>
                 Settings
             </v-card-title>
@@ -39,7 +39,7 @@
 </template>
 
 <script lang="ts">
-    import {Component, Vue} from 'vue-property-decorator'
+    import {Component, Vue, Watch} from 'vue-property-decorator'
     import {vxm} from "~/store";
     import {Settings} from "~/data/ITimeRecommender";
 
@@ -47,15 +47,15 @@
     export default class SettingsDialog extends Vue {
         dialog = false;
 
-        mounted() {
-            this.username = vxm.user.name;
-            this.settings = vxm.user.settings;
-            console.log(this.settings);
-        }
-
         username = '';
 
         settings!: Settings;
+
+        @Watch('dialog')
+        loadSettings(){
+            this.username = vxm.user.name;
+            this.settings = vxm.user.settings;
+        }
 
         save() {
             vxm.user.changeName(this.username);
