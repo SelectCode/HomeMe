@@ -10,7 +10,7 @@
                     class="pa-2">
                 <input type="hidden" name="form-name" value="contact"/>
                 <v-text-field name="name" v-model="form.name" label="Name" rounded full-width filled/>
-                <v-text-field name"email" label="Email" v-model="form.email" rounded full-width filled type="email"/>
+                <v-text-field name="email" label="Email" v-model="form.email" rounded full-width filled type="email"/>
                 <v-textarea name="message" label="Message" v-model="form.message" rounded full-width filled auto-grow/>
                 <div data-netlify-recaptcha="true"></div>
                 <v-btn @click="submit" color="primary" rounded large block>
