@@ -42,7 +42,7 @@
         }
 
         async submit() {
-            await this.$axios.post('/',
+            await this.$axios.post('https://pause.selectcode.de/',
                 this.encode({
                     "form-name": "contact",
                     ...this.form
