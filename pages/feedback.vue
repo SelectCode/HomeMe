@@ -3,7 +3,6 @@
         <h2 class="display-2 text-center ma-3">Feedback & Contact 🦜</h2>
         <v-card id="contact" class="pa-2">
             <v-form name="contact"
-                    data-netlify-recaptcha="true"
                     method="POST"
                     data-netlify="true"
                     data-netlify-honeypot="bot-field"
@@ -12,7 +11,6 @@
                 <v-text-field name="name" v-model="form.name" label="Name" rounded full-width filled/>
                 <v-text-field name="email" label="Email" v-model="form.email" rounded full-width filled type="email"/>
                 <v-textarea name="message" label="Message" v-model="form.message" rounded full-width filled auto-grow/>
-                <div data-netlify-recaptcha="true"></div>
                 <v-btn @click="submit" color="primary" rounded large block>
                     Submit
                 </v-btn>
