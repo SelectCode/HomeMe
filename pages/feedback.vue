@@ -51,6 +51,8 @@
                 {
                     headers: {"Content-Type": "application/x-www-form-urlencoded"}
                 })
+
+            await this.$router.push('/thanks')
         }
     }
 </script>
