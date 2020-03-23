@@ -56,9 +56,14 @@
                 to: '/avatars'
             },
             {
-                icon: 'mdi-chart-bubble',
+                icon: 'mdi-information-outline',
                 title: 'Über uns',
                 to: '/about'
+            },
+            {
+                icon: 'mdi-message-draw',
+                title: 'Feedback',
+                to: '/feedback'
             }
         ]
         miniVariant = true

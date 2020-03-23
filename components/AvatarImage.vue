@@ -1,5 +1,5 @@
 <template>
-    <v-img max-height="150px" contain :src="movingImage"></v-img>
+    <v-img max-height="150px" contain :lazy-src="staticImage" :src="movingImage"></v-img>
 </template>
 
 <script lang="ts">
@@ -15,6 +15,10 @@
 
         get movingImage() {
             return '/avatar/' + this.avatar + '.gif'
+        }
+
+        get staticImage() {
+            return '/avatar/' + this.avatar + '.svg'
         }
 
     }
