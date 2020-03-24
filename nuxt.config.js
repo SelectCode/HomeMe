@@ -53,7 +53,18 @@ export default {
         '@nuxtjs/pwa',
         // Doc: https://github.com/nuxt-community/dotenv-module
         '@nuxtjs/dotenv',
-        '@nuxtjs/sentry'
+        '@nuxtjs/sentry',
+        [
+            'nuxt-netlify-http2-server-push',
+            {
+                // Specify relative path to the dist directory and its content type
+                resources: [
+                    { path: '**/*.js', as: 'script' },
+                    { path: 'avatar/*.gif', as: 'image' },
+                    { path: 'avatar/*.svg', as: 'image' },
+                ]
+            }
+        ]
     ],
     /*
     ** Axios module configuration
