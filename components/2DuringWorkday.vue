@@ -50,7 +50,12 @@
 
         mounted() {
             this.refreshTime();
-            setInterval(this.refreshTime, 1000)
+            setInterval(this.refreshTime, 1000);
+            setInterval(this.saySomething, 60 * 1000);
+        }
+
+        saySomething() {
+            this.$root.$emit('chat', this.textRecommender.getText());
         }
 
 

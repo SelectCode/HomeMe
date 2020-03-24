@@ -52,7 +52,8 @@ export default {
         '@nuxtjs/axios',
         '@nuxtjs/pwa',
         // Doc: https://github.com/nuxt-community/dotenv-module
-        '@nuxtjs/dotenv'
+        '@nuxtjs/dotenv',
+        '@nuxtjs/sentry'
     ],
     /*
     ** Axios module configuration
@@ -60,6 +61,10 @@ export default {
     */
     axios: {
         baseURL: ''
+    },
+    sentry: {
+        dsn: 'https://8ce6221d85ed438b849737c3ed1cfd46@sentry.selectcode.de/14',
+        config: {}, // Additional config
     },
     /*
     ** vuetify module configuration

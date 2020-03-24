@@ -18,7 +18,8 @@
     "nuxt": "^2.0.0",
     "vue-property-decorator": "^8.4.1",
     "vuex-class-component": "^2.2.1",
-    "vuex-persist": "^2.2.0"
+    "vuex-persist": "^2.2.0",
+    "@nuxtjs/sentry": "^3.3.1"
   },
   "devDependencies": {
     "@nuxt/typescript-build": "^0.6.0",

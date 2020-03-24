@@ -3,6 +3,7 @@ import {AvatarText, AvatarTextRepo} from "~/data/IAvatarTextRepo";
 import {BreakActivity, BreakActivityRepo} from "~/data/IBreakActivityRepo";
 import {Avatar, AvatarRepo} from "~/data/IAvatarRepo";
 import {Settings} from "~/data/ITimeRecommender";
+import {event} from 'vue-analytics'
 
 const VuexModule = createModule({
     namespaced: "user",
@@ -23,10 +24,6 @@ export class UserStore extends VuexModule {
 
     breakStarted: number | undefined = undefined;
 
-    @mutation changeState(state: UiState) {
-        this.state = state;
-    }
-
     @mutation changeName(newName: string) {
         this.name = newName;
     }
@@ -38,11 +35,13 @@ export class UserStore extends VuexModule {
     @mutation
     endWorkday() {
         this.state = UiState.AFTER_WORK;
+        event('flow', 'end-workday')
     }
 
     @mutation
     backToStart() {
         this.state = UiState.BEFORE_WORK;
+        event('flow', 'back-to-start')
     }
 
     @action
@@ -56,7 +55,9 @@ export class UserStore extends VuexModule {
 
     @mutation
     stopBreak() {
+        this.workStart = Date.now();
         this.state = UiState.WORKING;
+        event('flow', 'end-break')
     }
 
     // Settings for Break Recommendation
@@ -77,34 +78,28 @@ export class UserStore extends VuexModule {
     selectBreak(breakId: string) {
         this.currentBreakId = breakId;
         this.state = UiState.BREAK;
-        this.breakStarted = Date.now();
+        this.breakStarted = Date.now()
+        event('break', 'select', breakId)
     }
 
     @mutation
     setAvatar(avatarId: string) {
         this.avatar = avatarId;
+        event('avatar', 'change', avatarId)
     }
 
 
     @mutation
     chooseBreak() {
         this.state = UiState.CHOOSE_BREAK;
+        event('flow', 'choose-break')
     }
 
     @mutation
     startWorkday() {
         this.workStart = Date.now();
         this.state = UiState.WORKING
-    }
-
-    @action
-    async startPauseSelection() {
-        this.state = UiState.CHOOSE_BREAK;
-    }
-
-    @action
-    async doSomethingAsync() {
-        return 20
+        event('flow', 'start-work-day')
     }
 
     avatarTexts: AvatarText[] = [];
@@ -148,6 +143,7 @@ export class UserStore extends VuexModule {
 
     @mutation setMood(mood: string) {
         this.settings.mood = mood;
+        event('mood', 'change', mood)
     }
 
 
