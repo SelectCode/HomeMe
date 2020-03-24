@@ -13,32 +13,35 @@
     @Component({components: {Logo}})
     export default class Timer extends Vue {
         private recommendations: Reminder[] = [];
+        private timer!: number;
 
         mounted() {
             let recommender = new ITimeRecommenderImpl();
             this.recommendations = recommender.getRecommendedTimesForSettings(this.user.settings);
-            console.log(this.recommendations);
-            setInterval(this.checkForBreak, 1000 * 60);
+            this.recommendations.sort((a, b) => a.inMinutes - b.inMinutes);
+            console.log('Sending notifications in minutes ' + this.recommendations.map(it => it.inMinutes))
+            this.timer = window.setInterval(this.checkForBreak, 1000 * 60);
+        }
+
+        destroyed() {
+            window.clearInterval(this.timer)
         }
 
         checkForBreak() {
             let workedMinutes = WorkTimeCalculator.remainingMinutes();
-            let breaksToStart = this.recommendations.filter((it) => it.inMinutes = workedMinutes);
-            if (breaksToStart.length != 0) {
-                let newBreak = breaksToStart[0];
+            let breakActivity = this.recommendations.find(it => it.inMinutes === workedMinutes);
+            if (breakActivity) {
                 let notificationText = '';
-                console.log(newBreak);
-
-                if (newBreak.type === 'drinking') {
+                console.log(breakActivity);
+                if (breakActivity.type === 'drinking') {
                     notificationText = 'Trink mal was!';
-                } else if (newBreak.type === 'snack') {
+                } else if (breakActivity.type === 'snack') {
                     notificationText = 'Lust auf einen kleinen Snack?'
                 } else {
                     notificationText = `Zeit für eine Pause!`;
                 }
-
-                vxm.user.setBreakType(newBreak.type);
-                console.log(newBreak.type);
+                vxm.user.setBreakType(breakActivity.type);
+                console.log(breakActivity.type);
                 this.sendNotification(notificationText);
             }
         }
