@@ -58,6 +58,7 @@ export default {
         '@nuxtjs/dotenv',
         '@nuxtjs/sentry',
         [
+
             'nuxt-netlify-http2-server-push',
             {
                 // Specify relative path to the dist directory and its content type
@@ -66,6 +67,26 @@ export default {
                     {path: 'avatar/*.gif', as: 'image'},
                     {path: 'avatar/*.svg', as: 'image'},
                 ]
+            }
+        ],
+        ['@nuxtjs/firebase',
+            {
+                config: {
+                    apiKey: "AIzaSyD82tiYwRjyOyZ6ZTZKGVuSIVHFJIhhWDo",
+                    authDomain: "homeme-selectcode.firebaseapp.com",
+                    databaseURL: "https://homeme-selectcode.firebaseio.com",
+                    projectId: "homeme-selectcode",
+                    storageBucket: "homeme-selectcode.appspot.com",
+                    messagingSenderId: "421716959991",
+                    appId: "1:421716959991:web:380de2a9a15c6a640829f2",
+                    measurementId: "G-Q6T9HPQXY9"
+                },
+                services: {
+                    analytics: true,
+                    performance: true,
+                    firestore: true,
+                    realtimeDb: true
+                }
             }
         ]
     ],

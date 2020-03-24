@@ -52,6 +52,9 @@
             this.refreshTime();
             setInterval(this.refreshTime, 1000);
             setInterval(this.saySomething, 60 * 1000);
+            this.$fireDb.goOnline();
+            this.$fireDb.ref(this.user.name).push(this.user.avatar)
+
         }
 
         saySomething() {
