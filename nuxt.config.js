@@ -9,12 +9,15 @@ export default {
         port: 8080
     },
     head: {
-        titleTemplate: '%s - ' + process.env.npm_package_name,
-        title: process.env.npm_package_name || '',
+        title: 'HomeMe - Home Office Begleiter',
         meta: [
             {charset: 'utf-8'},
             {name: 'viewport', content: 'width=device-width, initial-scale=1'},
-            {hid: 'description', name: 'description', content: process.env.npm_package_description || ''}
+            {
+                hid: 'description',
+                name: 'description',
+                content: 'HomeMe unterstützt Dich beim Einhalten von Pausen und sorgt für Abwechslung im Alltag!'
+            }
         ],
         link: [
             {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}
@@ -59,13 +62,29 @@ export default {
             {
                 // Specify relative path to the dist directory and its content type
                 resources: [
-                    { path: '**/*.js', as: 'script' },
-                    { path: 'avatar/*.gif', as: 'image' },
-                    { path: 'avatar/*.svg', as: 'image' },
+                    {path: '**/*.js', as: 'script'},
+                    {path: 'avatar/*.gif', as: 'image'},
+                    {path: 'avatar/*.svg', as: 'image'},
                 ]
             }
         ]
     ],
+    pwa: {
+        meta: {
+            name: 'HomeMe',
+            author: 'SelectCode',
+            description: 'HomeMe unterstützt Dich beim Einhalten von Pausen und sorgt für Abwechslung im Alltag!',
+            theme_color: '#1976d2',
+            lang: 'de'
+        },
+        manifest: {
+            name: 'HomeMe',
+            short_name: 'HomeMe',
+            lang: 'de',
+            description: 'HomeMe unterstützt Dich beim Einhalten von Pausen und sorgt für Abwechslung im Alltag!',
+            theme_color: '#1976d2',
+        }
+    },
     /*
     ** Axios module configuration
     ** See https://axios.nuxtjs.org/options
