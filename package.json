@@ -13,13 +13,16 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.9.5",
     "@nuxtjs/dotenv": "^1.4.0",
+    "@nuxtjs/firebase": "^5.0.3",
     "@nuxtjs/pwa": "^3.0.0-0",
+    "@nuxtjs/sentry": "^3.3.1",
     "airtable": "^0.8.1",
+    "firebase": "^7.12.0",
     "nuxt": "^2.0.0",
     "vue-property-decorator": "^8.4.1",
     "vuex-class-component": "^2.2.1",
     "vuex-persist": "^2.2.0",
-    "@nuxtjs/sentry": "^3.3.1"
+    "core-js": "^2.6.5"
   },
   "devDependencies": {
     "@nuxt/typescript-build": "^0.6.0",
