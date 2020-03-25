@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-    import {Component, Vue} from 'vue-property-decorator'
+    import {Component, Vue, Watch} from 'vue-property-decorator'
     //@ts-ignore
     import Logo from '@/components/Logo'
     import {vxm} from "~/store";
@@ -15,16 +15,26 @@
         private recommendations: Reminder[] = [];
         private timer!: number;
 
+        recommender = new ITimeRecommenderImpl();
+
         mounted() {
-            let recommender = new ITimeRecommenderImpl();
-            this.recommendations = recommender.getRecommendedTimesForSettings(this.user.settings);
+            this.loadRecommendations();
+            this.timer = window.setInterval(this.checkForBreak, 1000 * 60);
+        }
+
+        //TODO: Watch mood to reload recommendation
+        loadRecommendations() {
+            this.recommendations = this.recommender.getRecommendedTimesForSettings(this.user.settings);
             this.recommendations.sort((a, b) => a.inMinutes - b.inMinutes);
             console.log('Sending notifications in minutes ' + this.recommendations.map(it => it.inMinutes))
-            this.timer = window.setInterval(this.checkForBreak, 1000 * 60);
         }
 
         destroyed() {
             window.clearInterval(this.timer)
+        }
+
+        get mood() {
+            return this.user.settings.mood;
         }
 
         checkForBreak() {

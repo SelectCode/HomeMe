@@ -22,23 +22,25 @@ export class ITimeRecommenderImpl implements ITimeRecommender {
             breakDuration -= lunchDuration;
         }*/
 
-        // Has children?
-        if (!settings.childrenAtHome) {
+        // Has children? TODO: Later
+        /*if (!settings.childrenAtHome) {
             amountBreaks = Math.floor((breakDuration / 5) + 1);
             let timeBetweenBreaks: number = Math.floor((settings.workingHours * 60) / amountBreaks);
             pauses.push(...this.generatePauses(amountBreaks, timeBetweenBreaks));
         } else {
             let timeBetweenBreaks: number = Math.floor((settings.workingHours * 60) / (amountBreaks + 1));
             pauses.push(...this.generatePauses(amountBreaks + 1, timeBetweenBreaks));
-        }
+        }*/
+
+        pauses.push(...this.generatePauses(settings.workingHours));
 
         // Generate drinking pauses
         if (settings.drinkingReminders) {
-            pauses.push(...this.generateDrinkingPauses(settings.workingHours))
+            pauses.push(...this.generateDrinkingPauses(settings.workingHours, -10))
         }
 
         if (settings.snackReminders) {
-            pauses.push(...this.generateSnackPauses(settings.workingHours))
+            pauses.push(...this.generateSnackPauses(settings.workingHours, +20))
         }
 
         // Possible moods: 'happy', 'neutral', 'sick', 'lazy', 'drunk', 'tired'
@@ -91,28 +93,28 @@ export class ITimeRecommenderImpl implements ITimeRecommender {
     /**
      * Generate a pause every 30 minutes
      */
-    generatePauses(amountBreaks: number, timeBetweenBreaks: number): Reminder[] {
+    generatePauses(workingHours: number): Reminder[] {
         let pauses: Reminder[] = [];
-        for (let i = 1; i < amountBreaks; i++) {
+        let iterations: number = (workingHours * 60) / 45;
+        for (let i = 0; i < iterations; i++) {
             pauses.push({
                 type: "break",
-                inMinutes: i * timeBetweenBreaks + (i - 1) * 5
+                inMinutes: (i + 1) * 45
             })
         }
         return pauses;
     }
 
-
     /**
      * Generate a drinking pause every 30 minutes
      */
-    generateDrinkingPauses(workingHours: number): Reminder[] {
+    generateDrinkingPauses(workingHours: number, offsetInMinutes: number): Reminder[] {
         let pauses: Reminder[] = [];
         let iterations: number = (workingHours * 60) / 30;
         for (let i = 0; i < iterations; i++) {
             pauses.push({
                 type: "drinking",
-                inMinutes: (i + 1) * 30
+                inMinutes: (i + 1) * 30 + offsetInMinutes
             })
         }
         return pauses;
@@ -121,13 +123,13 @@ export class ITimeRecommenderImpl implements ITimeRecommender {
     /**
      * Generate a snack pause every 30 minutes
      */
-    generateSnackPauses(workingHours: number): Reminder[] {
+    generateSnackPauses(workingHours: number, offsetInMinutes: number): Reminder[] {
         let iterations: number = (workingHours * 60) / 120;
         let pauses: Reminder[] = [];
         for (let i = 0; i < iterations; i++) {
             pauses.push({
                 type: "snack",
-                inMinutes: (i + 1) * 120
+                inMinutes: (i + 1) * 120 + offsetInMinutes
             })
         }
         return pauses;
