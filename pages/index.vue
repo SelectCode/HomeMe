@@ -26,6 +26,13 @@
             <v-btn icon href="https://github.com/SelectCode/HomeMe" target="_blank" class="mt-2">
                 <v-icon color="primary">mdi-github</v-icon>
             </v-btn>
+            <v-btn data-nolt="button" @click="feedback" class="nolt my-auto mt-2" id="nolt" text color="primary" target="_blank">
+                <v-icon left>
+                    mdi-message-draw
+                </v-icon>
+                Feedback
+            </v-btn>
+            <script async src="https://cdn.nolt.io/widgets.js"></script>
         </v-row>
     </v-container>
 </template>
@@ -91,6 +98,24 @@
             if (vxm.user.name === '') {
                 this.$router.push('/intro')
             }
+            this.feedback()
+        }
+
+        feedback() {
+            //@ts-ignore
+            window.noltQueue = window.noltQueue || [];
+
+            //@ts-ignore
+            function nolt() {
+                //@ts-ignore
+                noltQueue.push(arguments)
+            }
+
+            //@ts-ignore
+            nolt('init', {
+                url: 'https://homeme.nolt.io',
+                selector: '#nolt'
+            });
         }
 
     }
