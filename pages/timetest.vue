@@ -16,8 +16,16 @@
 
 
         settings: Settings = {
-            avatarId: 'lol',
-            childrenAtHome: false
+            avatarId: "101",
+            childrenAtHome: true,
+            drinkingReminders: true,
+            //pauseReminders: boolean => Assumption: A user without kids wants take 5min pauses
+            snackReminders: false,
+            //lunchBreak: boolean,
+            //lunchBreakTime: number, // evtl. in Date ändern
+            breakDuration: 5,
+            workingHours: 8,
+            mood: 'happy' // 'happy', 'neutral', 'sick', 'lazy', 'drunk', 'tired'
         }
 
         get result(){
