@@ -16,14 +16,34 @@ export class ITimeRecommenderImpl implements ITimeRecommender {
         let usedBreakDuration : number = breakDuration;
         let now = new Date();
 
+
         //For simplicity: lunch break always starts at noon
         if(settings.lunchBreak){
             if(now.getHours() > 14) {
                 //Keine Lunchbreak mehr möglich
-                alert("Keine Lunchbreak um diese Uhrzeit möglich!");
+                alert("ACHTUNG:\n Eine Lunchbreak ist nur möglich, wenn der Arbeitstag vor 14 Uhr beginnt.");
+            } else {
+                let lunchDuration: number = settings.lunchBreakTime;
+
+                if(lunchDuration <= breakDuration) {
+                    breakDuration -= lunchDuration;
+
+                    // Get current time and schedule a lunch break between 12 - 14 o'clock
+                    let pausenZeit : number = (now.getHours() + 3) * 60 + now.getMinutes();
+                    if(pausenZeit > (14 * 60))
+                        pausenZeit = 14 * 60;
+                    else if(pausenZeit < (12 * 60))
+                        pausenZeit = 12 * 60;
+
+                    let totalMinutesPassedToday : number = now.getHours()*60 + now.getMinutes();
+                    pauses.push({
+                        type: "lunch",
+                        inMinutes: pausenZeit - totalMinutesPassedToday
+                    })
+                }
+                else
+                    alert("ACHTUNG:\n Lunch Pausenzeit zu lang!");
             }
-            let lunchDuration : number = settings.lunchBreakTime;
-            breakDuration -= lunchDuration;
         }
 
         // Has children?
@@ -139,7 +159,7 @@ export class ITimeRecommenderImpl implements ITimeRecommender {
 }
 
 export interface Settings {
-    avatarId: string,
+    //avatarId: string,
     childrenAtHome: boolean,
     drinkingReminders: boolean,
     snackReminders: boolean,
@@ -151,6 +171,6 @@ export interface Settings {
 }
 
 export interface Reminder {
-    type: 'drinking' | 'break' | 'snack' | 'Bewegungspause' | 'Erfrischungspause' | 'Denkpause' | 'Soziale Pause' | 'Ruhepause',
+    type: 'drinking' | 'break' | 'snack' | 'Bewegungspause' | 'Erfrischungspause' | 'Denkpause' | 'Soziale Pause' | 'Ruhepause' | 'lunch',
     inMinutes: number
 }
