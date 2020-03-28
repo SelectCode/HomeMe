@@ -1,6 +1,6 @@
-# HomeMe ![Avatar](/static/avatar/parrot.gif)
+# HomeMe  ![Avatar](/static/avatar/parrot.gif)
 
-**your personal home office assistant**
+**your personal home office assistant** ![CI](https://github.com/SelectCode/HomeMe/workflows/CI/badge.svg)
 
 
 ## Inspiration ✨
@@ -27,7 +27,9 @@ Für eine hohe Produktivität sind Pausen unbedingt notwendig und nichts, wofür
 ## What's next for HomeMe | Personalisierter HomeOffice Begleiter
 Wir wollen euer Feedback um HomeMe noch besser machen! Benutz unsere App, schmeißt fette Avatar-Home-Office-Parties und vernetzt euch mit euren Kollegen. Mit Hilfe von künstlicher Intelligenz machen wir unsere App für euch noch smarter. In der Zukunft wollen wir euch so eine noch bessere User Experience bieten, mit individuellen Pausen Plänen und noch benutzerfreundlicherem Design. 
 
+## Sponsors:
 
+Thanks to Daniel from [nolt.io](https://nolt.io) for providing us free access to a feedback board!
 
 
 ## Developer setup
