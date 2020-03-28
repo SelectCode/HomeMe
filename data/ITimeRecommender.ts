@@ -123,7 +123,7 @@ export class ITimeRecommenderImpl implements ITimeRecommender {
     }
 
     /**
-     * Generate a snack pause every 30 minutes
+     * Generate a snack pause every 30 minutes.
      */
     generateSnackPauses(workingHours : number): Reminder[] {
         let iterations : number = (workingHours*60)/120;
