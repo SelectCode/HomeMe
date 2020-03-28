@@ -55,15 +55,19 @@
             setInterval(this.calcRemainingTime, 1000)
         }
 
+        get durationInMS() {
+            return (this.breakActivity?.duration ?? 0) * 60 * 1000
+        }
+
         running = true;
 
         calcRemainingTime() {
             if (!this.running) return;
-            let finishedDate = this.user.breakStarted as number + 300_000;
+            let finishedDate = this.user.breakStarted as number + this.durationInMS;
             let currentDate = Date.now();
             this.remainingSeconds = (finishedDate - currentDate) / 1000;
             this.remainingMinutes = Math.floor(this.remainingSeconds / 60);
-            this.remainingSeconds = Math.floor(this.remainingSeconds - this.remainingMinutes * 60)
+            this.remainingSeconds = Math.floor(this.remainingSeconds - this.remainingMinutes * 60);
 
             if (finishedDate - currentDate < 1000) {
                 this.running = false;

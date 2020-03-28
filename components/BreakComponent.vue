@@ -6,6 +6,9 @@
             <v-chip v-for="cat in breakActivity.category" outlined color="primary" small class="ml-2">
                 {{cat}}
             </v-chip>
+            <v-chip outlined color="primary" small class="ml-2">
+                {{breakActivity.duration}} min
+            </v-chip>
         </v-card-title>
         <v-card-text class="subtitle-1 font-weight-light">
             {{breakActivity.description}}
