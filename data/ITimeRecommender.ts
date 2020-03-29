@@ -42,7 +42,7 @@ export class ITimeRecommenderImpl implements ITimeRecommender {
                         type: "lunch",
                         inMinutes: pausenZeit - totalMinutesPassedToday,
                         duration: settings.lunchBreakTime
-                    })
+                    });
                     lunchFlag = true;
                 } else
                     alert("ACHTUNG:\n Lunch Pausenzeit zu lang!");
@@ -54,10 +54,75 @@ export class ITimeRecommenderImpl implements ITimeRecommender {
             // Has children?
             if (!settings.childrenAtHome) {
                 if(lunchFlag){
-                    // Keine Kinder aber lunch Flag gesetzt
+                    // TODO: Keine Kinder aber lunch Flag gesetzt
+                    let interval_1_flag : boolean = false;
+                    let interval_2_flag : boolean = false;
                     let interval_1 : number = pausenZeit - (now.getHours()*60 + now.getMinutes());
                     let interval_2 : number = (now.getHours()*60 + now.getMinutes() + settings.workingHours) - (pausenZeit + settings.lunchBreakTime);
 
+                    if(interval_1 > 120)
+                        interval_1 -= 60;
+                    if(interval_2 > 120)
+                        interval_2 -= 60;
+
+                    let ratio_1  = (interval_1 / (interval_1 + interval_2));
+                    let ratio_2  = (interval_2 / (interval_1 + interval_2));
+
+                    let pausenZeit_1 : number = ratio_1 * breakDuration;
+                    let pausenZeit_2 : number = breakDuration - pausenZeit_1;
+
+                    // if pausenZeit_x < 15 => then make 1 big break, else spread the time evenly
+                    if(pausenZeit_1 < 15){
+                        let inMinutes_1 : number = (interval_1/2) - (pausenZeit_1/2);
+
+                        pauses.push({
+                            type: "break",
+                            inMinutes: inMinutes_1,
+                            duration: pausenZeit_1
+                        });
+                        interval_1_flag = true;
+                    }
+
+                    if(pausenZeit_2 < 15){
+                        let inMinutes_2 : number = (interval_2/2) - (pausenZeit_2/2);
+                        inMinutes_2 += interval_1;
+                        inMinutes_2 += settings.lunchBreakTime;
+
+
+                        pauses.push({
+                            type: "break",
+                            inMinutes: inMinutes_2,
+                            duration: pausenZeit_2
+                        });
+                        interval_2_flag = true;
+                    }
+
+                    // calculate # of breaks for each interval (5min breaks each)
+                    if(!interval_1_flag) {
+                        let interval_1_amountOfBreaks: number = Math.floor(pausenZeit_1 / 5);
+                        let interval_1_Break_Reminder: number = pausenZeit_1 - (interval_1_amountOfBreaks * 5);
+
+                        if(interval_1_Break_Reminder !== 0)
+                            interval_1_amountOfBreaks += 1;
+
+                        // calculate inMinutes for each break
+                        let amountBreaks_1 : number = pausenZeit_1/5;
+                        let timeBetweenBreaks_1: number = Math.floor((interval_1 - pausenZeit_1) / amountBreaks_1);
+                        pauses.push(...this.generatePauses(interval_1_amountOfBreaks + 1, timeBetweenBreaks_1));
+                    }
+
+                    if(!interval_2_flag){
+                        let interval_2_amountOfBreaks: number = Math.floor(pausenZeit_2 / 5);
+                        let interval_2_Break_Reminder: number = pausenZeit_2 - (interval_2_amountOfBreaks * 5);
+
+                        if (interval_2_Break_Reminder !== 0)
+                            interval_2_amountOfBreaks += 1;
+
+                        // calculate inMinutes for each break
+                        let amountBreaks_2 : number = pausenZeit_2/5;
+                        let timeBetweenBreaks_2: number = Math.floor((interval_2 - pausenZeit_2) / amountBreaks_2);
+                        pauses.push(...this.generatePauses(interval_2_amountOfBreaks + 1, timeBetweenBreaks_2));
+                    }
 
                 } else {
                     amountBreaks = Math.floor((breakDuration / 5) + 1);
@@ -66,7 +131,7 @@ export class ITimeRecommenderImpl implements ITimeRecommender {
                 }
             } else {
                 if(lunchFlag){
-                    // TODO: hasChildren + LunchFlag
+                    // hasChildren + LunchFlag
                     let interval_1 : number = pausenZeit - (now.getHours()*60 + now.getMinutes());
                     let interval_2 : number = (now.getHours()*60 + now.getMinutes() + settings.workingHours) - (pausenZeit + settings.lunchBreakTime);
 
@@ -81,20 +146,18 @@ export class ITimeRecommenderImpl implements ITimeRecommender {
                     inMinutes_2 += interval_1;
                     inMinutes_2 += settings.lunchBreakTime;
 
-                    // TODO: Add break duration to array
+
                     pauses.push({
                         type: "break",
                         inMinutes: inMinutes_1,
                         duration: pausenZeit_1
-                    })
+                    });
 
                     pauses.push({
                         type: "break",
                         inMinutes: inMinutes_2,
                         duration: pausenZeit_2
-                    })
-
-
+                    });
 
                 } else {
                     let timeBetweenBreaks: number = Math.floor((settings.workingHours * 60) / (amountBreaks + 1));
