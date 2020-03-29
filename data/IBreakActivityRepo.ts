@@ -13,38 +13,29 @@ export class BreakActivityRepo implements IBreakActivityRepo {
 
         // @ts-ignore
         return records.map((record) => {
-            return new BreakActivity(
-                record.get('Name'),
-                record.get('Beschreibung'),
-                record.get('Typ'),
-                record.get('Kategorien'),
-                record.get('Content'),
-                record.get('Content-Typ'),
-                record.get('HeaderImage'),
-                record.get('DauerInMinuten')
-            )
+            return {
+                id: record.get('ID'),
+                name: record.get('Name'),
+                description: record.get('Beschreibung'),
+                type: record.get('Typ'),
+                category: record.get('Kategorien'),
+                content: record.get('Content'),
+                contentType: record.get('Content-Typ'),
+                imageUrl: record.get('HeaderImage'),
+                duration: record.get('DauerInMinuten')
+            }
         });
     }
 }
 
-export class BreakActivity {
+export interface BreakActivity {
     name: string;
     description: string;
-    type: string;
+    type: string[];
     category: string[];
     content: string;
     contentType: string;
     imageUrl: string;
     duration: number;
-
-    constructor(name: string, description: string, type: string, category: string[], content: string, contentType: string, imageUrl: string, duration: number) {
-        this.name = name;
-        this.description = description;
-        this.type = type;
-        this.category = category;
-        this.content = content;
-        this.contentType = contentType;
-        this.imageUrl = imageUrl;
-        this.duration = duration;
-    }
+    id: number;
 }

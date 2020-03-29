@@ -9,6 +9,10 @@
             <v-chip outlined color="primary" small class="ml-2">
                 {{breakActivity.duration}} min
             </v-chip>
+            <v-chip outlined color="red" small class="ml-2 pl-2 pr-2">
+                {{likes}}
+                <v-icon small color="red">mdi-heart</v-icon>
+            </v-chip>
         </v-card-title>
         <v-card-text class="subtitle-1 font-weight-light">
             {{breakActivity.description}}
@@ -33,12 +37,23 @@
 
         @Prop()
         breakActivity!: BreakActivity
-
         @Prop({default: '100%'})
-        width!: string
-
+        width!: string;
         @Prop({default: false})
-        showLink!: boolean
+        showLink!: boolean;
+        likes = 0;
+
+        async mounted() {
+            // HACKY WORKAROUND BECAUSE FIREBASE IS NOT INITIALISED DIRECTLY ON MOUNTED
+            setTimeout(this.loadLikes, 200)
+        }
+
+        async loadLikes() {
+            let collection = this.$fireStore.collection('breakFeedback');
+            let doc = await collection.doc(this.breakActivity?.id.toString());
+            //@ts-ignore
+            this.likes = ((await doc.get()).data()).likes ?? 0
+        }
     }
 
 

@@ -23,8 +23,8 @@ export class BreakActivityRecommender implements IBreakActivityRecommender {
         this.shuffle(allBreakActivities);
 
         return allBreakActivities
-        // Filter for type
-            .filter((it) => possibleTypes.includes(it.type))
+            // Filter for type
+            .filter((it) => possibleTypes.some(it => possibleTypes.includes(it)))
             // Filter for category
             .filter((it) => it.category.every((it) => possibleCategories.includes(it)))
             .slice(0, 3);
