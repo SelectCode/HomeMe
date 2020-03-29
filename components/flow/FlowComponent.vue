@@ -1,48 +1,35 @@
 <template>
-    <div>
-        <F1StartWorkday v-if="showStartWorkday"/>
-        <F2DuringWorkday v-if="showWorkDay"/>
-        <F3ChooseBreak v-if="showChoose"/>
-        <F4Break v-if="showBreak"/>
-        <F5EndWorkDay v-if="showEnd"/>
-    </div>
+    <Component :is="component"/>
 </template>
 
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator'
     import {vxm} from '~/store'
-    import {UiState} from "~/store/UiState";
     import F1StartWorkday from "~/components/flow/F1StartWorkday.vue";
     import F2DuringWorkday from "~/components/flow/F2DuringWorkday.vue";
     import F3ChooseBreak from "~/components/flow/F3ChooseBreak.vue";
     import F4Break from "~/components/flow/F4Break.vue";
     import F5EndWorkDay from "~/components/flow/F5EndWorkDay.vue";
-    import {AirtableAvatarTextRepo} from "~/data/airtable/AirtableAvatarTextRepo";
+    import {UiState} from "~/store/UiState";
 
     @Component({components: {F1StartWorkday, F2DuringWorkday, F3ChooseBreak, F4Break, F5EndWorkDay}})
     export default class FlowComponent extends Vue {
-
-        get showStartWorkday() {
-            return vxm.state.state === UiState.BEFORE_WORK;
+        get component() {
+            switch (vxm.state.state) {
+                case UiState.BEFORE_WORK:
+                    return F1StartWorkday;
+                case UiState.WORKING:
+                    return F2DuringWorkday;
+                case UiState.CHOOSE_BREAK:
+                    return F3ChooseBreak;
+                case UiState.BREAK:
+                    return F4Break;
+                case UiState.AFTER_WORK:
+                    return F5EndWorkDay;
+                case UiState.BREAK_NEEDED:
+                    return F1StartWorkday;
+            }
         }
-
-        get showWorkDay() {
-            return vxm.state.state === UiState.WORKING;
-        }
-
-        get showChoose() {
-            return vxm.state.state === UiState.CHOOSE_BREAK;
-        }
-
-        get showBreak() {
-            new AirtableAvatarTextRepo().getAvatarTexts();
-            return vxm.state.state === UiState.BREAK;
-        }
-
-        get showEnd() {
-            return vxm.state.state === UiState.AFTER_WORK;
-        }
-
     }
 </script>
 

@@ -62,12 +62,6 @@
         ];
 
         title = 'HomeMe 🏡'
-
-        async loadData() {
-            this.loaded = true;
-        }
-
-        loaded = true
     }
 
 </script>
