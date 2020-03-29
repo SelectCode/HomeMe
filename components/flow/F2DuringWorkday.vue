@@ -25,17 +25,15 @@
 
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator'
-    //@ts-ignore
-    import Logo from '@/components/Logo'
     import {vxm} from '~/store'
     import Timer from "~/components/Timer.vue";
-    import BreakComponent from "~/components/BreakComponent.vue";
-    import BreakNotifier from "~/components/BreakNotifier.vue";
-    import {TextRecommender} from "~/data/ITextRecommender";
-    import {WorkTimeCalculator} from "~/data/WorkTimeCalculator";
+    import BreakComponent from "~/components/break/BreakComponent.vue";
+    import BreakNotifier from "~/components/break/BreakNotifier.vue";
+    import {WorkTimeCalculator} from "~/businesslogic/break/WorkTimeCalculator";
+    import {TextRecommender} from "~/businesslogic/avatar/text/TextRecommender";
 
-    @Component({components: {BreakNotifier, BreakComponent, Timer, Logo}})
-    export default class StartWorkday extends Vue {
+    @Component({components: {BreakNotifier, BreakComponent, Timer}})
+    export default class DuringWorkday extends Vue {
 
         private textRecommender = new TextRecommender();
 
@@ -44,7 +42,7 @@
         }
 
         makeABreak() {
-            vxm.user.chooseBreak();
+            vxm.state.chooseBreak();
             this.$root.$emit('chat', this.textRecommender.getText());
         }
 
@@ -53,7 +51,7 @@
             setInterval(this.refreshTime, 1000);
             setInterval(this.saySomething, 60 * 1000);
             this.$fireDb.goOnline();
-            this.$fireDb.ref(this.user.name).push(this.user.avatar)
+            this.$fireDb.ref(this.user.name).push(vxm.avatar.avatar)
 
         }
 
@@ -63,12 +61,12 @@
 
 
         stopDay() {
-            vxm.user.endWorkday();
+            vxm.state.endWorkday();
             this.$root.$emit('chat', this.textRecommender.getText());
         }
 
         async refreshTime() {
-            this.workTime = await this.user.workingTime(Date.now());
+            this.workTime = await vxm.state.workingTime(Date.now());
             this.calcRemainingTime()
         }
 
@@ -78,8 +76,8 @@
         workedMinutes = 0;
 
         calcRemainingTime() {
-            this.workedMinutes = WorkTimeCalculator.remainingMinutes();
-            this.workedSeconds = WorkTimeCalculator.remainingSeconds();
+            this.workedMinutes = WorkTimeCalculator.remainingMinutes(vxm.state.workStart!);
+            this.workedSeconds = WorkTimeCalculator.remainingSeconds(vxm.state.workStart!);
         }
 
 

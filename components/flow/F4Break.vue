@@ -33,15 +33,13 @@
 
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator'
-    //@ts-ignore
-    import Logo from '@/components/Logo'
     import {vxm} from '~/store'
     import Timer from "~/components/Timer.vue";
-    import {TextRecommender} from "~/data/ITextRecommender";
-    import BreakComponent from "~/components/BreakComponent.vue";
+    import BreakComponent from "~/components/break/BreakComponent.vue";
     import firebase from "firebase";
+    import {TextRecommender} from "~/businesslogic/avatar/text/TextRecommender";
 
-    @Component({components: {BreakComponent, Timer, Logo}})
+    @Component({components: {BreakComponent, Timer}})
     export default class Break extends Vue {
 
         private textRecommender = new TextRecommender();
@@ -51,12 +49,12 @@
         }
 
         stopBreak() {
-            vxm.user.stopBreak();
+            vxm.state.stopBreak();
             this.$root.$emit('chat', this.textRecommender.getText());
         }
 
         get breakActivity() {
-            return this.user.currentBreakActivity
+            return vxm.breaks.currentBreakActivity
         }
 
         async like() {
@@ -84,7 +82,7 @@
 
         calcRemainingTime() {
             if (!this.running) return;
-            let finishedDate = this.user.breakStarted as number + this.durationInMS;
+            let finishedDate = vxm.breaks.breakStarted as number + this.durationInMS;
             let currentDate = Date.now();
             this.remainingSeconds = (finishedDate - currentDate) / 1000;
             this.remainingMinutes = Math.floor(this.remainingSeconds / 60);

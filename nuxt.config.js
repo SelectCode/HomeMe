@@ -26,7 +26,11 @@ export default {
     /*
     ** Customize the progress-bar color
     */
-    loading: {color: '#fff'},
+    loadingIndicator: {
+        name: 'three-bounce',
+        color: '#1976d2',
+        background: 'white'
+    },
     /*
     ** Global CSS
     */

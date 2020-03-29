@@ -3,14 +3,12 @@
 </template>
 
 <script lang="ts">
-    import {Component, Vue, Watch} from 'vue-property-decorator'
-    //@ts-ignore
-    import Logo from '@/components/Logo'
+    import {Component, Vue} from 'vue-property-decorator'
     import {vxm} from "~/store";
-    import {ITimeRecommenderImpl, Reminder} from "~/data/ITimeRecommender";
-    import {WorkTimeCalculator} from "~/data/WorkTimeCalculator";
+    import {ITimeRecommenderImpl, Reminder} from "~/businesslogic/avatar/text/ITimeRecommender";
+    import {WorkTimeCalculator} from "~/businesslogic/break/WorkTimeCalculator";
 
-    @Component({components: {Logo}})
+    @Component
     export default class Timer extends Vue {
         private recommendations: Reminder[] = [];
         private timer!: number;
@@ -38,7 +36,7 @@
         }
 
         checkForBreak() {
-            let workedMinutes = WorkTimeCalculator.remainingMinutes();
+            let workedMinutes = WorkTimeCalculator.remainingMinutes(vxm.state.workStart!);
             let breakActivity = this.recommendations.find(it => it.inMinutes === workedMinutes);
             if (breakActivity) {
                 let notificationText = '';
@@ -50,7 +48,7 @@
                 } else {
                     notificationText = `Zeit für eine Pause!`;
                 }
-                vxm.user.setBreakType(breakActivity.type);
+                vxm.breaks.setBreakType(breakActivity.type);
                 console.log(breakActivity.type);
                 this.sendNotification(notificationText);
             }
@@ -61,7 +59,7 @@
         }
 
         get avatarPicture() {
-            let avatar = this.user.avatar;
+            let avatar = vxm.avatar.avatar;
             return 'avatar/' + avatar + '.svg'
         }
 

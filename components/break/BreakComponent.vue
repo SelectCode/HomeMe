@@ -30,7 +30,7 @@
 <script lang="ts">
 
     import {Component, Prop, Vue} from "vue-property-decorator";
-    import {BreakActivity} from "~/data/IBreakActivityRepo";
+    import {BreakActivity} from "~/model/BreakActivity";
 
     @Component
     export default class BreakComponent extends Vue {
@@ -38,9 +38,11 @@
         @Prop()
         breakActivity!: BreakActivity
         @Prop({default: '100%'})
+
         width!: string;
         @Prop({default: false})
         showLink!: boolean;
+
         likes = 0;
 
         async mounted() {

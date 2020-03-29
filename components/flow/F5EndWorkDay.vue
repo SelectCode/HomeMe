@@ -18,12 +18,10 @@
 
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator'
-    //@ts-ignore
-    import Logo from '@/components/Logo'
     import {vxm} from '~/store'
-    import {TextRecommender} from "~/data/ITextRecommender";
+    import {TextRecommender} from "~/businesslogic/avatar/text/TextRecommender";
 
-    @Component({components: {Logo}})
+    @Component
     export default class EndWorkDay extends Vue {
 
         private textRecommender = new TextRecommender();
@@ -33,7 +31,7 @@
         }
 
         back() {
-            this.user.backToStart();
+            vxm.state.backToStart();
             this.$root.$emit('chat', this.textRecommender.getText());
         }
 

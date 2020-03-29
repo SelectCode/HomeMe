@@ -6,10 +6,8 @@
 
 <script lang="ts">
     import {Component, Prop, Vue} from 'vue-property-decorator'
-    //@ts-ignore
-    import Logo from '@/components/Logo'
 
-    @Component({components: {Logo}})
+    @Component
     export default class Speechbubble extends Vue {
 
         @Prop()

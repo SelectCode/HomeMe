@@ -1,18 +1,13 @@
-// @ts-ignore
-import {AirtableBaseFactory} from "~/data/AirtableBaseFactory";
+import {AirtableBaseFactory} from "~/data/airtable/AirtableBaseFactory";
+import {BreakActivity} from "~/model/BreakActivity";
+import {IBreakActivityRepo} from "~/data/interface/IBreakActivityRepo";
 
-export interface IBreakActivityRepo {
-    getBreakActivities(): Promise<BreakActivity[]>;
-}
-
-export class BreakActivityRepo implements IBreakActivityRepo {
+export class AirtableBreakActivityRepo implements IBreakActivityRepo {
     private base = AirtableBaseFactory.getAirtableBase();
 
     async getBreakActivities(): Promise<BreakActivity[]> {
         let records = await this.base('Pausen').select().all();
-
-        // @ts-ignore
-        return records.map((record) => {
+        return records.map((record: any) => {
             return {
                 id: record.get('ID'),
                 name: record.get('Name'),
@@ -26,16 +21,4 @@ export class BreakActivityRepo implements IBreakActivityRepo {
             }
         });
     }
-}
-
-export interface BreakActivity {
-    name: string;
-    description: string;
-    type: string[];
-    category: string[];
-    content: string;
-    contentType: string;
-    imageUrl: string;
-    duration: number;
-    id: number;
 }

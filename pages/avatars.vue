@@ -1,14 +1,16 @@
 <template>
     <v-container>
-        <h1 class="display-3 my-3 text-center">Avatare</h1>
-        <v-row justify-center align-start>
+        <v-row justify="center" class="grow-0">
+            <h1 class="display-3 my-3 text-center">Avatare</h1>
+        </v-row>
+        <v-row justify-center class="grow-0">
             <v-col v-for="avatar in avatars">
                 <v-hover v-slot:default="{ hover }">
                     <v-card class="pa-2 pb-4" :elevation="hover ? 12 : 2" @click="select(avatar)">
                         <div>
                             <v-card-title class="display-1">
                                 {{avatar.name}}
-                                <v-icon dark color="primary" v-if="avatar.id === user.avatar" size="40" class="ml-2">
+                                <v-icon dark color="primary" v-if="avatar.id === selectedAvatar" size="40" class="ml-2">
                                     mdi-check
                                 </v-icon>
                             </v-card-title>
@@ -24,35 +26,41 @@
                 </v-hover>
             </v-col>
         </v-row>
+        <FooterComponent/>
     </v-container>
 </template>
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator'
     import {vxm} from "~/store";
-    import {Avatar, AvatarRepo, IAvatarRepo} from "~/data/IAvatarRepo";
-    import AvatarImage from "~/components/AvatarImage.vue";
+    import AvatarImage from "~/components/avatar/AvatarImage.vue";
+    import {Avatar} from "~/model/Avatar";
+    import FooterComponent from "~/components/FooterComponent.vue";
 
     @Component({
-        components: {AvatarImage}
+        components: {FooterComponent, AvatarImage}
     })
     export default class Index extends Vue {
-        private avatarRepo: IAvatarRepo = new AvatarRepo();
-        private avatars: Avatar[] = [];
 
-        async mounted() {
-            this.avatars = this.user.avatars;
+        get avatars() {
+            return vxm.avatar.avatars
         }
 
-        get user() {
-            return vxm.user
+        get selectedAvatar() {
+            return vxm.avatar.avatar
+        }
+
+        async fetch() {
+            await vxm.avatar.loadData();
+            await vxm.breaks.loadData();
         }
 
         select(avatar: Avatar) {
-            this.user.setAvatar(avatar.id)
+            vxm.avatar.setAvatar(avatar.id)
         }
     }
 </script>
 <style scoped>
+
     .v-card {
         transition: opacity .4s ease-in-out;
     }
@@ -65,6 +73,10 @@
         display: flex;
         flex-direction: column;
         flex-grow: 1;
+    }
+
+    .grow-0 {
+        flex-grow: 0;
     }
 
     h1 {

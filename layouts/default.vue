@@ -37,11 +37,12 @@
 
 <script lang="ts">
     import {Component, Vue} from "vue-property-decorator";
+    import {vxm} from "~/store";
 
     @Component
     export default class layout extends Vue {
-        drawer = true
-        fixed = false
+        drawer = true;
+
         items = [
             {
                 icon: 'mdi-home-circle',
@@ -58,18 +59,15 @@
                 title: 'Über uns',
                 to: '/about'
             }
-        ]
-
-        get active (){
-            return this.$router.currentRoute.path
-        }
-
-        miniVariant = true
-        right = true
-
-        rightDrawer = false
+        ];
 
         title = 'HomeMe 🏡'
+
+        async loadData() {
+            this.loaded = true;
+        }
+
+        loaded = true
     }
 
 </script>
@@ -79,7 +77,7 @@
         font-weight: 300 !important;
     }
 
-    #footer{
+    #footer {
         font-weight: lighter;
         font-size: small;
     }

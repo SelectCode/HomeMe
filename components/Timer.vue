@@ -6,10 +6,8 @@
 
 <script lang="ts">
     import {Component, Prop, Vue} from 'vue-property-decorator'
-    //@ts-ignore
-    import Logo from '@/components/Logo'
 
-    @Component({components: {Logo}})
+    @Component
     export default class Timer extends Vue {
 
         @Prop()
@@ -33,10 +31,7 @@
             }
             return s;
         }
-
     }
-
-
 </script>
 
 <style scoped>
@@ -44,5 +39,4 @@
         font-size: 3em;
         font-weight: lighter;
     }
-
 </style>
