@@ -11,6 +11,8 @@ const AvatarModule = createModule({
     target: "nuxt",
 });
 
+declare var $nuxt: any;
+
 export class AvatarStore extends AvatarModule {
     avatar = 'parrot';
     avatarTexts: AvatarText[] = [];
@@ -30,7 +32,7 @@ export class AvatarStore extends AvatarModule {
 
     @action
     private async loadAvatarTexts() {
-        let texts = await new AirtableAvatarTextRepo().getAvatarTexts();
+        let texts = await new AirtableAvatarTextRepo().getAvatarTexts($nuxt.$axios);
         this.setAvatarTexts(texts);
         console.log("loaded avatar texts " + this.avatarTexts.length);
     }
@@ -45,10 +47,9 @@ export class AvatarStore extends AvatarModule {
         this.avatarTexts = texts;
     }
 
-
     @action
     private async loadAvatars() {
-        let avatars = await new AirtableAvatarRepo().getAvatars();
+        let avatars = await new AirtableAvatarRepo().getAvatars($nuxt.$axios);
         this.setAvatars(avatars);
         console.log("loaded avatars : " + this.avatars.length);
     }

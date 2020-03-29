@@ -1,25 +1,19 @@
-import {AirtableBaseFactory} from "~/data/airtable/AirtableBaseFactory";
 import {Avatar} from "~/model/Avatar";
 import {vxm} from "~/store";
 import {IAvatarRepo} from "~/data/interface/IAvatarRepo";
+import {NuxtAxiosInstance} from "@nuxtjs/axios";
 
 export class AirtableAvatarRepo implements IAvatarRepo {
-
-    private base = AirtableBaseFactory.getAirtableBase();
-
-    async getAvatars(): Promise<Avatar[]> {
-        let records = await this.base('Begleiter').select().all();
-        return records.map((record: any) => {
-                return {
-                    id: record.get('ID'),
-                    name: record.get('Name'),
-                    category: record.get('Kategorien'),
-                    type: record.get('Typ'),
-                    introduction: record.get('Introduction'),
-                    tags: record.get('Tags')
-                }
-            }
-        );
+    async getAvatars(axios: NuxtAxiosInstance): Promise<Avatar[]> {
+        let records = (await axios.$get('https://home-me-airtable.selectcode.workers.dev/Begleiter')).records;
+        return records.map((record: any) => ({
+            id: record.fields.ID,
+            name: record.fields.Name,
+            category: record.fields.Kategorien,
+            type: record.fields.Typ,
+            introduction: record.fields.Introduction,
+            tags: record.fields.Tags
+        }))
     }
 
     getAvatarById(id: string) {

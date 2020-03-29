@@ -8,6 +8,8 @@ const BreakModule = createModule({
     target: "nuxt",
 });
 
+declare var $nuxt: any;
+
 /**
  * Saves possible breaks and the currently selected one
  */
@@ -44,7 +46,7 @@ export class BreakStore extends BreakModule {
 
     @action
     private async loadBreakActivities() {
-        let activities = await new AirtableBreakActivityRepo().getBreakActivities();
+        let activities = await new AirtableBreakActivityRepo().getBreakActivities($nuxt.$axios);
         this.setBreakActivities(activities);
         console.log("loaded break activities: " + this.breakActivities.length);
     }

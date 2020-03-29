@@ -1,17 +1,14 @@
-import {AirtableBaseFactory} from "~/data/airtable/AirtableBaseFactory";
 import {AvatarText} from "~/model/AvatarText";
 import {IAvatarTextRepo} from "~/data/interface/IAvatarTextRepo";
+import {NuxtAxiosInstance} from "@nuxtjs/axios";
 
 export class AirtableAvatarTextRepo implements IAvatarTextRepo {
-    private base = AirtableBaseFactory.getAirtableBase();
-
-    async getAvatarTexts(): Promise<AvatarText[]> {
-        let records = await this.base('Begleiter Texte').select().all();
+    async getAvatarTexts(axios: NuxtAxiosInstance): Promise<AvatarText[]> {
+        let records = (await axios.$get('https://home-me-airtable.selectcode.workers.dev/BegleiterTexte')).records;
         return records.map((record: any) => ({
-                text: record.get('Text'),
-                avatars: record.get('Begleiter'),
-                labels: record.get('Labels')
-            })
-        );
+            text: record.fields.Text,
+            avatars: record.fields.Begleiter,
+            labels: record.fields.Labels
+        }))
     }
 }
