@@ -13,16 +13,14 @@ export class ITimeRecommenderImpl implements ITimeRecommender {
         let pauses: Reminder[] = [];
         let amountBreaks: number = 2;
         let breakDuration = settings.breakDuration;
-        //let usedBreakDuration : number = breakDuration;
         let now = new Date();
         let lunchFlag: boolean = false;
         let pausenZeit: number = 0;
 
 
-        //For simplicity: lunch break always starts at noon
+        // For simplicity: lunch break always starts at noon
         if (settings.lunchBreak) {
             if (now.getHours() > 14) {
-                //Keine Lunchbreak mehr möglich
                 alert("ACHTUNG:\n Eine Lunchbreak ist nur möglich, wenn der Arbeitstag vor 14 Uhr beginnt.");
             } else {
                 let lunchDuration: number = settings.lunchBreakTime;
@@ -32,6 +30,8 @@ export class ITimeRecommenderImpl implements ITimeRecommender {
 
                     // Get current time and schedule a lunch break between 12 - 14 o'clock
                     pausenZeit = (now.getHours() + 3) * 60 + now.getMinutes();
+
+                    // check if break time is in the interval [12,14], if not adjust it manually
                     if (pausenZeit > (14 * 60))
                         pausenZeit = 14 * 60;
                     else if (pausenZeit < (12 * 60))
@@ -49,31 +49,34 @@ export class ITimeRecommenderImpl implements ITimeRecommender {
             }
         }
 
-
         if (breakDuration > 5) {
-            // Has children?
+            // Check if user has children @ Home
             if (!settings.childrenAtHome) {
-                if(lunchFlag){
-                    // TODO: Keine Kinder aber lunch Flag gesetzt
-                    let interval_1_flag : boolean = false;
-                    let interval_2_flag : boolean = false;
-                    let interval_1 : number = pausenZeit - (now.getHours()*60 + now.getMinutes());
-                    let interval_2 : number = (now.getHours()*60 + now.getMinutes() + settings.workingHours) - (pausenZeit + settings.lunchBreakTime);
+                if (lunchFlag) {
+                    // No kids but lunchbreak = true
+                    let interval_1_flag: boolean = false;
+                    let interval_2_flag: boolean = false;
 
-                    if(interval_1 > 120)
+                    let interval_1: number = pausenZeit - (now.getHours() * 60 + now.getMinutes());
+                    let interval_2: number = (now.getHours() * 60 + now.getMinutes() + settings.workingHours) - (pausenZeit + settings.lunchBreakTime);
+
+                    // since we have a long lunch break, we don't want to take a break 1 hour before and 1 hour after the break
+                    if (interval_1 > 120)
                         interval_1 -= 60;
-                    if(interval_2 > 120)
+                    if (interval_2 > 120)
                         interval_2 -= 60;
 
-                    let ratio_1  = (interval_1 / (interval_1 + interval_2));
-                    let ratio_2  = (interval_2 / (interval_1 + interval_2));
+                    // calculate ratio for each interval
+                    let ratio_1 = (interval_1 / (interval_1 + interval_2));
+                    let ratio_2 = (interval_2 / (interval_1 + interval_2));
 
-                    let pausenZeit_1 : number = ratio_1 * breakDuration;
-                    let pausenZeit_2 : number = breakDuration - pausenZeit_1;
+                    // calculate ratio of break time for each interval
+                    let pausenZeit_1: number = ratio_1 * breakDuration;
+                    let pausenZeit_2: number = breakDuration - pausenZeit_1;
 
-                    // if pausenZeit_x < 15 => then make 1 big break, else spread the time evenly
-                    if(pausenZeit_1 < 15){
-                        let inMinutes_1 : number = (interval_1/2) - (pausenZeit_1/2);
+                    // EDGE CASE: if pausenZeit_x < 15 => then make 1 big break, else spread the time evenly
+                    if (pausenZeit_1 < 15) {
+                        let inMinutes_1: number = (interval_1 / 2) - (pausenZeit_1 / 2);
 
                         pauses.push({
                             type: "break",
@@ -83,11 +86,10 @@ export class ITimeRecommenderImpl implements ITimeRecommender {
                         interval_1_flag = true;
                     }
 
-                    if(pausenZeit_2 < 15){
-                        let inMinutes_2 : number = (interval_2/2) - (pausenZeit_2/2);
+                    if (pausenZeit_2 < 15) {
+                        let inMinutes_2: number = (interval_2 / 2) - (pausenZeit_2 / 2);
                         inMinutes_2 += interval_1;
                         inMinutes_2 += settings.lunchBreakTime;
-
 
                         pauses.push({
                             type: "break",
@@ -98,20 +100,21 @@ export class ITimeRecommenderImpl implements ITimeRecommender {
                     }
 
                     // calculate # of breaks for each interval (5min breaks each)
-                    if(!interval_1_flag) {
+                    if (!interval_1_flag) {
                         let interval_1_amountOfBreaks: number = Math.floor(pausenZeit_1 / 5);
                         let interval_1_Break_Reminder: number = pausenZeit_1 - (interval_1_amountOfBreaks * 5);
 
-                        if(interval_1_Break_Reminder !== 0)
+                        if (interval_1_Break_Reminder !== 0)
                             interval_1_amountOfBreaks += 1;
 
                         // calculate inMinutes for each break
-                        let amountBreaks_1 : number = pausenZeit_1/5;
+                        let amountBreaks_1: number = pausenZeit_1 / 5;
                         let timeBetweenBreaks_1: number = Math.floor((interval_1 - pausenZeit_1) / amountBreaks_1);
                         pauses.push(...this.generatePauses(interval_1_amountOfBreaks + 1, timeBetweenBreaks_1));
                     }
 
-                    if(!interval_2_flag){
+                    if (!interval_2_flag) {
+                        this.calculateIntervalBreak(pausenZeit_2, interval_2, pauses);
                         let interval_2_amountOfBreaks: number = Math.floor(pausenZeit_2 / 5);
                         let interval_2_Break_Reminder: number = pausenZeit_2 - (interval_2_amountOfBreaks * 5);
 
@@ -119,7 +122,7 @@ export class ITimeRecommenderImpl implements ITimeRecommender {
                             interval_2_amountOfBreaks += 1;
 
                         // calculate inMinutes for each break
-                        let amountBreaks_2 : number = pausenZeit_2/5;
+                        let amountBreaks_2: number = pausenZeit_2 / 5;
                         let timeBetweenBreaks_2: number = Math.floor((interval_2 - pausenZeit_2) / amountBreaks_2);
                         pauses.push(...this.generatePauses(interval_2_amountOfBreaks + 1, timeBetweenBreaks_2));
                     }
@@ -130,22 +133,21 @@ export class ITimeRecommenderImpl implements ITimeRecommender {
                     pauses.push(...this.generatePauses(amountBreaks, timeBetweenBreaks));
                 }
             } else {
-                if(lunchFlag){
+                if (lunchFlag) {
                     // hasChildren + LunchFlag
-                    let interval_1 : number = pausenZeit - (now.getHours()*60 + now.getMinutes());
-                    let interval_2 : number = (now.getHours()*60 + now.getMinutes() + settings.workingHours) - (pausenZeit + settings.lunchBreakTime);
+                    let interval_1: number = pausenZeit - (now.getHours() * 60 + now.getMinutes());
+                    let interval_2: number = (now.getHours() * 60 + now.getMinutes() + settings.workingHours) - (pausenZeit + settings.lunchBreakTime);
 
-                    let ratio_1  = (interval_1 / (interval_1 + interval_2));
-                    let ratio_2  = (interval_2 / (interval_1 + interval_2));
+                    let ratio_1 = (interval_1 / (interval_1 + interval_2));
+                    let ratio_2 = (interval_2 / (interval_1 + interval_2));
 
-                    let pausenZeit_1 : number = ratio_1 * breakDuration;
-                    let pausenZeit_2 : number = breakDuration - pausenZeit_1;
+                    let pausenZeit_1: number = ratio_1 * breakDuration;
+                    let pausenZeit_2: number = breakDuration - pausenZeit_1;
 
-                    let inMinutes_1 : number = (interval_1/2) - (pausenZeit_1/2);
-                    let inMinutes_2 : number = (interval_2/2) - (pausenZeit_2/2);
+                    let inMinutes_1: number = (interval_1 / 2) - (pausenZeit_1 / 2);
+                    let inMinutes_2: number = (interval_2 / 2) - (pausenZeit_2 / 2);
                     inMinutes_2 += interval_1;
                     inMinutes_2 += settings.lunchBreakTime;
-
 
                     pauses.push({
                         type: "break",
@@ -224,6 +226,24 @@ export class ITimeRecommenderImpl implements ITimeRecommender {
         return pauses;
 
     }
+
+
+    /**
+     * Evenly spreads the break time among a time interval
+     */
+    calculateIntervalBreak(pausenZeit: number, time_interval: number, pauses : Reminder[]): void {
+        let interval_2_amountOfBreaks: number = Math.floor(pausenZeit / 5);
+        let interval_2_Break_Reminder: number = pausenZeit - (interval_2_amountOfBreaks * 5);
+
+        if (interval_2_Break_Reminder !== 0)
+            interval_2_amountOfBreaks += 1;
+
+        // calculate inMinutes for each break
+        let amountBreaks_2: number = pausenZeit / 5;
+        let timeBetweenBreaks_2: number = Math.floor((time_interval - pausenZeit) / amountBreaks_2);
+        pauses.push(...this.generatePauses(interval_2_amountOfBreaks + 1, timeBetweenBreaks_2));
+    }
+
 
     /**
      * Generate a pause every 30 minutes
