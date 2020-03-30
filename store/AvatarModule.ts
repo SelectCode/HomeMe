@@ -26,8 +26,7 @@ export class AvatarStore extends AvatarModule {
 
     @action
     async loadData() {
-        await this.loadAvatars();
-        await this.loadAvatarTexts();
+        await Promise.all([this.loadAvatars(), this.loadAvatarTexts()]);
     }
 
     @action

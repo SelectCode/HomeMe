@@ -34,6 +34,9 @@
             Speechbubble,
             AvatarImage,
             SettingsDialog
+        },
+        async asyncData(){
+            await Promise.all([vxm.avatar.loadData(), vxm.breaks.loadData()]);
         }
     })
     export default class Index extends Vue {
@@ -49,11 +52,6 @@
             if (vxm.user.name === '') {
                 await this.$router.push('/intro')
             }
-        }
-
-        async fetch(){
-            await vxm.avatar.loadData();
-            await vxm.breaks.loadData();
         }
 
     }

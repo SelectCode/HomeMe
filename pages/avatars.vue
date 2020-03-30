@@ -37,7 +37,10 @@
     import FooterComponent from "~/components/FooterComponent.vue";
 
     @Component({
-        components: {FooterComponent, AvatarImage}
+        components: {FooterComponent, AvatarImage},
+        async asyncData(){
+            await Promise.all([vxm.avatar.loadData(), vxm.breaks.loadData()]);
+        }
     })
     export default class Index extends Vue {
 
@@ -47,11 +50,6 @@
 
         get selectedAvatar() {
             return vxm.avatar.avatar
-        }
-
-        async fetch() {
-            await vxm.avatar.loadData();
-            await vxm.breaks.loadData();
         }
 
         select(avatar: Avatar) {

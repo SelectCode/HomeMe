@@ -37,6 +37,9 @@
             AvatarImage,
             MoodComponent,
             Speechbubble,
+        },
+        async asyncData() {
+            await Promise.all([vxm.avatar.loadData(), vxm.breaks.loadData()]);
         }
     })
     export default class Intro extends Vue {
@@ -85,16 +88,10 @@
         username = '';
 
         async mounted() {
-            await this.loadData();
             if (vxm.user.name !== '') {
                 await this.$router.push('/')
             }
             this.$root.$emit('chat', 'Willkommen! Mein Name ist Peter. Wie heißt du?')
-        }
-
-        async loadData() {
-            await vxm.avatar.loadData();
-            await vxm.breaks.loadData();
         }
     }
 
