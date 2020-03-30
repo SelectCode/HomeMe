@@ -12,7 +12,7 @@
 <script lang="ts">
 
     import {Vue} from "vue-property-decorator";
-    import {ITimeRecommenderImpl} from "~/data/ITimeRecommender";
+    import {ITimeRecommenderImpl} from "~/businesslogic/avatar/text/ITimeRecommender";
     import {vxm} from "~/store";
 
     export default class TimeTest extends Vue {

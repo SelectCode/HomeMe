@@ -18,6 +18,14 @@
         <v-row>
             <v-card class="ma-2 breakCard text-center">
                 <BreakComponent :break-activity="breakActivity" :show-link="true"/>
+                <v-card-actions>
+                    <v-spacer/>
+                    <v-btn @click="like" text v-if="!liked">
+                        Like
+                        <v-icon color="red" right>mdi-heart</v-icon>
+                    </v-btn>
+                    <v-spacer/>
+                </v-card-actions>
             </v-card>
         </v-row>
     </v-layout>
@@ -25,14 +33,13 @@
 
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator'
-    //@ts-ignore
-    import Logo from '@/components/Logo'
     import {vxm} from '~/store'
     import Timer from "~/components/Timer.vue";
-    import {TextRecommender} from "~/data/ITextRecommender";
-    import BreakComponent from "~/components/BreakComponent.vue";
+    import BreakComponent from "~/components/break/BreakComponent.vue";
+    import firebase from "firebase";
+    import {TextRecommender} from "~/businesslogic/avatar/text/TextRecommender";
 
-    @Component({components: {BreakComponent, Timer, Logo}})
+    @Component({components: {BreakComponent, Timer}})
     export default class Break extends Vue {
 
         private textRecommender = new TextRecommender();
@@ -42,13 +49,25 @@
         }
 
         stopBreak() {
-            vxm.user.stopBreak();
+            vxm.state.stopBreak();
             this.$root.$emit('chat', this.textRecommender.getText());
         }
 
         get breakActivity() {
-            return this.user.currentBreakActivity
+            return vxm.breaks.currentBreakActivity
         }
+
+        async like() {
+            let collection = this.$fireStore.collection('breakFeedback');
+            let doc = await collection.doc(this.breakActivity?.id.toString());
+            const increment = firebase.firestore.FieldValue.increment(1);
+            doc.set({
+                likes: increment
+            }, {merge: true});
+            this.liked = true
+        }
+
+        liked = false;
 
         mounted() {
             this.calcRemainingTime();
@@ -63,7 +82,7 @@
 
         calcRemainingTime() {
             if (!this.running) return;
-            let finishedDate = this.user.breakStarted as number + this.durationInMS;
+            let finishedDate = vxm.breaks.breakStarted as number + this.durationInMS;
             let currentDate = Date.now();
             this.remainingSeconds = (finishedDate - currentDate) / 1000;
             this.remainingMinutes = Math.floor(this.remainingSeconds / 60);

@@ -41,7 +41,7 @@
 <script lang="ts">
     import {Component, Vue, Watch} from 'vue-property-decorator'
     import {vxm} from "~/store";
-    import {Settings} from "~/data/ITimeRecommender";
+    import {Settings} from "~/businesslogic/avatar/text/ITimeRecommender";
 
     @Component
     export default class SettingsDialog extends Vue {

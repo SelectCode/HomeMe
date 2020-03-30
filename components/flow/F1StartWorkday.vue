@@ -19,12 +19,11 @@
 
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator'
-    //@ts-ignore
-    import Logo from '@/components/Logo'
     import {vxm} from '~/store'
-    import {ITextRecommender, TextRecommender} from "~/data/ITextRecommender";
+    import {ITextRecommender} from "~/businesslogic/avatar/text/ITextRecommender";
+    import {TextRecommender} from "~/businesslogic/avatar/text/TextRecommender";
 
-    @Component({components: {Logo}})
+    @Component
     export default class StartWorkday extends Vue {
 
         private textRecommender: ITextRecommender = new TextRecommender();
@@ -37,12 +36,8 @@
             if (Notification.permission !== 'granted') {
                 await Notification.requestPermission();
             }
-            await vxm.user.startWorkday();
+            await vxm.state.startWorkday();
             this.$root.$emit('chat', this.textRecommender.getText());
-        }
-
-        get availableTexts() {
-            return this.user.avatarTexts
         }
 
         mounted() {

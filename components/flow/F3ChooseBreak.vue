@@ -13,22 +13,20 @@
 
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator'
-    //@ts-ignore
-    import Logo from '@/components/Logo'
     import {vxm} from '~/store'
-    import {BreakActivityRecommender} from "~/data/IBreakActivityRecommender";
-    import {BreakActivity} from "~/data/IBreakActivityRepo";
-    import {TextRecommender} from "~/data/ITextRecommender";
-    import BreakComponent from "~/components/BreakComponent.vue";
+    import {BreakActivityRecommender} from "~/businesslogic/break/IBreakActivityRecommender";
+    import BreakComponent from "~/components/break/BreakComponent.vue";
+    import {BreakActivity} from "~/model/BreakActivity";
+    import {TextRecommender} from "~/businesslogic/avatar/text/TextRecommender";
 
-    @Component({components: {BreakComponent, Logo}})
-    export default class StartWorkday extends Vue {
+    @Component({components: {BreakComponent}})
+    export default class ChooseBreak extends Vue {
 
         private breakActivityRecommender: BreakActivityRecommender = new BreakActivityRecommender();
         private textRecommender = new TextRecommender();
 
         get possibleActivities(): BreakActivity[] {
-            return this.breakActivityRecommender.getRecommendedBreakActivities(vxm.user.avatar);
+            return this.breakActivityRecommender.getRecommendedBreakActivities(vxm.avatar.avatar);
         }
 
         get user() {
@@ -36,7 +34,7 @@
         }
 
         chooseBreak(breakId: string) {
-            vxm.user.selectBreak(breakId);
+            vxm.state.selectBreak(breakId);
             console.log('Selecting break ' + breakId);
             this.$root.$emit('chat', this.textRecommender.getText());
         }

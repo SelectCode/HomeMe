@@ -1,38 +1,33 @@
 import {vxm} from "~/store";
-import {AvatarRepo} from "~/data/IAvatarRepo";
-import {UiState} from "~/store/UserModule";
-
-export interface ITextRecommender {
-    getText(): string;
-}
+import {AirtableAvatarRepo} from "~/data/airtable/AirtableAvatarRepo";
+import {UiState} from "~/store/UiState";
+import {ITextRecommender} from "~/businesslogic/avatar/text/ITextRecommender";
 
 export class TextRecommender implements ITextRecommender {
 
     getText(): string {
-        let allTexts = vxm.user.avatarTexts;
-        let avatarId = vxm.user.avatar;
-        let avatar = new AvatarRepo().getAvatarById(avatarId);
+        let allTexts = vxm.avatar.avatarTexts;
+        let avatarId = vxm.avatar.avatar;
+        let avatar = new AirtableAvatarRepo().getAvatarById(avatarId);
         let labels = this.mapStateToLabels();
-
         let possibleTexts = [];
 
         for (let aText of allTexts) {
-            // @ts-ignore
-            if (aText.avatars.includes(avatar.name)
+            if (aText.avatars.includes(avatar!.name)
                 && aText.labels.some((label) => labels.includes(label))) {
                 possibleTexts.push(aText.text);
             }
         }
 
         // @ts-ignore
-        console.log(`Found ${possibleTexts.length} matching texts for avatar ${avatar.name} and state ${vxm.user.state}!`);
+        console.log(`Found ${possibleTexts.length} matching texts for avatar ${avatar.name} and state ${vxm.state.state}!`);
 
         let randomIndex = Math.floor(Math.random() * (possibleTexts.length));
         return possibleTexts[randomIndex];
     }
 
     mapStateToLabels(): string[] {
-        switch (vxm.user.state) {
+        switch (vxm.state.state) {
             case UiState.BEFORE_WORK:
                 return ['PreWork'];
             case UiState.WORKING:

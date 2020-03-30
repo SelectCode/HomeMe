@@ -14,11 +14,9 @@
 
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator'
-    //@ts-ignore
-    import Logo from '@/components/Logo'
     import {vxm} from "~/store";
 
-    @Component({components: {Logo}})
+    @Component
     export default class Timer extends Vue {
 
         moods = [

@@ -6,7 +6,7 @@
         <v-row class="mt-5 flex-column grow-0">
             <v-row justify="center" class="my-5 ">
                 <div class="text-center">
-                    <AvatarImage :avatar="user.avatar"/>
+                    <AvatarImage :avatar="avatar"/>
                 </div>
                 <Speechbubble/>
             </v-row>
@@ -18,72 +18,42 @@
                 <v-progress-linear :value="progress"/>
             </v-row>
         </v-row>
-
-        <v-row justify="end" class="grow-0">
-            <SettingsDialog/>
-            <v-btn icon @click="reset" class="mt-2">
-                <v-icon color="primary">mdi-restart</v-icon>
-            </v-btn>
-            <v-btn icon href="https://github.com/SelectCode/HomeMe" target="_blank" class="mt-2">
-                <v-icon color="primary">mdi-github</v-icon>
-            </v-btn>
-        </v-row>
+        <FooterComponent/>
     </v-container>
 </template>
 
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator'
     //@ts-ignore
-    import Logo from '@/components/Logo'
-    import StartWorkday from "~/components/1StartWorkday.vue";
     import {vxm} from "~/store";
-    import DuringWorkday from "~/components/2DuringWorkday.vue";
-    import SettingsDialog from "~/components/SettingsDialog.vue";
-    import AvatarImage from "~/components/AvatarImage.vue";
-    import ChooseBreak from "~/components/3ChooseBreak.vue";
-    import Break from "~/components/4Break.vue";
-    import {UiState} from "~/store/UserModule";
-    import EndWorkDay from "~/components/5EndWorkDay.vue";
-    import {AvatarTextRepo} from "~/data/IAvatarTextRepo";
-    import Speechbubble from "~/components/Speechbubble.vue";
+    import Speechbubble from "~/components/avatar/Speechbubble.vue";
     import MoodComponent from "~/components/MoodComponent.vue";
+    import AvatarImage from "~/components/avatar/AvatarImage.vue";
+    import FooterComponent from "~/components/FooterComponent.vue";
 
     @Component({
         components: {
+            FooterComponent,
+            AvatarImage,
             MoodComponent,
             Speechbubble,
-            EndWorkDay,
-            ChooseBreak, AvatarImage, DuringWorkday, StartWorkday, Logo, SettingsDialog, Break
+        },
+        async asyncData() {
+            await Promise.all([vxm.avatar.loadData(), vxm.breaks.loadData()]);
         }
     })
-    export default class Index extends Vue {
+    export default class Intro extends Vue {
+
         get user() {
             return vxm.user
         }
 
-        get showStartWorkday() {
-            return vxm.user.state === UiState.BEFORE_WORK;
-        }
-
-        get showWorkDay() {
-            return vxm.user.state === UiState.WORKING;
-        }
-
-        get showChoose() {
-            return vxm.user.state === UiState.CHOOSE_BREAK;
-        }
-
-        get showBreak() {
-            new AvatarTextRepo().getAvatarTexts();
-            return vxm.user.state === UiState.BREAK;
-        }
-
-        get showEnd() {
-            return vxm.user.state === UiState.AFTER_WORK;
-        }
-
         get savedUsername() {
             return this.user.name;
+        }
+
+        get avatar() {
+            return vxm.avatar.avatar;
         }
 
         setName() {
@@ -115,19 +85,14 @@
 
         progress = 0;
 
-        username = ''
+        username = '';
 
-        reset() {
-            this.user.reset()
-        }
-
-        mounted() {
+        async mounted() {
             if (vxm.user.name !== '') {
-                this.$router.push('/')
+                await this.$router.push('/')
             }
             this.$root.$emit('chat', 'Willkommen! Mein Name ist Peter. Wie heißt du?')
         }
-
     }
 
 </script>
