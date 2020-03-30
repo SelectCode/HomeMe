@@ -9,6 +9,6 @@ export class AirtableAvatarTextRepo implements IAvatarTextRepo {
             text: record.fields.Text,
             avatars: record.fields.Begleiter,
             labels: record.fields.Labels
-        }))
+        } as AvatarText))
     }
 }

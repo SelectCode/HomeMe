@@ -15,6 +15,6 @@ export class AirtableBreakActivityRepo implements IBreakActivityRepo {
             contentType: record.fields['Content-Typ'],
             imageUrl: record.fields.HeaderImage,
             duration: record.fields.DauerInMinuten
-        }))
+        } as BreakActivity))
     }
 }

@@ -9,11 +9,11 @@ export class AirtableAvatarRepo implements IAvatarRepo {
         return records.map((record: any) => ({
             id: record.fields.ID,
             name: record.fields.Name,
-            category: record.fields.Kategorien,
-            type: record.fields.Typ,
+            categories: record.fields.Kategorien,
+            types: record.fields.Typ,
             introduction: record.fields.Introduction,
             tags: record.fields.Tags
-        }))
+        } as Avatar))
     }
 
     getAvatarById(id: string) {
