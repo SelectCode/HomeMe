@@ -1411,10 +1411,10 @@
     consola "^2.10.1"
     dotenv "^8.1.0"
 
-"@nuxtjs/firebase@^5.0.3":
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/firebase/-/firebase-5.0.3.tgz#e79befa14c793597bfa1cd175a4de5bd218204de"
-  integrity sha512-xiKzl65kwLEYraUlgsszxQKT6rk1aZfHWEK8lgr/PBlI6gEJsjxvbHDa8So4aO2g8404vTd1v+TGgfdGRkUH9Q==
+"@nuxtjs/firebase@^5.0.6":
+  version "5.0.6"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/firebase/-/firebase-5.0.6.tgz#c9d69da57b1ada4bf9574919019908a32e20aa0f"
+  integrity sha512-SkAXOsmK49XzNxdMjAui7XjRx7JIp4gPFyhZUf3FSdoXlqpvKVB6YUG2ovUOM8tJejrdVMceL42PZ1Mc9QKf8A==
   dependencies:
     consola "^2.11.3"
   optionalDependencies:
