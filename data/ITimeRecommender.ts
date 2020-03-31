@@ -45,7 +45,7 @@ export class ITimeRecommenderImpl implements ITimeRecommender {
                     });
                     lunchFlag = true;
                 } else
-                    alert("ACHTUNG:\n Lunch Pausenzeit zu lang!");
+                    alert("ACHTUNG:\n Mittagspause zu lang!");
             }
         }
 
@@ -241,7 +241,7 @@ export class ITimeRecommenderImpl implements ITimeRecommender {
     }
 
     /**
-     * Calculates two big breaks if childrenFlag is true
+     * Calculates two big breaks if childrenFlag = False && LunchBreak = True
      */
     calculateNoChildrenBreak(pausenZeit: number, now: Date, settings: Settings, breakDuration: number, pauses: Reminder[]) {
         // No kids but lunchbreak = true
