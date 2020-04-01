@@ -1,12 +1,11 @@
 <template>
     <v-layout row>
         <v-hover v-slot:default="{ hover }" v-for="mood in moods">
-            <div>
+            <div class="d-flex flex-column hoverable">
                 <v-btn text @click="changeMood(mood.id)" fab>
                     <span :class="{ 'on-hover': (hover || mood.id === activeMood) }">{{mood.emoji}} </span>
                 </v-btn>
-                <br/>
-                <span v-if="hover" class="explanation mx-auto text-center d-flex justify-center align-center"> {{mood.id}}</span>
+                <span class="explanation text-center">{{mood.id}}</span>
             </div>
         </v-hover>
     </v-layout>
@@ -55,7 +54,7 @@
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
     span {
         transition: opacity .4s ease-in-out;
@@ -68,8 +67,16 @@
     }
 
     .explanation {
-        font-weight: lighter;
+        visibility: hidden;
         font-size: 0.8em !important;
+    }
+
+    .hoverable:hover {
+
+        .explanation {
+            visibility: visible;
+        }
+
     }
 
 </style>
