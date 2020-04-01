@@ -1,19 +1,23 @@
 <template>
-    <v-row justify="center">
-        <v-card class="ma-2 text-center">
-            <v-card-title class="display-1">
-                Schönen Feierabend!
-            </v-card-title>
-            <v-card-text class="subtitle-1 font-weight-light">
-                Bis morgen.
-            </v-card-text>
-            <v-card-actions>
-                <v-btn color="primary" block @click="back" class="mb-2" large>
-                    Zurück
-                </v-btn>
-            </v-card-actions>
-        </v-card>
-    </v-row>
+    <v-container fluid>
+        <v-row justify="center">
+            <v-col cols="12" sm="8" md="4">
+                <v-card class="ma-2 text-center">
+                    <v-card-title class="display-1 text-center">
+                        Schönen Feierabend!
+                    </v-card-title>
+                    <v-card-text class="subtitle-1 font-weight-light">
+                        Bis morgen.
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-btn color="primary" block @click="back" class="mb-2" large>
+                            Zurück
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-col>
+        </v-row>
+    </v-container>
 </template>
 
 <script lang="ts">
