@@ -1,10 +1,6 @@
 <template>
     <v-app dark>
-        <v-navigation-drawer
-                v-model="drawer"
-                fixed
-                expand-on-hover
-                app>
+        <v-navigation-drawer v-if="$vuetify.breakpoint.mdAndUp" expand-on-hover fixed app permanent>
             <v-layout column justify-center fill-height>
                 <v-list>
                     <v-list-item
@@ -32,16 +28,26 @@
                 <nuxt/>
             </v-layout>
         </v-content>
+
+        <v-bottom-navigation v-if="$vuetify.breakpoint.smAndDown" fixed height="4em" shift>
+            <v-btn v-for="(item, i) in items"
+                   :key="i"
+                   :to="item.to"
+                   router
+                   exact>
+                <span>{{item.title}}</span>
+                <v-icon color="primary">{{item.icon}}</v-icon>
+            </v-btn>
+        </v-bottom-navigation>
+
     </v-app>
 </template>
 
 <script lang="ts">
     import {Component, Vue} from "vue-property-decorator";
-    import {vxm} from "~/store";
 
     @Component
     export default class layout extends Vue {
-        drawer = true;
 
         items = [
             {
