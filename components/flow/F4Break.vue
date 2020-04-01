@@ -1,8 +1,8 @@
 <template>
-    <v-layout column justify-center align-center>
+    <v-container fluid>
         <v-row justify="center">
-            <v-card class="ma-2 breakCard text-center">
-                <v-layout column justify-center align-center>
+            <v-col md="6" sm="8" cols="12">
+                <v-card class="ma-2 text-center">
                     <v-card-title class="display-1 text-center">
                         Pause
                     </v-card-title>
@@ -12,23 +12,25 @@
                             Pause beenden
                         </v-btn>
                     </v-card-actions>
-                </v-layout>
-            </v-card>
+                </v-card>
+            </v-col>
         </v-row>
-        <v-row>
-            <v-card class="ma-2 breakCard text-center">
-                <BreakComponent :break-activity="breakActivity" :show-link="true"/>
-                <v-card-actions>
-                    <v-spacer/>
-                    <v-btn @click="like" text v-if="!liked">
-                        Like
-                        <v-icon color="red" right>mdi-heart</v-icon>
-                    </v-btn>
-                    <v-spacer/>
-                </v-card-actions>
-            </v-card>
+        <v-row justify="center">
+            <v-col md="6" sm="8" cols="12">
+                <v-card class="ma-2 breakCard text-center">
+                    <BreakComponent :break-activity="breakActivity" :show-link="true"/>
+                    <v-card-actions>
+                        <v-spacer/>
+                        <v-btn @click="like" text v-if="!liked">
+                            Like
+                            <v-icon color="red" right>mdi-heart</v-icon>
+                        </v-btn>
+                        <v-spacer/>
+                    </v-card-actions>
+                </v-card>
+            </v-col>
         </v-row>
-    </v-layout>
+    </v-container>
 </template>
 
 <script lang="ts">
@@ -109,8 +111,5 @@
 </script>
 
 <style scoped>
-    .breakCard {
-        width: 50vw;
 
-    }
 </style>

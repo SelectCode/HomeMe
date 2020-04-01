@@ -36,10 +36,8 @@
     export default class BreakComponent extends Vue {
 
         @Prop()
-        breakActivity!: BreakActivity
-        @Prop({default: '100%'})
+        breakActivity!: BreakActivity;
 
-        width!: string;
         @Prop({default: false})
         showLink!: boolean;
 

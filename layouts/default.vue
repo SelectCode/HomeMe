@@ -27,6 +27,7 @@
             <v-layout fill-height>
                 <nuxt/>
             </v-layout>
+            <div class="spacer" v-if="$vuetify.breakpoint.smAndDown" ></div>
         </v-content>
 
         <v-bottom-navigation v-if="$vuetify.breakpoint.smAndDown" fixed height="4em" shift>
@@ -80,5 +81,10 @@
     #footer {
         font-weight: lighter;
         font-size: small;
+    }
+    .spacer{
+        height: 4em;
+        display: block;
+        width: 100%;
     }
 </style>
