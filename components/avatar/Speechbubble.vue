@@ -32,7 +32,7 @@
 
     .bubble {
         font-family: 'Patrick Hand', cursive;
-        margin-left: 28px;
+        margin-left: 18px;
         top: 50%;
         transform: translate(0, -50%);
         align-items: center;
@@ -40,9 +40,7 @@
         vertical-align: middle;
         position: relative;
         display: flex;
-        width: 250px;
-        height: 120px;
-        padding: 0;
+        min-height: 54px;
         -webkit-border-radius: 10px;
         -moz-border-radius: 10px;
         border-radius: 10px;
@@ -55,12 +53,13 @@
         content: '';
         position: absolute;
         border-style: solid;
-        border-width: 27px 27px 27px 0;
+        border-width: 17px 17px 17px 0;
         border-color: transparent #D6D2D2;
         display: block;
         width: 0;
         z-index: 0;
-        left: -28px;
-        top: 33px;
+        left: -18px;
+        transform: translate(0, -50%);
+        top: 50%;
     }
 </style>

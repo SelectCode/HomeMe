@@ -3,16 +3,14 @@
         <v-row justify="center" class="grow-0">
             <h1 class="display-3 my-3 text-center">HomeMe</h1>
         </v-row>
-        <v-row class="mt-5 flex-column grow-0">
-            <v-row justify="center" class="my-5 ">
-                <div class="text-center">
-                    <AvatarImage :avatar="avatar"/>
-                </div>
-                <Speechbubble/>
-            </v-row>
-            <FlowComponent/>
-            <MoodComponent class="justify-center mt-4"/>
+        <v-row class="mt-5" justify="center">
+            <v-col cols="12" xl="6" md="8" justify="center" align-self="center" class="d-flex">
+                <AvatarImage :avatar="avatar" class="grow-0"/>
+                <Speechbubble />
+            </v-col>
         </v-row>
+        <FlowComponent/>
+        <MoodComponent class="justify-center mt-4"/>
         <FooterComponent/>
     </v-container>
 </template>
@@ -35,7 +33,7 @@
             AvatarImage,
             SettingsDialog
         },
-        async asyncData(){
+        async asyncData() {
             await Promise.all([vxm.avatar.loadData(), vxm.breaks.loadData()]);
         }
     })

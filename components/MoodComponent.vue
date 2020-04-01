@@ -1,5 +1,5 @@
 <template>
-    <v-layout row>
+    <v-row>
         <v-hover v-slot:default="{ hover }" v-for="mood in moods">
             <div class="d-flex flex-column hoverable">
                 <v-btn text @click="changeMood(mood.id)" fab>
@@ -8,7 +8,7 @@
                 <span class="explanation text-center">{{mood.id}}</span>
             </div>
         </v-hover>
-    </v-layout>
+    </v-row>
 </template>
 
 <script lang="ts">
