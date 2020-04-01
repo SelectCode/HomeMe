@@ -17,7 +17,7 @@
     "@nuxtjs/pwa": "^3.0.0-0",
     "airtable": "^0.8.1",
     "firebase": "^7.13.1",
-    "nuxt": "^2.12.1",
+    "nuxt": "^2.12.2",
     "vue-property-decorator": "^8.4.1",
     "vuex-class-component": "^2.2.1",
     "vuex-persist": "^2.2.0",
