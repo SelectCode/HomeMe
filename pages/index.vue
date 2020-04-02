@@ -3,16 +3,16 @@
         <v-row justify="center" class="grow-0">
             <h1 class="display-3 my-3 text-center">HomeMe</h1>
         </v-row>
-        <v-row class="mt-5 flex-column grow-0">
-            <v-row justify="center" class="my-5 ">
-                <div class="text-center">
-                    <AvatarImage :avatar="avatar"/>
-                </div>
-                <Speechbubble/>
-            </v-row>
-            <FlowComponent/>
-            <MoodComponent class="justify-center mt-4"/>
+        <v-row class="mt-5" justify="center">
+            <v-col cols="12" xl="2" md="4" align-self="center" order-md="1" order="2" >
+                <AvatarImage :avatar="avatar"/>
+            </v-col>
+            <v-col align-self="center" cols="12" xl="4" md="6" order-md="2" order="1" >
+                <Speechbubble :top="$vuetify.breakpoint.smAndDown"/>
+            </v-col>
         </v-row>
+        <FlowComponent/>
+        <MoodComponent class="justify-center mt-4"/>
         <FooterComponent/>
     </v-container>
 </template>
@@ -35,7 +35,7 @@
             AvatarImage,
             SettingsDialog
         },
-        async asyncData(){
+        async asyncData() {
             await Promise.all([vxm.avatar.loadData(), vxm.breaks.loadData()]);
         }
     })

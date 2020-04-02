@@ -12,18 +12,18 @@ export class TextRecommender implements ITextRecommender {
         let labels = this.mapStateToLabels();
         let possibleTexts = [];
 
-        for (let aText of allTexts) {
-            if (aText.avatars.includes(avatar!.name)
-                && aText.labels.some((label) => labels.includes(label))) {
-                possibleTexts.push(aText.text);
+        possibleTexts = allTexts.filter(value => {
+            if (!value.avatars || !value.labels) {
+                return false;
             }
-        }
+            return value.avatars.includes(avatar!.name) && value.labels.some((label) => labels.includes(label));
+        });
 
         // @ts-ignore
         console.log(`Found ${possibleTexts.length} matching texts for avatar ${avatar.name} and state ${vxm.state.state}!`);
 
         let randomIndex = Math.floor(Math.random() * (possibleTexts.length));
-        return possibleTexts[randomIndex];
+        return possibleTexts[randomIndex].text;
     }
 
     mapStateToLabels(): string[] {

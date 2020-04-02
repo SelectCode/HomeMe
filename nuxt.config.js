@@ -5,7 +5,7 @@ export default {
   /*
    ** Headers of the page
    */
-  server: { port: 8080 },
+  server: { host: "0.0.0.0", port: 8080 },
   head: {
     title: "HomeMe - Home Office Begleiter",
     meta: [
