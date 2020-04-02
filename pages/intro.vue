@@ -1,22 +1,24 @@
 <template>
-    <v-container>
+    <v-container fluid class="justify-space-between d-flex flex-column">
         <v-row justify="center" class="grow-0">
             <h1 class="display-3 my-3 text-center">HomeMe</h1>
         </v-row>
-        <v-row class="mt-5 flex-column grow-0">
-            <v-row justify="center" class="my-5 ">
-                <div class="text-center">
-                    <AvatarImage :avatar="avatar"/>
-                </div>
-                <Speechbubble/>
-            </v-row>
-            <v-row class="justify-center align-center" v-if="savedUsername === ''">
-                <v-text-field class="namefield" autofocus v-model="username" hint="Name"/>
-                <v-btn outlined class="ml-3" @click="setName">OK</v-btn>
-            </v-row>
-            <v-row v-else>
+        <v-row class="mt-5" justify="center">
+            <v-col cols="12" xl="2" md="4" align-self="center" order-md="1" order="2" >
+                <AvatarImage :avatar="avatar"/>
+            </v-col>
+            <v-col align-self="center" cols="12" xl="4" md="6" order-md="2" order="1" >
+                <Speechbubble :top="$vuetify.breakpoint.smAndDown"/>
+            </v-col>
+        </v-row>
+        <v-row class="mt-5" align-content="center" justify="center">
+            <v-col cols="12" xl="6" md="8" v-if="savedUsername === ''" align-self="center" class="d-flex align-center">
+                    <v-text-field class="namefield flex-grow" autofocus v-model="username" hint="Name" />
+                    <v-btn outlined class="ml-3" @click="setName">OK</v-btn>
+            </v-col>
+            <v-col v-else cols="12">
                 <v-progress-linear :value="progress"/>
-            </v-row>
+            </v-col>
         </v-row>
         <FooterComponent/>
     </v-container>
@@ -112,14 +114,10 @@
         flex-grow: 0;
     }
 
+    .grow-1
+
     .space-around {
         justify-content: space-around;
-    }
-
-    .container {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
     }
 
     .outline {
@@ -127,7 +125,6 @@
     }
 
     .namefield {
-        max-width: 30vw;
         font-size: 2em;
         font-weight: lighter;
     }

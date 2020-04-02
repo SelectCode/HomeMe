@@ -1,16 +1,14 @@
 <template>
-    <v-container>
-        <v-row justify="center">
-            <v-col v-for="breakOption in possibleActivities" xl="4" md="6" sm="8" xs="12">
-                <v-card class="ma-2 break-card">
-                    <BreakComponent :break-activity="breakOption"/>
-                    <v-card-actions class="card-actions">
-                        <v-btn color="primary" block @click="chooseBreak(breakOption.name)">Go</v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-col>
-        </v-row>
-    </v-container>
+    <v-row justify="center">
+        <v-col v-for="breakOption in possibleActivities" xl="4" md="6" sm="8" xs="12">
+            <v-card class="ma-2 break-card">
+                <BreakComponent :break-activity="breakOption"/>
+                <v-card-actions class="card-actions">
+                    <v-btn color="primary" block @click="chooseBreak(breakOption.name)">Go</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-col>
+    </v-row>
 </template>
 
 <script lang="ts">
