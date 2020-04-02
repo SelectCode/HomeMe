@@ -1,6 +1,6 @@
 <template>
     <div>
-        <span class="bubble pa-2" v-if="text !== ''">{{text}}</span>
+        <span class="bubble pa-2" :class="{top: top, right: !top}" v-if="text !== ''">{{text}}</span>
     </div>
 </template>
 
@@ -9,6 +9,9 @@
 
     @Component
     export default class Speechbubble extends Vue {
+
+        @Prop({default: false})
+        top!: boolean;
 
         @Prop()
         avatar!: string;
@@ -32,35 +35,53 @@
 
     .bubble {
         font-family: 'Patrick Hand', cursive;
-        margin-left: 28px;
-        top: 50%;
-        transform: translate(0, -50%);
+        position: relative;
         align-items: center;
         justify-content: center;
         vertical-align: middle;
-        position: relative;
         display: flex;
-        width: 250px;
-        height: 120px;
-        padding: 0;
+        min-height: 54px;
         -webkit-border-radius: 10px;
         -moz-border-radius: 10px;
         border-radius: 10px;
         border: #D6D2D2 solid 2px;
         font-size: 1.5em;
-
     }
 
-    .bubble:before {
+    .bubble.right{
+        margin-left: 18px;
+    }
+
+    .bubble.top{
+        margin-bottom: 20px;
+    }
+
+    .bubble.right:before {
         content: '';
         position: absolute;
         border-style: solid;
-        border-width: 27px 27px 27px 0;
+        border-width: 17px 17px 17px 0;
         border-color: transparent #D6D2D2;
         display: block;
         width: 0;
         z-index: 0;
-        left: -28px;
-        top: 33px;
+        left: -18px;
+        transform: translate(0, -50%);
+        top: 50%;
+    }
+
+
+    .bubble.top:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border: 20px solid transparent;
+        border-top-color: #D6D2D2;
+        border-bottom: 0;
+        margin-left: -20px;
+        margin-bottom: -20px;
     }
 </style>

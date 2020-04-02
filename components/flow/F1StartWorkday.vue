@@ -1,19 +1,21 @@
 <template>
     <v-row justify="center">
-        <v-card class="flex-grow-0">
-            <v-card-title class="headline">
-                Guten Tag, {{user.name}}
-            </v-card-title>
-            <v-card-text>
-                Ich werde dich heute begleiten, um dich noch produktiver zu machen. Ich erinnere dich an Pausen und
-                Trinken.
-            </v-card-text>
-            <v-card-actions>
-                <v-btn color="primary" block @click="start">
-                    Lass uns loslegen
-                </v-btn>
-            </v-card-actions>
-        </v-card>
+        <v-col cols="12" xl="4" md="6">
+            <v-card>
+                <v-card-title class="headline">
+                    Guten Tag, {{user.name}}
+                </v-card-title>
+                <v-card-text>
+                    Ich werde dich heute begleiten, um dich noch produktiver zu machen. Ich erinnere dich an Pausen und
+                    Trinken.
+                </v-card-text>
+                <v-card-actions>
+                    <v-btn color="primary" block @click="start">
+                        Lass uns loslegen
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-col>
     </v-row>
 </template>
 
