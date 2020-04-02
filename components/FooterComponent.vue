@@ -16,6 +16,10 @@
         <v-btn icon href="https://github.com/SelectCode/HomeMe" target="_blank" class="mt-2">
             <v-icon color="primary">mdi-github</v-icon>
         </v-btn>
+        <cookie-law theme="base" storageType="cookies" v-on:accept="enableTracking()" v-on:decline="disableTracking()" buttonText="Alles klar!" buttonDecline buttonDeclineText="Ohne Tracking fortfahren">
+            <div slot="message">
+                Wir benutzen Cookies, um die Nutzerfreundlichkeit der Webseite zu verbessern. Durch die weitere Nutzung der Webseite stimmen Sie der Verwendung von Cookies zu. <v-btn nuxt to="/privacy" text color="primary">Datenschutzerklärung</v-btn>
+            </div></cookie-law>
         <script async src="https://cdn.nolt.io/widgets.js"></script>
     </v-row>
 </template>
@@ -51,8 +55,14 @@
             });
         }
 
-        reset() {
-            //TODO:
+        disableTracking() {
+            this.$ga.disable();
+            console.log("GA disabled")
+        }
+
+        enableTracking() {
+            this.$ga.enable();
+            console.log("enabled")
         }
 
     }

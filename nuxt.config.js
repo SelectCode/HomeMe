@@ -39,7 +39,8 @@ export default {
     ** Plugins to load before mounting the App
     */
     plugins: [
-        {src: '~/plugins/vuex-persist', ssr: false}
+        {src: '~/plugins/vuex-persist', ssr: false},
+        {src: '~/plugins/cookie', ssr: false}
     ],
     /*
     ** Nuxt.js dev-modules
@@ -48,7 +49,8 @@ export default {
         '@nuxt/typescript-build',
         '@nuxtjs/vuetify',
         ['@nuxtjs/google-analytics', {
-            id: 'UA-72893868-7'
+            id: 'UA-72893868-7',
+            disabled: true
         }]
     ],
     /*
@@ -86,7 +88,6 @@ export default {
                     measurementId: "G-Q6T9HPQXY9"
                 },
                 services: {
-                    analytics: true,
                     performance: true,
                     firestore: true,
                     realtimeDb: true
