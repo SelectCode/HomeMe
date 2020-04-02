@@ -1,10 +1,11 @@
 <template>
     <v-dialog v-model="dialog" width="500">
         <template v-slot:activator="{ on }">
-            <v-btn icon v-on="on" class="mt-2">
-                <v-icon color="primary">`
+            <v-btn text v-on="on" class="mt-2" color="primary">
+                <v-icon color="primary" left>`
                     mdi-cog
                 </v-icon>
+                Einstellungen
             </v-btn>
         </template>
         <v-card v-if="dialog">
@@ -52,7 +53,7 @@
         settings!: Settings;
 
         @Watch('dialog')
-        loadSettings(){
+        loadSettings() {
             this.username = vxm.user.name;
             this.settings = vxm.user.settings;
         }

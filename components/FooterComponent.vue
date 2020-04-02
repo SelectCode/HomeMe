@@ -1,18 +1,20 @@
 <template>
     <v-row justify="end" class="grow-0">
         <SettingsDialog/>
-        <v-btn icon @click="reset" class="mt-2">
+        <!--<v-btn icon @click="reset" class="mt-2">
             <v-icon color="primary">mdi-restart</v-icon>
-        </v-btn>
-        <v-btn icon href="https://github.com/SelectCode/HomeMe" target="_blank" class="mt-2">
-            <v-icon color="primary">mdi-github</v-icon>
-        </v-btn>
+        </v-btn>-->
         <v-btn data-nolt="button" @click="feedback" class="nolt my-auto mt-2" id="nolt" text color="primary"
                target="_blank">
             <v-icon left>
                 mdi-message-draw
             </v-icon>
             Feedback
+        </v-btn>
+        <v-btn text color="primary" nuxt to="/imprint" class="mt-2">Impressum</v-btn>
+        <v-btn text color="primary" to="/privacy" class="mt-2">Datenschutz</v-btn>
+        <v-btn icon href="https://github.com/SelectCode/HomeMe" target="_blank" class="mt-2">
+            <v-icon color="primary">mdi-github</v-icon>
         </v-btn>
         <script async src="https://cdn.nolt.io/widgets.js"></script>
     </v-row>
@@ -28,7 +30,7 @@
     })
     export default class FooterComponent extends Vue {
 
-        mounted(){
+        mounted() {
             this.feedback()
         }
 
@@ -49,7 +51,7 @@
             });
         }
 
-        reset(){
+        reset() {
             //TODO:
         }
 
