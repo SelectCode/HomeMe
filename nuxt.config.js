@@ -5,7 +5,6 @@ export default {
   /*
    ** Headers of the page
    */
-
   server: { host: "0.0.0.0", port: 8080 },
   head: {
     title: "HomeMe - Home Office Begleiter",
@@ -36,14 +35,17 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [{ src: "~/plugins/vuex-persist", ssr: false }],
+  plugins: [
+    { src: "~/plugins/vuex-persist", ssr: false },
+    { src: "~/plugins/cookie", ssr: false }
+  ],
   /*
    ** Nuxt.js dev-modules
    */
   buildModules: [
     "@nuxt/typescript-build",
     "@nuxtjs/vuetify",
-    ["@nuxtjs/google-analytics", { id: "UA-72893868-7" }]
+    ["@nuxtjs/google-analytics", { id: "UA-72893868-7", disabled: true }]
   ],
   /*
    ** Nuxt.js modules
@@ -79,12 +81,7 @@ export default {
           appId: "1:421716959991:web:380de2a9a15c6a640829f2",
           measurementId: "G-Q6T9HPQXY9"
         },
-        services: {
-          analytics: true,
-          performance: true,
-          firestore: true,
-          realtimeDb: true
-        }
+        services: { performance: true, firestore: true, realtimeDb: true }
       }
     ]
   ],
