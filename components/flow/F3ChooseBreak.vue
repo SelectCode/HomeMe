@@ -1,15 +1,26 @@
 <template>
-    <v-row justify="center">
-        <v-col v-for="breakOption in possibleActivities" :key="breakOption.id" xl="4" md="6" sm="8" xs="12">
-            <v-card class="ma-2 break-card">
-                <BreakComponent :break-activity="breakOption"/>
-                <v-card-actions class="card-actions">
-                    <v-btn color="primary" block @click="chooseBreak(breakOption.name)">Go</v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-col>
+    <v-row>
+        <v-container fluid>
+            <v-row justify="center">
+                <v-col v-for="breakOption in possibleActivities" :key="breakOption.id" xl="4" md="6" sm="8" xs="12">
+                    <v-card class="ma-2 break-card">
+                        <BreakComponent :break-activity="breakOption"/>
+                        <v-card-actions class="card-actions">
+                            <v-btn color="primary" block @click="chooseBreak(breakOption.name)">Go</v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-col>
+            </v-row>
+            <v-row justify="center" class="mt-3">
+                <v-btn @click="loadActivities" text>
+                    Mehr Optionen
+                    <v-icon right color="primary">mdi-restart</v-icon>
+                </v-btn>
+            </v-row>
+        </v-container>
     </v-row>
 </template>
+
 
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator'
@@ -25,8 +36,14 @@
         private breakActivityRecommender: BreakActivityRecommender = new BreakActivityRecommender();
         private textRecommender = new TextRecommender();
 
-        get possibleActivities(): BreakActivity[] {
-            return this.breakActivityRecommender.getRecommendedBreakActivities(vxm.avatar.avatar);
+        possibleActivities: BreakActivity[] = [];
+
+        async mounted() {
+            this.loadActivities();
+        }
+
+        loadActivities() {
+            this.possibleActivities = this.breakActivityRecommender.getRecommendedBreakActivities(vxm.avatar.avatar);
         }
 
         get user() {

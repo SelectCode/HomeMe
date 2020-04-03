@@ -28,6 +28,8 @@ export class BreakActivityRecommender implements IBreakActivityRecommender {
             .filter((it) => possibleTypes.some(it => possibleTypes.includes(it)))
             // Filter for category
             .filter((it) => it.category.every((it) => possibleCategories.includes(it)))
+            // Filter out activities with the same name
+            .filter((v, i, a) => a.findIndex(t => (t.name === v.name)) === i)
             .slice(0, 3);
     }
 
@@ -36,4 +38,3 @@ export class BreakActivityRecommender implements IBreakActivityRecommender {
     }
 
 }
-
