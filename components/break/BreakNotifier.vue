@@ -36,7 +36,7 @@
         }
 
         checkForBreak() {
-            let workedMinutes = WorkTimeCalculator.remainingMinutes(vxm.state.workStart!);
+            let workedMinutes = WorkTimeCalculator.elapsedMinutes(vxm.state.workStart!);
             let breakActivity = this.recommendations.find(it => it.inMinutes === workedMinutes);
             if (breakActivity) {
                 let notificationText = '';
