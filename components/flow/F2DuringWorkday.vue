@@ -61,7 +61,6 @@
             this.$root.$emit('chat', this.textRecommender.getText());
         }
 
-
         stopDay() {
             vxm.state.endWorkday();
             this.$root.$emit('chat', this.textRecommender.getText());

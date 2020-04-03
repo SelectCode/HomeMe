@@ -6,8 +6,8 @@
 
 <script lang="ts">
     import {Component, Prop, Vue} from 'vue-property-decorator'
-    import {vxm} from "~/store";
     import {WorkTimeCalculator} from "~/businesslogic/break/WorkTimeCalculator";
+    import {vxm} from "~/store";
 
     @Component
     export default class Timer extends Vue {
@@ -15,30 +15,26 @@
         @Prop()
         startTime!: number;
 
-        private hours = 0;
-        private minutes = 0;
-        private seconds = 0;
+        elapsedTime = {hours: 0, minutes: 0, seconds: 0};
 
-        mounted(){
+        mounted() {
             setInterval(this.refreshTime, 1000);
         }
 
         get hoursText() {
-            return this.pad(this.hours, 2);
+            return this.pad(this.elapsedTime.hours, 2);
         }
 
         get minutesText() {
-            return this.pad(this.minutes, 2)
+            return this.pad(this.elapsedTime.minutes, 2)
         }
 
         get secondsText() {
-            return this.pad(this.seconds, 2)
+            return this.pad(this.elapsedTime.seconds, 2)
         }
 
         async refreshTime() {
-            this.hours = WorkTimeCalculator.elapsedHours(this.startTime);
-            this.minutes = WorkTimeCalculator.elapsedMinutes(this.startTime);
-            this.seconds = WorkTimeCalculator.elapsedSeconds(this.startTime);
+            this.elapsedTime = WorkTimeCalculator.getElapsedTimeComponents(vxm.state.workStartTime);
         }
 
         /**
