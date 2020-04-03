@@ -64,4 +64,3 @@ export class UIStateStore extends UserModule {
         event('flow', 'start-work-day')
     }
 }
-
