@@ -2,7 +2,6 @@ import {createModule, mutation} from "vuex-class-component";
 import {event} from 'vue-analytics'
 import {UiState} from "~/store/UiState";
 import {vxm} from "~/store/index";
-import {action} from "vuex-class-component/js";
 
 const UserModule = createModule({
     namespaced: "state",
@@ -12,16 +11,18 @@ const UserModule = createModule({
 
 export class UIStateStore extends UserModule {
 
+    /**
+     *  Time (timestamp in milliseconds) when work day was started
+     */
     workStart: number | undefined = undefined;
+
     state: UiState = UiState.BEFORE_WORK;
 
-    @action
-    async workingTime(now: number) {
-        if (this.workStart) {
-            return now - this.workStart
-        } else {
-            return 0;
+    get workStartTime() {
+        if (this.workStart !== undefined) {
+            return this.workStart;
         }
+        return 0;
     }
 
     @mutation
@@ -63,4 +64,3 @@ export class UIStateStore extends UserModule {
         event('flow', 'start-work-day')
     }
 }
-

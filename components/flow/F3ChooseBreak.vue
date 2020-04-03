@@ -2,7 +2,7 @@
     <v-row>
         <v-container fluid>
             <v-row justify="center">
-                <v-col v-for="breakOption in possibleActivities" xl="4" md="6" sm="8" xs="12">
+                <v-col v-for="breakOption in possibleActivities" :key="breakOption.id" xl="4" md="6" sm="8" xs="12">
                     <v-card class="ma-2 break-card">
                         <BreakComponent :break-activity="breakOption"/>
                         <v-card-actions class="card-actions">
