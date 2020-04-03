@@ -30,7 +30,7 @@
 </script>
 
 <style scoped>
-    
+
     .bubble {
         position: relative;
         align-items: center;
