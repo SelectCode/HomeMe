@@ -1,12 +1,12 @@
 <template>
-    <v-container fluid>
+    <v-container>
         <v-row justify="center">
-            <v-col md="6" sm="8" cols="12">
-                <v-card class="ma-2 text-center">
+            <v-col>
+                <v-card class="text-center">
                     <v-card-title class="display-1 text-center">
                         Pause
                     </v-card-title>
-                    <Timer :minutes="remainingMinutes" :seconds="remainingSeconds"/>
+                    <Timer :elapsed-time="remainingTime"/>
                     <v-card-actions>
                         <v-btn color="primary" block @click="stopBreak" class="mb-2" large>
                             Pause beenden
@@ -40,11 +40,14 @@
     import BreakComponent from "~/components/break/BreakComponent.vue";
     import firebase from "firebase";
     import {TextRecommender} from "~/businesslogic/avatar/text/TextRecommender";
+    import {Duration, TimeUtils} from "~/businesslogic/break/TimeUtils";
 
     @Component({components: {BreakComponent, Timer}})
     export default class Break extends Vue {
 
         private textRecommender = new TextRecommender();
+
+        private remainingTime: Duration = {hours: 0, minutes: 0, seconds: 0};
 
         get user() {
             return vxm.user;
@@ -85,15 +88,12 @@
         calcRemainingTime() {
             if (!this.running) return;
             let finishedDate = vxm.breaks.breakStarted as number + this.durationInMS;
-            let currentDate = Date.now();
-            this.remainingSeconds = (finishedDate - currentDate) / 1000;
-            this.remainingMinutes = Math.floor(this.remainingSeconds / 60);
-            this.remainingSeconds = Math.floor(this.remainingSeconds - this.remainingMinutes * 60);
 
-            if (finishedDate - currentDate < 1000) {
+            const remainingSeconds = TimeUtils.getRemainingSecondsUntil(finishedDate);
+            this.remainingTime = TimeUtils.getTimeComponents(remainingSeconds);
+
+            if (remainingSeconds < 1) {
                 this.running = false;
-                this.remainingMinutes = 0;
-                this.remainingSeconds = 0;
                 this.playAudio();
             }
         }
@@ -102,10 +102,6 @@
             let audio = new Audio('/alarmfinished.mp3');
             audio.play();
         }
-
-        remainingMinutes = 0;
-        remainingSeconds = 0;
-
 
     }
 </script>

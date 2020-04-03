@@ -1,13 +1,13 @@
 <template>
-    <v-container>
+    <v-container fluid>
         <v-row justify="center" class="grow-0">
             <h1 class="display-3 my-3 text-center">HomeMe</h1>
         </v-row>
         <v-row class="mt-5" justify="center">
-            <v-col cols="12" xl="2" md="4" align-self="center" order-md="1" order="2" >
+            <v-col cols="12" xl="2" md="3" align-self="center" order-md="1" order="2" >
                 <AvatarImage :avatar="avatar"/>
             </v-col>
-            <v-col align-self="center" cols="12" xl="4" md="6" order-md="2" order="1" >
+            <v-col align-self="center" cols="12" xl="3" md="6" order-md="2" order="1" >
                 <Speechbubble :top="$vuetify.breakpoint.smAndDown"/>
             </v-col>
         </v-row>

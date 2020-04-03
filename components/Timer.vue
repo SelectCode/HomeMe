@@ -1,25 +1,18 @@
 <template>
-    <span class="timer">
-    {{hoursText}} : {{minutesText}} : {{secondsText}}
-    </span>
+    <div class="timer mx-5 my-5">
+    {{hoursText}}:{{minutesText}}:{{secondsText}}
+    </div>
 </template>
 
 <script lang="ts">
     import {Component, Prop, Vue} from 'vue-property-decorator'
-    import {WorkTimeCalculator} from "~/businesslogic/break/WorkTimeCalculator";
-    import {vxm} from "~/store";
+    import {Duration} from "~/businesslogic/break/TimeUtils";
 
     @Component
     export default class Timer extends Vue {
 
-        @Prop()
-        startTime!: number;
-
-        elapsedTime = {hours: 0, minutes: 0, seconds: 0};
-
-        mounted() {
-            setInterval(this.refreshTime, 1000);
-        }
+        @Prop({default: {hours: 0, minutes: 0, seconds: 0}})
+        readonly elapsedTime!: Duration;
 
         get hoursText() {
             return this.pad(this.elapsedTime.hours, 2);
@@ -31,10 +24,6 @@
 
         get secondsText() {
             return this.pad(this.elapsedTime.seconds, 2)
-        }
-
-        async refreshTime() {
-            this.elapsedTime = WorkTimeCalculator.getElapsedTimeComponents(vxm.state.workStartTime);
         }
 
         /**
@@ -54,7 +43,7 @@
 
 <style scoped>
     .timer {
-        font-size: 3rem;
-        font-weight: lighter;
+        font-size: calc(3rem + 2vw);
+        font-weight: 100;
     }
 </style>

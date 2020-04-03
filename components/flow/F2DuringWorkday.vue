@@ -1,13 +1,13 @@
 <template>
     <v-row justify="center">
-        <v-col cols="12" md="6" sm="8">
+        <v-col>
             <v-card>
                 <v-layout column justify-center align-center class="px-5">
-                    <v-card-title class="display-1 mb-5 ">
+                    <v-card-title class="display-1 mb-5 nobreak">
                         Gute Arbeit {{user.name}}
                     </v-card-title>
                     <span>Du arbeitest seit:</span>
-                    <Timer :start-time="startTime" class="display-4 mb-5"/>
+                    <Timer :elapsed-time="elapsedTime" />
                 </v-layout>
                 <BreakNotifier/>
                 <v-card-actions>
@@ -32,18 +32,22 @@
     import BreakComponent from "~/components/break/BreakComponent.vue";
     import BreakNotifier from "~/components/break/BreakNotifier.vue";
     import {TextRecommender} from "~/businesslogic/avatar/text/TextRecommender";
+    import {Duration, TimeUtils} from "~/businesslogic/break/TimeUtils";
 
     @Component({components: {BreakNotifier, BreakComponent, Timer}})
     export default class DuringWorkday extends Vue {
 
         private textRecommender = new TextRecommender();
 
+        private elapsedTime: Duration = {hours: 0, minutes: 0, seconds: 0};
+
         get user() {
             return vxm.user;
         }
 
-        get startTime() {
-            return vxm.state.workStartTime;
+        async refreshTime() {
+            const elapsed = TimeUtils.getElapsedSecondsSince(vxm.state.workStartTime);
+            this.elapsedTime = TimeUtils.getTimeComponents(elapsed);
         }
 
         makeABreak() {
@@ -52,6 +56,7 @@
         }
 
         mounted() {
+            setInterval(this.refreshTime, 1000);
             setInterval(this.saySomething, 60 * 1000);
             this.$fireDb.goOnline();
             this.$fireDb.ref(this.user.name).push(vxm.avatar.avatar)
@@ -66,8 +71,11 @@
             this.$root.$emit('chat', this.textRecommender.getText());
         }
 
-    }
+    };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+    .nobreak{
+        word-break: keep-all;
+    }
 </style>

@@ -6,7 +6,7 @@
     import {Component, Vue} from 'vue-property-decorator'
     import {vxm} from "~/store";
     import {ITimeRecommenderImpl, Reminder} from "~/businesslogic/avatar/text/ITimeRecommender";
-    import {WorkTimeCalculator} from "~/businesslogic/break/WorkTimeCalculator";
+    import {TimeUtils} from "~/businesslogic/break/TimeUtils";
 
     @Component
     export default class Timer extends Vue {
@@ -36,7 +36,7 @@
         }
 
         checkForBreak() {
-            let workedMinutes = WorkTimeCalculator.getElapsedTimeComponents(vxm.state.workStart!).minutes;
+            let workedMinutes = TimeUtils.getTimeComponents(vxm.state.workStart!).minutes;
             let breakActivity = this.recommendations.find(it => it.inMinutes === workedMinutes);
             if (breakActivity) {
                 let notificationText = '';
