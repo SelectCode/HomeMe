@@ -10,7 +10,7 @@
                 <v-img :src="breakActivity.imageUrl" max-height="60vh"/>
             </v-card>
         </v-dialog>
-        <v-img :src="breakActivity.imageUrl" height="200px" :width="width" @click="dialog = true"/>
+        <v-img :src="breakActivity.imageUrl" height="200px" :width="width" @click="dialog = true" style="cursor: pointer"/>
         <v-card-title class="display-1">
             {{breakActivity.name}}
             <v-chip v-for="cat in breakActivity.category" outlined color="primary" small class="ml-2">
