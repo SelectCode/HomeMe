@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <v-row justify="center">
-            <v-col>
+            <v-col md="6" sm="8" cols="12">
                 <v-card class="text-center">
                     <v-card-title class="display-1 text-center">
                         Pause

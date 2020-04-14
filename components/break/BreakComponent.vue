@@ -1,6 +1,16 @@
 <template>
     <v-layout column>
-        <v-img :src="breakActivity.imageUrl" height="200px" :width="width"/>
+        <v-dialog v-model="dialog" max-width="60vw">
+            <v-card align="center" class="pa-3">
+                <h1 class="display-1 mb-3">{{breakActivity.name}}
+                    <v-btn icon rounded color="red" dark @click="dialog = false">
+                        <v-icon>mdi-close</v-icon>
+                    </v-btn>
+                </h1>
+                <v-img :src="breakActivity.imageUrl" max-height="60vh"/>
+            </v-card>
+        </v-dialog>
+        <v-img :src="breakActivity.imageUrl" height="200px" :width="width" @click="dialog = true"/>
         <v-card-title class="display-1">
             {{breakActivity.name}}
             <v-chip v-for="cat in breakActivity.category" outlined color="primary" small class="ml-2">
@@ -17,11 +27,19 @@
         <v-card-text class="subtitle-1 font-weight-light">
             {{breakActivity.description}}
         </v-card-text>
-        <v-card-actions v-if="breakActivity.contentType && showLink">
-            <v-btn color="primary" target="_blank" block outlined :href="breakActivity.content">
-                Besuchen
+        <v-card-actions v-if="showLink">
+            <v-btn color="primary" target="_blank" block outlined :href="breakActivity.content"
+                   v-if="breakActivity.contentType === 'Webseite'">
+                Webseite besuchen
                 <v-icon>
                     mdi-link
+                </v-icon>
+            </v-btn>
+            <v-btn color="red" target="_blank" block dark :href="breakActivity.content"
+                   v-if="breakActivity.contentType === 'Video'">
+                Video ansehen
+                <v-icon>
+                    mdi-video
                 </v-icon>
             </v-btn>
         </v-card-actions>
@@ -41,11 +59,14 @@
         @Prop({default: false})
         showLink!: boolean;
 
+        dialog = false
+
         likes = 0;
 
         async mounted() {
             // HACKY WORKAROUND BECAUSE FIREBASE IS NOT INITIALISED DIRECTLY ON MOUNTED
             setTimeout(this.loadLikes, 200)
+            console.log(this.breakActivity)
         }
 
         async loadLikes() {
