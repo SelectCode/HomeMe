@@ -860,21 +860,6 @@
     "@firebase/util" "0.2.45"
     tslib "1.11.1"
 
-"@firebase/component@0.1.8":
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/@firebase/component/-/component-0.1.8.tgz#3a5753493ba65c85c9c09e2707be44d73e0a456c"
-  integrity sha512-kzuCF+NVympQk3gcsHldOmDRVPVndECi6O9Wvd47HTEQYO9HsZWfOM1fHUvvHAijSzNi16p4NSM7UziuBQBL4w==
-  dependencies:
-    "@firebase/util" "0.2.43"
-    tslib "1.11.1"
-
-"@firebase/database-types@0.4.14":
-  version "0.4.14"
-  resolved "https://registry.yarnpkg.com/@firebase/database-types/-/database-types-0.4.14.tgz#181e10c1d1ae64fd0a080f6e0369cec115c51d70"
-  integrity sha512-+D41HWac0HcvwMi+0dezEdSOZHpVjPKPNmpQiW2GDuS5kk27/v1jxc9v7F4ALLtpxbVcn16UZl5PqEkcS9H2Xg==
-  dependencies:
-    "@firebase/app-types" "0.6.0"
-
 "@firebase/database-types@0.5.0":
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/@firebase/database-types/-/database-types-0.5.0.tgz#603a0865c3180a9ffb6f5fa065d156387385a74d"
@@ -882,7 +867,7 @@
   dependencies:
     "@firebase/app-types" "0.6.0"
 
-"@firebase/database@0.6.1":
+"@firebase/database@0.6.1", "@firebase/database@^0.6.0":
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/@firebase/database/-/database-0.6.1.tgz#76ee8003aa1fff7ff5deb317959bbb0e35e56765"
   integrity sha512-7XqUbj3nK2vEdFjGOXBfKISmpLrM0caIwwfDPxhn6i7X/g6AIH+D1limH+Jit4QeKMh/IJZDNqO7P+Fz+e8q1Q==
@@ -892,19 +877,6 @@
     "@firebase/database-types" "0.5.0"
     "@firebase/logger" "0.2.2"
     "@firebase/util" "0.2.45"
-    faye-websocket "0.11.3"
-    tslib "1.11.1"
-
-"@firebase/database@^0.5.17":
-  version "0.5.24"
-  resolved "https://registry.yarnpkg.com/@firebase/database/-/database-0.5.24.tgz#548b2030def35a7b6f4d71a4b2d1a67499d1eef3"
-  integrity sha512-9whAQzU8cxDUKGBWCT/aHVmqfyzCP2RkGhbZi2oHpMrmvht7cuBtXtUbDD5R8WomniCOUP8rtQfmCFI7V9ehYw==
-  dependencies:
-    "@firebase/auth-interop-types" "0.1.4"
-    "@firebase/component" "0.1.8"
-    "@firebase/database-types" "0.4.14"
-    "@firebase/logger" "0.2.0"
-    "@firebase/util" "0.2.43"
     faye-websocket "0.11.3"
     tslib "1.11.1"
 
@@ -958,11 +930,6 @@
     "@firebase/util" "0.2.45"
     idb "3.0.2"
     tslib "1.11.1"
-
-"@firebase/logger@0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@firebase/logger/-/logger-0.2.0.tgz#d40149b8a33bca3dfbfb5b4a63e06b3ffa193157"
-  integrity sha512-qOMnAh1JY9NkYUEy3iFviiFq0dCvk6qN2DsRy2Y7eAhHR6RqwA47l1kI+0MIXmSzlJ9akXjWAXxV5ijzr68Big==
 
 "@firebase/logger@0.2.2":
   version "0.2.2"
@@ -1042,13 +1009,6 @@
     "@firebase/component" "0.1.10"
     "@firebase/storage-types" "0.3.11"
     "@firebase/util" "0.2.45"
-    tslib "1.11.1"
-
-"@firebase/util@0.2.43":
-  version "0.2.43"
-  resolved "https://registry.yarnpkg.com/@firebase/util/-/util-0.2.43.tgz#551728e1f6deb3a3709c2e9dc60dbb7c1a423fd4"
-  integrity sha512-4gGlvcoOJ48xO6PH59UOHLjvImdYXANF/1d0ao60fbiJDIKxJqMksXw3UF2zsUrRkyCOqIDLeiVuF18vffXP+g==
-  dependencies:
     tslib "1.11.1"
 
 "@firebase/util@0.2.45":
@@ -1458,14 +1418,14 @@
     consola "^2.10.1"
     dotenv "^8.1.0"
 
-"@nuxtjs/firebase@^5.0.7":
-  version "5.0.7"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/firebase/-/firebase-5.0.7.tgz#35d2e109faff9587d0c073fe0d98c5196dc3cc8c"
-  integrity sha512-iNZVxMj0GDC6xbOPxnzmannrH38jAlkBaDbFyL4cFp1DMnILvCPoIn7H8HHk78woXm6UjAxbRg8ctkTB2K/JRA==
+"@nuxtjs/firebase@^5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/firebase/-/firebase-5.2.0.tgz#424c2196b2da288658148eb105dd152524d97f8d"
+  integrity sha512-utznHEJeoGej01YBgDbX5Elt1L/25aWj7O4aF/PzV7A1WCWi3sBLQDoqSdnIrDkyX/gr8xYrc/BOD024iwiAuA==
   dependencies:
     consola "^2.11.3"
   optionalDependencies:
-    firebase-admin "^8.10.0"
+    firebase-admin "^8.11.0"
 
 "@nuxtjs/google-analytics@^2.2.3":
   version "2.2.3"
@@ -4399,12 +4359,12 @@ find-up@^4.0.0:
     locate-path "^5.0.0"
     path-exists "^4.0.0"
 
-firebase-admin@^8.10.0:
-  version "8.10.0"
-  resolved "https://registry.yarnpkg.com/firebase-admin/-/firebase-admin-8.10.0.tgz#4a838aec52df49845eba07ad59a40b4df996e815"
-  integrity sha512-QzJZ1sBh9xzKjb44aP6m1duy0Xe1ixexwh0eaOt1CkJYCOq2b6bievK4GNWMl5yGQ7FFBEbZO6hyDi+5wrctcg==
+firebase-admin@^8.11.0:
+  version "8.11.0"
+  resolved "https://registry.yarnpkg.com/firebase-admin/-/firebase-admin-8.11.0.tgz#6292474c1270731655bc7c54a16499d54012fd0b"
+  integrity sha512-DapjZBeilXIDJShlWIvcgPkX6HhOHCs5C9972ZDNpfm0aSSgWuwgVQz9vs9iTk0u+oQuqRjxcHveZki0qaHJ2w==
   dependencies:
-    "@firebase/database" "^0.5.17"
+    "@firebase/database" "^0.6.0"
     "@types/node" "^8.10.59"
     dicer "^0.3.0"
     jsonwebtoken "8.1.0"
