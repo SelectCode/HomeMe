@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@nuxt/typescript-build": "^0.6.6",
-    "@nuxtjs/google-analytics": "^2.2.3",
+    "@nuxtjs/google-analytics": "^2.3.0",
     "@nuxtjs/vuetify": "^1.11.2"
   }
 }
